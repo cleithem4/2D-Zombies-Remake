@@ -7,17 +7,14 @@
 [ext_resource path="res://Assets/Sound_Effect/Rifle_Single_Shot.mp3" type="AudioStream" id=5]
 
 [sub_resource type="AtlasTexture" id=6]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 50, 50 )
 
 [sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 50, 50 )
 
 [sub_resource type="AtlasTexture" id=5]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 50, 50 )
 

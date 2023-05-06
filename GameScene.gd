@@ -6,4 +6,9 @@ func _process(_delta):
 	elif $Player == null:
 		$AudioStreamPlayer.stop()
 		get_tree().change_scene("res://UI/Game_Over.tscn")
+
+func _physics_process(delta):
+	pass
+func build_mode():
+	get_tree().paused = true
 	

@@ -2,6 +2,9 @@ extends Node
 
 var health = 100
 var score = 0
+var build_mode = false
+
+
 func _ready():
 	pass
 func instance_node(node,location,parent):

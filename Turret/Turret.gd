@@ -1,8 +1,13 @@
 extends KinematicBody2D
 
+onready var Bullet = preload("res://Turret/TurretBullet.tscn")
+onready var front_of_turret = get_node("turretHead/front_of_turret")
+
 var health = 50
 var enemy_array = []
 var enemy = null
+var able_to_shoot = true
+
 
 func _ready():
 	pass
@@ -11,7 +16,12 @@ func _physics_process(delta):
 	if enemy_array.size() != 0:
 		select_enemy()
 		turn()
+		if able_to_shoot:
+			shoot()
+		$turretHead.play("Targeted")
 	else:
+		if $turretHead.animation != "Idle":
+			$turretHead.play("Idle")
 		enemy = null
 
 func _on_Range_body_entered(body):
@@ -24,7 +34,6 @@ func _on_Range_body_exited(body):
 
 func turn():
 	if enemy != null:
-		print("enemy.position:", enemy.position)
 		$turretHead.look_at(enemy.global_position)
 
 func select_enemy():
@@ -34,3 +43,19 @@ func select_enemy():
 		if distance < closest_distance:
 			enemy = e
 			closest_distance = distance
+func shoot():
+	var bullet = Bullet.instance()
+	var target = enemy.position
+	bullet.rotation = target.angle_to_point(position)
+	bullet.global_position = front_of_turret.global_position
+	get_parent().add_child(bullet)
+	able_to_shoot = false
+
+func damage(d):
+	health -= d
+	$ProgressBar.value = health
+	if health < 1:
+		queue_free()
+
+func _on_ROF_timeout():
+	able_to_shoot = true
