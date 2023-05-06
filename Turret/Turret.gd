@@ -16,12 +16,11 @@ func _physics_process(delta):
 
 func _on_Range_body_entered(body):
 	if body.is_in_group("Enemy"):
-		enemy_array.append(body.get_parent().get_node("EnemySpawner/Enemy"))
-		print("Enemy array: ", enemy_array)
+		enemy_array.append(body)
 
 func _on_Range_body_exited(body):
 	if body.is_in_group("Enemy"):
-		enemy_array.erase(body.get_parent())
+		enemy_array.erase(body)
 
 func turn():
 	if enemy != null:
