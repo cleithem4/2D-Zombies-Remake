@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 export var speed := 400
-export var health = 30
+export var health = 100
 
 var velocity = Vector2()
 
@@ -28,7 +28,6 @@ func shoot():
 	if Input.is_action_just_pressed("shoot"):
 		var bullet = Bullet.instance()
 		var target = get_global_mouse_position()
-		bullet.rotation = get_global_mouse_position().angle_to_point(position)
 		bullet.rotation = get_global_mouse_position().angle_to_point(position)
 		bullet.global_position = end_of_gun.global_position
 		bullet.rotation = rotation + 300

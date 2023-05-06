@@ -8,17 +8,14 @@
 [ext_resource path="res://Assets/Sound_Effect/Zombie_Bite_Sound.mp3" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=7]
-flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 50, 50 )
 
 [sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 50, 50 )
 
 [sub_resource type="AtlasTexture" id=5]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 50, 50 )
 
