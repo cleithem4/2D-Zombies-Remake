@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/CharacterSprite/IMG_1814.PNG" type="Texture" id=2]
+[ext_resource path="res://Assets/CharacterSprite/IMG_1813.PNG" type="Texture" id=3]
+[ext_resource path="res://Assets/CharacterSprite/IMG_1815.PNG" type="Texture" id=4]
+[ext_resource path="res://Assets/Sound_Effect/Rifle_Single_Shot.mp3" type="AudioStream" id=5]
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 50, 50 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 13.0863
+
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
+rotation = 1.5708
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 1.5708
+frames = SubResource( 3 )
+animation = "Walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -9.0718e-06, -0.5 )
+shape = SubResource( 7 )
+
+[node name="end_of_gun" type="Position2D" parent="."]
+position = Vector2( 21, 8.99992 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -2.311
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true

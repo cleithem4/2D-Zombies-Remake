@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/dorisha-mountaineer-main-version-23618-01-50.mp3-2df1d44be1b8418e3b8dd2b7cfe81e31.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/dorisha-mountaineer-main-version-23618-01-50.mp3"
+dest_files=[ "res://.import/dorisha-mountaineer-main-version-23618-01-50.mp3-2df1d44be1b8418e3b8dd2b7cfe81e31.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

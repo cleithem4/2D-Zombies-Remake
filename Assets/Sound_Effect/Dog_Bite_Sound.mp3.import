@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Dog_Bite_Sound.mp3-ba5e4f7c5318290d22303c8c7d32eb76.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/Dog_Bite_Sound.mp3"
+dest_files=[ "res://.import/Dog_Bite_Sound.mp3-ba5e4f7c5318290d22303c8c7d32eb76.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

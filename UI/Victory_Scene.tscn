@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Sound_Effect/dorisha-mountaineer-main-version-23618-01-50.mp3" type="AudioStream" id=1]
+[ext_resource path="res://Assets/Font/RussoOne-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/Victory_Scene.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 35
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 2 )
+
+[node name="Victory Scene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+autoplay = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1490.0
+margin_bottom = 790.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -133.0
+margin_top = -121.5
+margin_right = 133.0
+margin_bottom = -78.5
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "YOU SAVED US"
+align = 1
+valign = 1
+
+[node name="Play" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -35.0
+margin_right = 150.0
+margin_bottom = 35.0
+custom_fonts/font = SubResource( 2 )
+text = "TRY AGAIN"
+icon_align = 1
+
+[node name="Quit" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = 65.0
+margin_right = 150.0
+margin_bottom = 135.0
+custom_fonts/font = SubResource( 3 )
+text = "LEAVE THE GAME"
+icon_align = 1
+
+[connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]

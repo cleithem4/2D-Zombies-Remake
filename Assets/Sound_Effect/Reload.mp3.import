@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Reload.mp3-b23e92cae9e5515b19664d56d1750a74.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/Reload.mp3"
+dest_files=[ "res://.import/Reload.mp3-b23e92cae9e5515b19664d56d1750a74.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

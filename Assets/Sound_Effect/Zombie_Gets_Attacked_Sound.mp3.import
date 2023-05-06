@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Zombie_Gets_Attacked_Sound.mp3-ee38241eac254553ff3e40fd1c7c0c53.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/Zombie_Gets_Attacked_Sound.mp3"
+dest_files=[ "res://.import/Zombie_Gets_Attacked_Sound.mp3-ee38241eac254553ff3e40fd1c7c0c53.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

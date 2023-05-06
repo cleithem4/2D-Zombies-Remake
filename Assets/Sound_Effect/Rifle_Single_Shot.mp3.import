@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Rifle_Single_Shot.mp3-4e42d6e818928e037bbba6e883b6a3bc.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/Rifle_Single_Shot.mp3"
+dest_files=[ "res://.import/Rifle_Single_Shot.mp3-4e42d6e818928e037bbba6e883b6a3bc.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

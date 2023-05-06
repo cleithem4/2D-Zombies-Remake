@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/never-give-up-tatami-main-version-20276-02-06.mp3-8d99f6ad0adc9f6113743aa210b9b0f7.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/never-give-up-tatami-main-version-20276-02-06.mp3"
+dest_files=[ "res://.import/never-give-up-tatami-main-version-20276-02-06.mp3-8d99f6ad0adc9f6113743aa210b9b0f7.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

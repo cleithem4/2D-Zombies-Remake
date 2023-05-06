@@ -1,0 +1,114 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://UI/Pause.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/FloorAndMap/IMG_1830.PNG" type="Texture" id=3]
+[ext_resource path="res://EnemyType1/EnemySpawner.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Clouds 5/tileable_grass.png" type="Texture" id=5]
+[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Sound_Effect/dorisha-mountaineer-main-version-23618-01-50.mp3" type="AudioStream" id=11]
+[ext_resource path="res://GameScene.gd" type="Script" id=12]
+
+[sub_resource type="Environment" id=1]
+tonemap_mode = 1
+tonemap_exposure = 1.54
+glow_enabled = true
+glow_blend_mode = 0
+glow_hdr_threshold = 1.5
+glow_hdr_luminance_cap = 2.0
+glow_bicubic_upscale = true
+glow_high_quality = true
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource( 12 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -8.639
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -1624.0
+margin_top = -1139.0
+margin_right = 5680.0
+margin_bottom = 3287.0
+rect_pivot_offset = Vector2( 716, 2213 )
+color = Color( 0.431373, 0.607843, 0.501961, 1 )
+
+[node name="Grass" type="Sprite" parent="."]
+position = Vector2( 2128, 1203 )
+rotation = 3.14159
+scale = Vector2( 15.3542, 9.21123 )
+texture = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1883.12, 1227.5 )
+scale = Vector2( 3.45396, 4.10033 )
+texture = ExtResource( 3 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 537, 1501 )
+scale = Vector2( 2, 2 )
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Timer" type="Timer" parent="EnemySpawner"]
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause" parent="CanvasLayer" instance=ExtResource( 1 )]
+visible = false
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource( 6 )]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( -67.1969, 0 )
+scale = Vector2( 1.03017, 1 )
+polygon = PoolVector2Array( 1220, 908, 1356, 873, 1447, 907, 1450, 1057, 1439, 1189, 1485, 1449, 1564, 1578, 1629, 1647, 1670, 1685, 1810, 1744, 1857, 1782, 1931, 1885, 1966.86, 1966, 1920.26, 1976, 1907, 1942, 1826, 1860, 1780, 1818, 1649, 1753, 1574, 1689, 1456, 1602, 1430, 1558, 1387, 1442, 1384, 1610, 1358, 1758, 1280, 1755, 1287, 1598, 1264, 1430, 1213, 1219, 1212, 1090, 1223, 1017 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( -199.357, -0.00012207 )
+scale = Vector2( 1.12801, 1 )
+polygon = PoolVector2Array( 1268, 1822, 1355.8, 1838, 1318, 1994, 1379, 2183, 1406, 2364, 1464, 2480, 1420, 2483, 1396, 2411, 1371, 2365, 1358, 2199, 1306, 2061, 1268, 2184, 1260, 2254, 1225, 2427, 1239, 2491, 1169, 2489, 1153, 2430, 1172, 2315, 1206, 2067, 1220, 1975 )
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 2034, 2056, 1980, 2062, 2093, 2232, 2155, 2367, 2165, 2437, 2201, 2478, 2261, 2483, 2195, 2403, 2182, 2330, 2157, 2270, 2217, 2321, 2247, 2370, 2298, 2402, 2352, 2483, 2396, 2480, 2372, 2440, 2328, 2372, 2268, 2346, 2244, 2275, 2092, 2169 )
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( -91.1745, 0 )
+scale = Vector2( 1.05835, 1 )
+polygon = PoolVector2Array( 819, -18, 870, 81, 870, 166, 906, 234, 923, 295, 985, 382, 999, 410, 1027, 558, 1139, 677, 1184, 749, 1285, 715, 1391, 719, 1351, 628, 1364, 488, 1281, 331, 1179, 181, 1090, 88, 1110, -46 )
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( -29.2466, -46.3296 )
+scale = Vector2( 1.008, 1.0793 )
+polygon = PoolVector2Array( 2825, 309, 2854, 309, 2847, 68, 3374, 68, 3371, 421, 3080, 421, 3077, 455, 3410, 449, 3402, 33, 2602, 36, 2598, 457, 2958, 456, 2951, 422, 2632, 423, 2630, 67, 2827, 71 )
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( -91.6228, 0 )
+scale = Vector2( 1.02747, 1 )
+polygon = PoolVector2Array( 2741, 897, 2743, 925, 2596, 931, 2595, 1458, 2898, 1455, 2899, 1247, 2920, 1250, 2917, 1463, 3125, 1459, 3124, 1265, 3014, 1268, 3014, 1247, 3122, 1247, 3117, 933, 2855, 934, 2855, 895, 3149, 893, 3156, 1501, 2565, 1492, 2560, 898 )
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 3354, 932, 3363, 973, 3250, 971, 3250, 1666, 3460, 1661, 3448, 1693, 3254, 1686, 3258, 1916, 3743, 1918, 3750, 1686, 3575, 1689, 3573, 1663, 3746, 1660, 3749, 968, 3476, 968, 3479, 932, 3776, 937, 3774, 1952, 3227, 1954, 3227, 929 )
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( -54.398, 0 )
+scale = Vector2( 1.03404, 1 )
+polygon = PoolVector2Array( 475, 1293, 469, 1327, 347, 1335, 359, 1652, 721, 1639, 714, 1322, 582, 1326, 584, 1287, 759, 1288, 749, 1671, 324, 1682, 322, 1294 )
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( -28, 2462, 3842, 2472, 3842, 3, -53, -2, -28, 2366, -406, 2382, -366, -294, 4029, -219, 4125, 2407, 3918, 2902, -502, 2630, -396, 2383, -43, 2363 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="ImpactManager" type="Node2D" parent="."]
+
+[node name="Blood" parent="ImpactManager" instance=ExtResource( 7 )]
+
+[connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]

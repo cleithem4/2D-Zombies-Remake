@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Zombie_Generating_Sound.mp3-e0600cd781fa3ab4a0d121f83b93e912.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/Zombie_Generating_Sound.mp3"
+dest_files=[ "res://.import/Zombie_Generating_Sound.mp3-e0600cd781fa3ab4a0d121f83b93e912.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

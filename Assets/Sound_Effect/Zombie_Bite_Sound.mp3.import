@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Zombie_Bite_Sound.mp3-361d6b97cea2b5d26d4eef2472b1c03c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/Zombie_Bite_Sound.mp3"
+dest_files=[ "res://.import/Zombie_Bite_Sound.mp3-361d6b97cea2b5d26d4eef2472b1c03c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

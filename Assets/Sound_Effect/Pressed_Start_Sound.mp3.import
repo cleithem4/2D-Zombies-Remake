@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Pressed_Start_Sound.mp3-c6180564784790e40fa24bd4fd687b45.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/Pressed_Start_Sound.mp3"
+dest_files=[ "res://.import/Pressed_Start_Sound.mp3-c6180564784790e40fa24bd4fd687b45.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
