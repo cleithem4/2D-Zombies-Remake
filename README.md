@@ -1,30 +1,22 @@
-# Final_Project 
+# First Game
 
 # Game_name
 - Reverse: The last hope of our City
 --------------------------------
 --------------------------------
+a simple zombie shooter 
 
-# Date_created/Date_finished
+# Date created
 - Mar/18/23 created
-- Mar/21/23 finished
 
-# Feature
-- Character can shoot the enemy and enemy can attack the player back
-- Enemy can spawn, follow player
-- Player can move with user inputs (keyboard) and rotate with mouse position
-- Interactive and easy to understand UI (Main menu, help menu, end game menu and win menu)
-- World enviroment has multiple effects
+
 
 # Created_By
-- Jack Huynh (Programming, character/enemy interaction design)
-- Shinan Huang (Game idea, soundtrack, menus)
-- Cody Leithem(Programming)
-- Arwyn Tuttle (asset design)
+- Cody Leithem
+
 
 
 # References
-- Graphic/assets by Arwyn Tuttle 
 
 - Music sources
 
