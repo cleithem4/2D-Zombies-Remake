@@ -15,7 +15,7 @@ func _on_Quit_pressed():
 	get_tree().quit()
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("Pause"):
+	if Input.is_action_just_pressed("Pause") and not Global.build_mode:
 		if visible:
 			hide()
 			get_tree().paused = false

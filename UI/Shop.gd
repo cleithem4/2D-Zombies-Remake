@@ -9,7 +9,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("Shop"):
+	if Input.is_action_just_pressed("Shop") and not Global.build_mode:
 		if visible:
 			hide()
 			get_tree().paused = false

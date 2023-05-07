@@ -31,6 +31,8 @@ func _input(event):
 		build_turret()
 	if event.is_action_pressed("exit_build_mode"):
 		get_tree().paused = false
+		Global.build_mode = false
+		
 
 
 func _draw():

@@ -5,23 +5,20 @@ export var health = 10
 
 var motion = Vector2.ZERO
 var attackDmg = 10
-var player = null
 var able_to_attack = true
 onready var Blood = load("res://Particles/Blood.tscn") 
 var in_attack_range = []
-
+var target = []
+var closest_target = null
 #Process the game 
 func _physics_process(_delta):
 	motion = Vector2.ZERO
 # warning-ignore:standalone_expression
-	player == null
-	for p in $Area2D.get_overlapping_bodies():
-		if p.is_in_group("Player"):
-			player = p
-	if player:
-		motion = position.direction_to(player.position) * speed 
-		look_at(player.position)
-	motion = move_and_slide(motion)
+	if target.size() != 0:
+		select_target()
+		motion = position.direction_to(closest_target.position) * speed 
+		look_at(closest_target.position)
+		motion = move_and_slide(motion)
 	if able_to_attack:
 		for body in in_attack_range:
 			body.damage(attackDmg)
@@ -30,7 +27,7 @@ func _physics_process(_delta):
 #Check if player collide or not
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("Player"):
-		player = body
+		target.append(body)
 		$Area2D/Moan.play()
 		$AnimatedSprite.play("Walk")
 
@@ -61,3 +58,15 @@ func _on_AttackSpeed_timeout():
 func _on_AttackRange_body_exited(body):
 	if body.is_in_group("Player"):
 		in_attack_range.erase(body)
+
+
+func _on_Area2D_body_exited(body):
+	if body.is_in_group("Player"):
+		target.erase(body)
+func select_target():
+	var closest_distance = 99999999
+	for e in target:
+		var distance = global_position.distance_to(e.global_position)
+		if distance < closest_distance:
+			closest_target = e
+			closest_distance = distance
