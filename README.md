@@ -1,6 +1,5 @@
 # First Game
 
-# Game_name
 - Reverse: The last hope of our City
 --------------------------------
 --------------------------------
