@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/CMA69J4-gun-fight.mp3-6409bae2633373abc20ade8684e37c50.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/CMA69J4-gun-fight.mp3"
+dest_files=[ "res://.import/CMA69J4-gun-fight.mp3-6409bae2633373abc20ade8684e37c50.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

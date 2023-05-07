@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/turret sound effect.mp3-e643ce051572ae9f05ca542564d80606.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/turret sound effect.mp3"
+dest_files=[ "res://.import/turret sound effect.mp3-e643ce051572ae9f05ca542564d80606.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

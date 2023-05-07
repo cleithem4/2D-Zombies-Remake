@@ -19,5 +19,7 @@ func _physics_process(_delta):
 
 
 func _on_turretButton_pressed():
-	hide()
-	Global.build_mode = true
+	if Global.score > 799:
+		hide()
+		Global.build_mode = true
+		Global.score -= 800

@@ -41,7 +41,7 @@ radius = 478.877
 [sub_resource type="CircleShape2D" id=6]
 radius = 18.0278
 
-[node name="EnemyType1" type="KinematicBody2D" groups=["Enemy"]]
+[node name="EnemyType1" type="KinematicBody2D" groups=["Enemy", "Object"]]
 rotation = 6.28319
 scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
@@ -75,5 +75,11 @@ volume_db = -10.633
 position = Vector2( 9, -4.01974e-05 )
 shape = SubResource( 6 )
 
+[node name="AttackSpeed" type="Timer" parent="."]
+wait_time = 0.599
+autostart = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_AttackRange_body_exited"]
+[connection signal="timeout" from="AttackSpeed" to="." method="_on_AttackSpeed_timeout"]

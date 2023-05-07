@@ -6,8 +6,9 @@ export var health = 10
 var motion = Vector2.ZERO
 var attackDmg = 10
 var player = null
-
+var able_to_attack = true
 onready var Blood = load("res://Particles/Blood.tscn") 
+var in_attack_range = []
 
 #Process the game 
 func _physics_process(_delta):
@@ -21,6 +22,10 @@ func _physics_process(_delta):
 		motion = position.direction_to(player.position) * speed 
 		look_at(player.position)
 	motion = move_and_slide(motion)
+	if able_to_attack:
+		for body in in_attack_range:
+			body.damage(attackDmg)
+			able_to_attack = false
 
 #Check if player collide or not
 func _on_Area2D_body_entered(body):
@@ -46,4 +51,13 @@ func damage(dmg):
 func _on_AttackRange_body_entered(body):
 	if body.has_method("damage") and body.is_in_group("Player"):
 		$CollisionShape2D/Bite.play()
-		body.damage(attackDmg)
+		in_attack_range.append(body)
+
+
+func _on_AttackSpeed_timeout():
+	able_to_attack = true
+
+
+func _on_AttackRange_body_exited(body):
+	if body.is_in_group("Player"):
+		in_attack_range.erase(body)

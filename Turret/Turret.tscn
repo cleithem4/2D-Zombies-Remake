@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/New Piskel.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Turret/turret head.png" type="Texture" id=2]
 [ext_resource path="res://Turret/Turret.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Sound_Effect/turret sound effect.mp3" type="AudioStream" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -36,7 +37,7 @@ bg_color = Color( 1, 0, 0, 1 )
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 1, 1, 1, 1 )
 
-[node name="Turret" type="KinematicBody2D" groups=["Player"]]
+[node name="Turret" type="KinematicBody2D" groups=["Object", "Player"]]
 script = ExtResource( 3 )
 
 [node name="turretBody" type="Sprite" parent="."]
@@ -77,6 +78,9 @@ custom_styles/fg = SubResource( 6 )
 custom_styles/bg = SubResource( 7 )
 max_value = 50.0
 value = 50.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 
 [connection signal="body_entered" from="Range" to="." method="_on_Range_body_entered"]
 [connection signal="body_exited" from="Range" to="." method="_on_Range_body_exited"]

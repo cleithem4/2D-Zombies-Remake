@@ -49,7 +49,7 @@ position = Vector2( 1883.12, 1227.5 )
 scale = Vector2( 3.45396, 4.10033 )
 texture = ExtResource( 3 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." groups=["Object"] instance=ExtResource( 2 )]
 position = Vector2( 537, 1501 )
 scale = Vector2( 2, 2 )
 
@@ -62,9 +62,10 @@ autostart = true
 [node name="Turret_container" type="Node2D" parent="."]
 
 [node name="Turret" parent="Turret_container" instance=ExtResource( 8 )]
-position = Vector2( 1000, 1000 )
+position = Vector2( 700, 1200 )
 
 [node name="BuildModeTurret" parent="Turret_container" instance=ExtResource( 10 )]
+position = Vector2( -1000, 0 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -76,7 +77,7 @@ visible = false
 [node name="Shop" parent="CanvasLayer" instance=ExtResource( 9 )]
 visible = false
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Object"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2( -67.1969, 0 )

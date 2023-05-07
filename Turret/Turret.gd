@@ -44,6 +44,7 @@ func select_enemy():
 			enemy = e
 			closest_distance = distance
 func shoot():
+	$AudioStreamPlayer.play()
 	var bullet = Bullet.instance()
 	var target = enemy.position
 	bullet.rotation = target.angle_to_point(position)
