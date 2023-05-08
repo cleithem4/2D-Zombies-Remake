@@ -37,7 +37,7 @@ bg_color = Color( 1, 0, 0, 1 )
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.992157, 0.521569, 0.521569, 1 )
 
-[node name="Turret" type="KinematicBody2D" groups=["Object", "Player"]]
+[node name="Turret" type="KinematicBody2D" groups=["Collision", "Player"]]
 script = ExtResource( 3 )
 
 [node name="turretBody" type="Sprite" parent="."]

@@ -22,16 +22,16 @@ func _physics_process(_delta):
 
 
 func _on_turretButton_pressed():
-	if Global.score > 0:
+	if Global.score > 799:
 		hide()
 		Global.build_mode = true
 		Global.object = Turret
-		Global.score -= 0
+		Global.score -= 800
 
 
 func _on_JayButton_pressed():
-	if Global.score > 0:
+	if Global.score > 1499:
 		hide()
 		Global.build_mode = true
 		Global.object = Jay
-		Global.score -= 0
+		Global.score -= 1500

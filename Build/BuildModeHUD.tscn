@@ -11,6 +11,7 @@ font_data = ExtResource( 1 )
 default_font = SubResource( 1 )
 
 [node name="BuildModeHUD" type="Control"]
+pause_mode = 2
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 2 )

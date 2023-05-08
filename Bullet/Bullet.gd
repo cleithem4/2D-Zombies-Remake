@@ -17,6 +17,8 @@ func _on_Area2D_body_entered(body):
 		body.damage(damage)
 		#Queue free so bullet disappear
 		queue_free()
+	if body.is_in_group("Object"):
+		queue_free()
 
 func _on_VisibilityNotifier2D_screen_exited():
 	##Queue free bullet avoid crashing

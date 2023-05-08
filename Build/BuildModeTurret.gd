@@ -70,7 +70,7 @@ func place_object(object):
 #Ensure that turret is not able to be placed on players, turrets, or zombies
 func update_objects_in_area_array():
 	objects_in_area_array.clear()
-	var all_objects = get_tree().get_nodes_in_group("Object")
+	var all_objects = get_tree().get_nodes_in_group("Collision")
 	
 	for obj in all_objects:
 		var distance = position.distance_to(obj.position)
@@ -88,7 +88,7 @@ func update_objects_in_area_array2():
 		var result = space_state.intersect_ray(ray_start, ray_end, [], 1)
 		if result.size() > 0:
 			var hit_body = result["collider"]
-			if hit_body.is_in_group("Object") and !objects_in_area_array.has(hit_body):
+			if hit_body.is_in_group("Collision") and !objects_in_area_array.has(hit_body):
 				objects_in_area_array.append(hit_body)
 
 
