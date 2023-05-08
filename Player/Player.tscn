@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CharacterSprite/IMG_1814.PNG" type="Texture" id=2]
@@ -98,7 +98,10 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=7]
 radius = 13.0863
 
-[node name="Player" type="KinematicBody2D" groups=["ActualPlayer", "Collision", "Player"]]
+[sub_resource type="CircleShape2D" id=22]
+radius = 236.62
+
+[node name="Player" type="KinematicBody2D" groups=["Collision", "Player"]]
 rotation = 1.5708
 script = ExtResource( 1 )
 
@@ -106,7 +109,7 @@ script = ExtResource( 1 )
 rotation = 1.5708
 frames = SubResource( 3 )
 animation = "Reload"
-frame = 6
+frame = 13
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -131,3 +134,11 @@ script = ExtResource( 8 )
 
 [node name="Pistol" parent="WeaponManager" instance=ExtResource( 7 )]
 position = Vector2( -2.67029e-05, -7.5 )
+
+[node name="shootRadius" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shootRadius"]
+shape = SubResource( 22 )
+
+[connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]
+[connection signal="body_exited" from="shootRadius" to="." method="_on_shootRadius_body_exited"]

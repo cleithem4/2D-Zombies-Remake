@@ -2,16 +2,16 @@ extends KinematicBody2D
 
 export var speed = 380
 export var health = 100
-var current_clip = 30
-var clip_size = 30
 var velocity = Vector2.ZERO
 var reloading = false
+onready var end_of_gun = $end_of_gun
 onready var Bullet = load("res://Bullet/Bullet.tscn")
 onready var Player = get_node("/root/GameScene/Player")
+onready var WeaponManager = $WeaponManager
 
+#AI
+var AI = false
 var stop_distance = 150
-onready var end_of_gun = $end_of_gun
-
 var enemy_array = []
 var enemy = null
 var able_to_shoot = false
@@ -20,38 +20,32 @@ var ROF = true
 
 
 func _ready():
-	pass
+	AI = Global.jay_ai
 
 
 
-func reload():
+func reloading():
 	reloading = true
-	$AnimatedSprite.play("Reload")
-	$Reload.start()
+func finished_reloading():
+	reloading = false
 
 
-func shoot():
-	if reloading:
-		return
-	current_clip -= 1
-	if current_clip < 1:
-		reload()
-		
-	var bullet = Bullet.instance()
-	var target = enemy.global_position
-	bullet.global_position = end_of_gun.global_position
-	var direction_to_mouse = end_of_gun.global_position.direction_to(target)
-	bullet.set_direction(direction_to_mouse)
-	bullet.global_rotation = direction_to_mouse.angle() + 12345
-	get_tree().get_current_scene().add_child(bullet)
-	ROF = false
-	$ROF.start()
 
 
-		
 
 #Process the game
 func _physics_process(_delta):
+	AI = Global.jay_ai
+	if AI:
+		AI()
+	else:
+		player()
+		
+#AI FUNCTION
+func AI():
+	$Camera2D.current = false
+	if reloading:
+		$AnimatedSprite.play("Reload")
 	if Player:
 		var direction = Player.position - position
 		var distance = direction.length()
@@ -59,7 +53,7 @@ func _physics_process(_delta):
 			velocity = direction.normalized() * speed
 			move_and_slide(velocity)
 			if not reloading:
-				$AnimatedSprite.play("Walking")
+				$AnimatedSprite.play("Walk")
 		else:
 			velocity = Vector2.ZERO
 			if not reloading:
@@ -69,11 +63,37 @@ func _physics_process(_delta):
 		turn()
 		able_to_shoot()
 		if able_to_shoot and ROF:
-			shoot()
+			WeaponManager.shoot()
 	else:
 		enemy = null
 
 
+func player():
+	$Camera2D.current = true
+	get_input()
+	move_and_slide(velocity)
+
+
+
+#PLAYER FUNCTION
+func get_input():
+	rotation = get_global_mouse_position().angle_to_point(position)
+	var input_direction = Input.get_vector("left", "right", "up", "down")
+	velocity = input_direction * speed
+	
+	#Animations
+	if input_direction and not reloading:
+		$AnimatedSprite.play("Walk")
+	elif not reloading:
+		$AnimatedSprite.play("Idle")
+	elif reloading:
+		$AnimatedSprite.play("Reload")
+
+
+
+
+
+#AI FUNCTION
 func turn():
 	if enemy != null:
 		var target_rotation = global_position.direction_to(enemy.global_position).angle()
@@ -88,11 +108,8 @@ func turn():
 		rotation += turn_speed * abs(angle_difference)
 
 		
-#Player die if health <= 0
-func damage(damage):
-	health -= damage
-	if health <= 0:
-		queue_free()
+
+#AI FUNCTION
 func able_to_shoot():
 	var direction_to_enemy = enemy.global_position - global_position
 	var angle_to_enemy = direction_to_enemy.angle()
@@ -103,13 +120,7 @@ func able_to_shoot():
 		able_to_shoot = true
 	else:
 		able_to_shoot = false
-
-
-func _on_Reload_timeout():
-	reloading = false
-	current_clip = clip_size
-	$Reload.stop()
-
+#AI FUNCTION
 func select_enemy():
 	var closest_distance = 99999999
 	for e in enemy_array:
@@ -117,17 +128,18 @@ func select_enemy():
 		if distance < closest_distance:
 			enemy = e
 			closest_distance = distance
-
+#AI FUNCTION
 func _on_shootRadius_body_entered(body):
 	if body.is_in_group("Enemy"):
 		enemy_array.append(body)
 
-
+#AI FUNCTION
 func _on_shootRadius_body_exited(body):
 	if body.is_in_group("Enemy"):
 		enemy_array.erase(body)
 
-
-func _on_ROF_timeout():
-	ROF = true
-	$ROF.stop()
+#Character die if health <= 0
+func damage(damage):
+	health -= damage
+	if health <= 0:
+		queue_free()

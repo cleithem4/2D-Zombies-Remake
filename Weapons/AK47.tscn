@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Weapons/AK47.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CharacterSprite/ak47.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sound_Effect/Rifle_Single_Shot.mp3" type="AudioStream" id=3]
 
 [node name="AK47" type="Node2D"]
 script = ExtResource( 1 )
@@ -16,6 +17,9 @@ position = Vector2( -1, -13 )
 
 [node name="ROF" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="timeout" from="Reload" to="." method="_on_Reload_timeout"]
 [connection signal="timeout" from="ROF" to="." method="_on_ROF_timeout"]

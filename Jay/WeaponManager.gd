@@ -11,11 +11,12 @@ func _ready():
 func _physics_process(delta):
 	if Input.is_action_just_pressed("reload"):
 		current_weapon.reload()
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_pressed("shoot"):
 		current_weapon.shoot()
 
 
 
-
+func shoot():
+	current_weapon.shoot()
 	
 

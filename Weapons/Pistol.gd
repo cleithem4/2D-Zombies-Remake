@@ -2,16 +2,20 @@ extends Node2D
 
 var current_clip = 12
 var clip_size = 12
+var ROF = true
 var reloading = false
 onready var Bullet = load("res://Bullet/Bullet.tscn")
 onready var end_of_gun = $end_of_gun
-
+var AI
 func _ready():
-	Global.clip_size = clip_size
-	Global.current_clip = current_clip
+	AI = get_parent().get_parent().AI
+	if not AI:
+		Global.clip_size = clip_size
+		Global.current_clip = current_clip
 	
 
 func _physics_process(delta):
+	AI = get_parent().get_parent().AI
 	if current_clip < 1 and not reloading:
 		reload()
 func reload():
@@ -27,8 +31,16 @@ func _on_Reload_timeout():
 	$Reload.stop()
 	get_parent().get_parent().finished_reloading()
 func shoot():
-	if not reloading:
-		current_clip -= 1
+	if reloading:
+		return
+	if not ROF:
+		return
+	$AudioStreamPlayer.play()
+	ROF = false
+	$ROF.start()
+	current_clip -= 1
+		#PLAYER BULLET
+	if not AI:
 		Global.current_clip = current_clip
 		
 		var bullet = Bullet.instance()
@@ -38,3 +50,25 @@ func shoot():
 		bullet.set_direction(direction_to_mouse)
 		bullet.global_rotation = direction_to_mouse.angle() + 12345
 		get_tree().get_current_scene().add_child(bullet)
+		$AudioStreamPlayer.play()
+		ROF = false
+		$ROF.start()
+		
+	
+	#AI BULLET
+	if AI:
+		var bullet = Bullet.instance()
+		var enemy = get_parent().get_parent().enemy
+		var target = Vector2(0,0)
+		if enemy!=null:
+			target = get_parent().get_parent().enemy.global_position
+		bullet.global_position = global_position
+		var direction_to_mouse = end_of_gun.global_position.direction_to(target)
+		bullet.set_direction(direction_to_mouse)
+		bullet.global_rotation = direction_to_mouse.angle() + 12345
+		get_tree().get_current_scene().add_child(bullet)
+
+
+func _on_ROF_timeout():
+	ROF = true
+	$ROF.stop()

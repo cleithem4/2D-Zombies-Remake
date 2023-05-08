@@ -88,7 +88,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
-"name": "Walking",
+"name": "Walk",
 "speed": 5.0
 } ]
 
@@ -115,17 +115,11 @@ shape = SubResource( 5 )
 [node name="end_of_gun" type="Position2D" parent="."]
 position = Vector2( 18, 5 )
 
-[node name="Reload" type="Timer" parent="."]
-wait_time = 1.25
-
 [node name="shootRadius" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shootRadius"]
 scale = Vector2( 1.00312, 1 )
 shape = SubResource( 20 )
-
-[node name="ROF" type="Timer" parent="."]
-wait_time = 0.1
 
 [node name="WeaponManager" type="Node2D" parent="."]
 rotation = 1.5708
@@ -134,7 +128,7 @@ script = ExtResource( 4 )
 [node name="AK47" parent="WeaponManager" instance=ExtResource( 5 )]
 position = Vector2( 6, -7 )
 
-[connection signal="timeout" from="Reload" to="." method="_on_Reload_timeout"]
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]
 [connection signal="body_exited" from="shootRadius" to="." method="_on_shootRadius_body_exited"]
-[connection signal="timeout" from="ROF" to="." method="_on_ROF_timeout"]
