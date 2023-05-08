@@ -3,7 +3,7 @@ extends Node
 var health = 100
 var score = 0
 var build_mode = false
-
+var object = null
 var current_clip = 0
 var clip_size = 0
 

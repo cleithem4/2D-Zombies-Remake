@@ -9,7 +9,7 @@
 [ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Turret/Turret.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/Shop.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Build/BuildModeTurret.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Build/BuildModeHUD.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Sound_Effect/dorisha-mountaineer-main-version-23618-01-50.mp3" type="AudioStream" id=11]
 [ext_resource path="res://GameScene.gd" type="Script" id=12]
 
@@ -64,9 +64,6 @@ autostart = true
 [node name="Turret" parent="Turret_container" instance=ExtResource( 8 )]
 position = Vector2( 700, 1200 )
 
-[node name="BuildModeTurret" parent="Turret_container" instance=ExtResource( 10 )]
-position = Vector2( -1000, 0 )
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource( 1 )]
@@ -75,7 +72,12 @@ visible = false
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 6 )]
 
 [node name="Shop" parent="CanvasLayer" instance=ExtResource( 9 )]
-visible = false
+margin_left = 25.0
+margin_top = -23.0
+margin_right = 25.0
+margin_bottom = -23.0
+
+[node name="BuildModeHUD" parent="CanvasLayer" instance=ExtResource( 10 )]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Object"]]
 

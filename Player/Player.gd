@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed := 400
+export var speed = 400
 export var health = 100
 var current_clip = 12
 var clip_size = 12

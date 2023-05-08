@@ -1,23 +1,30 @@
 extends KinematicBody2D
 
-onready var Turret = preload("res://Turret/Turret.tscn")
+
 
 
 var able_to_build = false
 var objects_in_area_array = []
 var draw_color = Color("00ffffff")
 var build_radius = 63
+var jay_scene = load("res://Jay/Jay.tscn")
+var jay_texture = load("res://Assets/Jay/jay_shop.png")
+var turret_scene = load("res://Turret/Turret.tscn")
+var turretHead_png = load("res://Assets/Turret/turret head_shop.png")
+var turretBody_png = load("res://Assets/Turret/turret base.png")
+onready var gameSceneNode = get_node("/root/GameScene")
+var objectBeingPlaced = null
 
 func _ready():
 	pause_mode = Node.PAUSE_MODE_PROCESS
 func _process(delta):
 
 	if Global.build_mode:
+		get_object_png()
 		show()
 		position = get_global_mouse_position()
 		update_objects_in_area_array()
 		update_objects_in_area_array2()
-		print(objects_in_area_array)
 		if objects_in_area_array.size() == 0:
 			able_to_build = true
 			draw_color = Color("5209fa12")
@@ -27,24 +34,38 @@ func _process(delta):
 		update()
 
 func _input(event):
-	if event.is_action_pressed("build"):
-		build_turret()
+	if event.is_action_pressed("place"):
+		place_object(Global.object)
+
 	if event.is_action_pressed("exit_build_mode"):
 		get_tree().paused = false
 		Global.build_mode = false
+		queue_free()
 		
 
 
 func _draw():
 	draw_circle(Vector2(0,-10), build_radius, draw_color)
+
+func get_object_png():
+	objectBeingPlaced = Global.object
+	if objectBeingPlaced==jay_scene:
+		$turretHead.texture = jay_texture
+		$turretHead.scale = Vector2(2,2)
+		$turretBody.texture = null
+	elif objectBeingPlaced == turret_scene:
+		$turretHead.texture = turretHead_png
+		$turretBody.texture = turretBody_png
+		$turretHead.scale = Vector2(0.4,0.4)
 	
 
-func build_turret():
+
+func place_object(object):
 	if able_to_build:
 		able_to_build = false
 		Global.build_mode = false
 		hide()
-		Global.instance_node(Turret,get_global_mouse_position(),get_parent())
+		Global.instance_node(object,get_global_mouse_position(),get_parent())
 
 #Ensure that turret is not able to be placed on players, turrets, or zombies
 func update_objects_in_area_array():

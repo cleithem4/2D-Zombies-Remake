@@ -7,12 +7,13 @@ var health = 50
 var enemy_array = []
 var enemy = null
 var able_to_shoot = true
-
+var delta2 = 0
 
 func _ready():
 	pass
 
 func _physics_process(delta):
+	delta2 = delta
 	if enemy_array.size() != 0:
 		select_enemy()
 		turn()
@@ -34,7 +35,9 @@ func _on_Range_body_exited(body):
 
 func turn():
 	if enemy != null:
-		$turretHead.look_at(enemy.global_position)
+		var target_rotation = global_position.direction_to(enemy.global_position).angle()
+		$turretHead.rotation = move_toward($turretHead.rotation, target_rotation, 0.2)
+		
 
 func select_enemy():
 	var closest_distance = 99999999
@@ -51,6 +54,9 @@ func shoot():
 	bullet.global_position = front_of_turret.global_position
 	get_parent().add_child(bullet)
 	able_to_shoot = false
+	
+func rotate_toward(location: Vector2):
+	rotation = lerp(rotation,global_position.direction_to(location).angle(),0.1)
 
 func damage(d):
 	health -= d
