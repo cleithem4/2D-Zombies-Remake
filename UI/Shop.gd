@@ -30,8 +30,8 @@ func _on_turretButton_pressed():
 
 
 func _on_JayButton_pressed():
-	if Global.score > 1499:
+	if Global.score > 0:
 		hide()
 		Global.build_mode = true
 		Global.object = Jay
-		Global.score -= 1500
+		Global.score -= 0

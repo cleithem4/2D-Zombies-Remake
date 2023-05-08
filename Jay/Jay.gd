@@ -14,7 +14,7 @@ onready var end_of_gun = $end_of_gun
 
 var enemy_array = []
 var enemy = null
-var able_to_shoot = true
+var able_to_shoot = false
 var ROF = true
 
 
@@ -38,12 +38,12 @@ func shoot():
 		reload()
 		
 	var bullet = Bullet.instance()
-	var target = enemy.position
-	var direction = target - end_of_gun.global_position
-	bullet.rotation = direction.angle()
+	var target = enemy.global_position
 	bullet.global_position = end_of_gun.global_position
-	bullet.rotation = rotation + 300
-	get_parent().add_child(bullet)
+	var direction_to_mouse = end_of_gun.global_position.direction_to(target)
+	bullet.set_direction(direction_to_mouse)
+	bullet.global_rotation = direction_to_mouse.angle() + 12345
+	get_tree().get_current_scene().add_child(bullet)
 	ROF = false
 	$ROF.start()
 
@@ -51,7 +51,7 @@ func shoot():
 		
 
 #Process the game
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Player:
 		var direction = Player.position - position
 		var distance = direction.length()
@@ -77,7 +77,16 @@ func _physics_process(delta):
 func turn():
 	if enemy != null:
 		var target_rotation = global_position.direction_to(enemy.global_position).angle()
-		rotation = move_toward(rotation, target_rotation, 0.2)
+		var angle_difference = fmod(target_rotation - rotation, 360)
+		if angle_difference < -180:
+			angle_difference += 360
+		if angle_difference > 180:
+			angle_difference -= 360
+		var turn_speed = 0.2
+		if angle_difference < 0:
+			turn_speed *= -1
+		rotation += turn_speed * abs(angle_difference)
+
 		
 #Player die if health <= 0
 func damage(damage):
@@ -85,9 +94,16 @@ func damage(damage):
 	if health <= 0:
 		queue_free()
 func able_to_shoot():
-	var angle_to_enemy = global_position.direction_to(enemy.global_position).angle()
-	if abs(rotation - angle_to_enemy) < 0.1:
+	var direction_to_enemy = enemy.global_position - global_position
+	var angle_to_enemy = direction_to_enemy.angle()
+	var forward = Vector2(1, 0).rotated(rotation)
+	var dot = forward.dot(direction_to_enemy.normalized())
+
+	if dot > 0.95:
 		able_to_shoot = true
+	else:
+		able_to_shoot = false
+
 
 func _on_Reload_timeout():
 	reloading = false

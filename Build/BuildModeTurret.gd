@@ -17,7 +17,7 @@ var objectBeingPlaced = null
 
 func _ready():
 	pause_mode = Node.PAUSE_MODE_PROCESS
-func _process(delta):
+func _process(_delta):
 
 	if Global.build_mode:
 		get_object_png()
