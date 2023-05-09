@@ -4,10 +4,11 @@ export var speed = 380
 export var health = 100
 var velocity = Vector2.ZERO
 var reloading = false
-onready var end_of_gun = $end_of_gun
 onready var Bullet = load("res://Bullet/Bullet.tscn")
 onready var Player = get_node("/root/GameScene/Player")
 onready var WeaponManager = $WeaponManager
+var current_weapon = null
+var two_handed_weapon = false
 
 #AI
 var AI = false
@@ -17,13 +18,21 @@ var enemy = null
 var able_to_shoot = false
 var ROF = true
 
+#Player
+var ai_array = []
+var closest_ai = null
 
 
 func _ready():
 	AI = Global.jay_ai
 
-
-
+func get_two_handed_weapon():
+	if Global.jay_weapon.getGunName() == "AK47":
+		two_handed_weapon == true
+	elif Global.jay_weapon.getGunName() == "Pistol":
+		two_handed_weapon == false
+func get_ai_name():
+	return "Jay"
 func reloading():
 	reloading = true
 func finished_reloading():
@@ -35,6 +44,7 @@ func finished_reloading():
 
 #Process the game
 func _physics_process(_delta):
+	current_weapon = Global.jay_weapon
 	AI = Global.jay_ai
 	if AI:
 		AI()
@@ -44,8 +54,15 @@ func _physics_process(_delta):
 #AI FUNCTION
 func AI():
 	$Camera2D.current = false
+	get_two_handed_weapon()
+	print("Jay")
+	print(two_handed_weapon)
+	
 	if reloading:
-		$AnimatedSprite.play("Reload")
+		if not two_handed_weapon:
+			$AnimatedSprite.play("ReloadPistol")
+		else:
+			$AnimatedSprite.play("Reload")
 	if Player:
 		var direction = Player.position - position
 		var distance = direction.length()
@@ -53,16 +70,22 @@ func AI():
 			velocity = direction.normalized() * speed
 			move_and_slide(velocity)
 			if not reloading:
-				$AnimatedSprite.play("Walk")
+				if not two_handed_weapon:
+					$AnimatedSprite.play("WalkPistol")
+				else:
+					$AnimatedSprite.play("Walk")
 		else:
 			velocity = Vector2.ZERO
 			if not reloading:
-				$AnimatedSprite.play("Idle")
+				if not two_handed_weapon:
+					$AnimatedSprite.play("WalkPistol")
+				else:
+					$AnimatedSprite.play("Idle")
 	if enemy_array.size() != 0:
 		select_enemy()
 		turn()
 		able_to_shoot()
-		if able_to_shoot and ROF:
+		if able_to_shoot:
 			WeaponManager.shoot()
 	else:
 		enemy = null
@@ -70,8 +93,14 @@ func AI():
 
 func player():
 	$Camera2D.current = true
+	get_two_handed_weapon()
 	get_input()
 	move_and_slide(velocity)
+	if ai_array.size() != 0:
+		select_ai()
+	else:
+		closest_ai = null
+		Global.closest_ai = closest_ai
 
 
 
@@ -83,11 +112,20 @@ func get_input():
 	
 	#Animations
 	if input_direction and not reloading:
-		$AnimatedSprite.play("Walk")
+		if not two_handed_weapon:
+			$AnimatedSprite.play("WalkPistol")
+		else:
+			$AnimatedSprite.play("Walk")
 	elif not reloading:
-		$AnimatedSprite.play("Idle")
+		if not two_handed_weapon:
+			$AnimatedSprite.play("IdlePistol")
+		else:
+			$AnimatedSprite.play("Idle")
 	elif reloading:
-		$AnimatedSprite.play("Reload")
+		if not two_handed_weapon:
+			$AnimatedSprite.play("ReloadPistol")
+		else:
+			$AnimatedSprite.play("Reload")
 
 
 
@@ -141,5 +179,30 @@ func _on_shootRadius_body_exited(body):
 #Character die if health <= 0
 func damage(damage):
 	health -= damage
+	if not AI:
+		Global.health = health
 	if health <= 0:
 		queue_free()
+
+
+
+
+
+#PLAYER FUNCTION
+func select_ai():
+	var closest_ai_distance = 99999999
+	for a in ai_array:
+		var distance = global_position.distance_to(a.global_position)
+		if distance < closest_ai_distance:
+			closest_ai = a
+			closest_ai_distance = distance
+	Global.closest_ai = closest_ai
+
+func _on_closestAI_body_entered(body):
+	if body.is_in_group("AI") and body != self:
+		ai_array.append(body)
+
+
+func _on_closestAI_body_exited(body):
+	if body.is_in_group("AI"):
+		ai_array.erase(body)

@@ -3,7 +3,7 @@ extends Node2D
 func _process(_delta):
 	if $AudioStreamPlayer.playing == false:
 		$AudioStreamPlayer.play()
-	elif $Player == null:
+	if not Global.jay_ai and $Jay == null or not Global.tom_ai and $Player == null:
 		$AudioStreamPlayer.stop()
 		get_tree().change_scene("res://UI/Game_Over.tscn")
 

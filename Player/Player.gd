@@ -5,6 +5,8 @@ export var health = 100
 var reloading = false
 var velocity = Vector2()
 onready var WeaponManager = $WeaponManager
+var current_weapon = null
+var two_handed_weapon = false
 
 #AI
 var AI = true
@@ -15,21 +17,33 @@ var enemy = null
 var able_to_shoot = false
 var ROF = true
 
+#Player
+var ai_array = []
+var closest_ai = null
+
 
 func _ready():
 	AI = Global.tom_ai
+	current_weapon = Global.tom_weapon
 
 #Process the game
 func _physics_process(_delta):
+	current_weapon = Global.tom_weapon
 	AI = Global.tom_ai
+	
 	if AI:
 		AI()
 	else:
 		player()
 		
 	
-
-
+func get_ai_name():
+	return "Player"
+func get_two_handed_weapon():
+	if Global.tom_weapon.getGunName() == "AK47":
+		two_handed_weapon == true
+	elif Global.tom_weapon.getGunName() == "Pistol":
+		two_handed_weapon == false
 func reloading():
 	reloading = true
 func finished_reloading():
@@ -38,6 +52,7 @@ func finished_reloading():
 #AI FUNCTION
 func AI():
 	$Camera2D.current = false
+	get_two_handed_weapon()
 	if reloading:
 		$AnimatedSprite.play("Reload")
 	if Player:
@@ -47,16 +62,22 @@ func AI():
 			velocity = direction.normalized() * speed
 			move_and_slide(velocity)
 			if not reloading:
-				$AnimatedSprite.play("Walk")
+				if two_handed_weapon:
+					$AnimatedSprite.play("WalkAK")
+				else:
+					$AnimatedSprite.play("Walk")
 		else:
 			velocity = Vector2.ZERO
 			if not reloading:
-				$AnimatedSprite.play("Idle")
+				if two_handed_weapon:
+					$AnimatedSprite.play("IdleAK")
+				else:
+					$AnimatedSprite.play("Idle")
 	if enemy_array.size() != 0:
 		select_enemy()
 		turn()
 		able_to_shoot()
-		if able_to_shoot and ROF:
+		if able_to_shoot:
 			WeaponManager.shoot()
 	else:
 		enemy = null
@@ -109,8 +130,19 @@ func _on_shootRadius_body_exited(body):
 
 #Get user input for player movement
 func player():
+	get_two_handed_weapon()
+	print("Player:")
+	print(two_handed_weapon)
 	get_input()
 	move_and_slide(velocity)
+	if ai_array.size() != 0:
+		select_ai()
+
+	else:
+		closest_ai = null
+		Global.closest_ai = closest_ai
+
+	
 	$Camera2D.current = true
 #PLAYER FUNCTION
 func get_input():
@@ -120,17 +152,49 @@ func get_input():
 	
 	#Animations
 	if input_direction and not reloading:
-		$AnimatedSprite.play("Walk")
+		if two_handed_weapon:
+			$AnimatedSprite.play("WalkAK")
+		else:
+			$AnimatedSprite.play("Walk")
 	elif not reloading:
-		$AnimatedSprite.play("Idle")
+		if two_handed_weapon:
+			$AnimatedSprite.play("IdleAK")
+		else:
+			$AnimatedSprite.play("Idle")
 	elif reloading:
 		$AnimatedSprite.play("Reload")
+
+
 #Character die if health <= 0
 func damage(damage):
 	health -= damage
-	Global.health = health
+	if not AI:
+		Global.health = health
 	if health <= 0:
 		queue_free()
 
 
+#PLAYER FUNCTION
+func select_ai():
+	var closest_ai_distance = 99999999
+	for a in ai_array:
+		var distance = global_position.distance_to(a.global_position)
+		if distance < closest_ai_distance:
+			closest_ai = a
+			closest_ai_distance = distance
+	Global.closest_ai = closest_ai
+
+
+
+#PLAYER FUNCTION
+func _on_closestAI_body_entered(body):
+	if body.is_in_group("AI") and body != self:
+		ai_array.append(body)
+
+
+
+#PLAYER FUNCTION
+func _on_closestAI_body_exited(body):
+	if body.is_in_group("AI"):
+		ai_array.erase(body)
 

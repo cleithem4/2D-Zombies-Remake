@@ -12,7 +12,7 @@
 [ext_resource path="res://Build/BuildModeHUD.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Sound_Effect/dorisha-mountaineer-main-version-23618-01-50.mp3" type="AudioStream" id=11]
 [ext_resource path="res://GameScene.gd" type="Script" id=12]
-[ext_resource path="res://Jay/Jay.tscn" type="PackedScene" id=13]
+[ext_resource path="res://UI/SwitchWeapons.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Environment" id=1]
 tonemap_mode = 1
@@ -54,9 +54,6 @@ texture = ExtResource( 3 )
 position = Vector2( 537, 1501 )
 scale = Vector2( 2, 2 )
 
-[node name="Jay" parent="." instance=ExtResource( 13 )]
-position = Vector2( 1000, 1000 )
-
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
@@ -70,9 +67,6 @@ position = Vector2( 700, 1200 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Pause" parent="CanvasLayer" instance=ExtResource( 1 )]
-visible = false
-
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 6 )]
 
 [node name="Shop" parent="CanvasLayer" instance=ExtResource( 9 )]
@@ -82,6 +76,11 @@ margin_right = 25.0
 margin_bottom = -23.0
 
 [node name="BuildModeHUD" parent="CanvasLayer" instance=ExtResource( 10 )]
+
+[node name="SwitchWeapons" parent="CanvasLayer" instance=ExtResource( 14 )]
+
+[node name="Pause" parent="CanvasLayer" instance=ExtResource( 1 )]
+visible = false
 
 [node name="Structure" type="StaticBody2D" parent="." groups=["Collision", "Object"]]
 
