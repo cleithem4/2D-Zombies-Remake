@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Font/RussoOne-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://CharacterSelection/CharacterSelectionHUD.gd" type="Script" id=2]
@@ -9,6 +9,16 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 22
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.545098, 0.443137, 0.443137, 0.470588 )
 
 [node name="CharacterSelectionHUD" type="Control"]
 anchor_right = 1.0
@@ -29,4 +39,13 @@ margin_right = 1409.0
 margin_bottom = 553.0
 theme = SubResource( 2 )
 text = "Click on the Character you would like to become
-Then press K to finalize your pick"
+Then press finalize to finalize your pick"
+
+[node name="finalize" type="Button" parent="."]
+margin_left = 1224.0
+margin_top = 568.0
+margin_right = 1458.0
+margin_bottom = 631.0
+theme = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+text = "Finalize(Character)"

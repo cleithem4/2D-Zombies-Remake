@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed = 350
+export var speed = 300
 export var health = 10
 
 var motion = Vector2.ZERO
@@ -34,6 +34,7 @@ func _on_Area2D_body_entered(body):
 #Zombie dies if health <= 0
 func damage(dmg):
 	health -= dmg
+	Global.score += 5
 	
 	#adds blood to zombie each time they get shot
 	var blood = Blood.instance()
@@ -42,7 +43,7 @@ func damage(dmg):
 	
 	
 	if health <= 0:
-		Global.score += 50
+		Global.score += 30
 		get_parent().on_zombie_killed()
 		queue_free()
 

@@ -12,26 +12,28 @@ func _ready():
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("Shop") and not Global.build_mode:
-		Global.instance_node(BuildMode,Vector2(0,0),get_parent().get_parent())
+		Global.instance_node(BuildMode,Vector2(-1000,-1000),get_parent().get_parent())
 		if visible:
 			hide()
-			get_tree().paused = false
 		else:
 			show()
-			get_tree().paused = true
+
 
 
 func _on_turretButton_pressed():
-	if Global.score > 799:
+	if Global.score > 1999:
 		hide()
 		Global.build_mode = true
 		Global.object = Turret
-		Global.score -= 800
+		Global.score -= 2000
+		$ChaChing.play()
 
 
-func _on_JayButton_pressed():
-	if Global.score > 0:
+
+
+func _on_bulletDamage_pressed():
+	if Global.score > 1499:
 		hide()
-		Global.build_mode = true
-		Global.object = Jay
-		Global.score -= 0
+		Global.damageModifier += 1
+		Global.score -= 1500
+		$ChaChing.play()

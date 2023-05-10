@@ -2,6 +2,7 @@ extends Node
 
 var health = 100
 var score = 0
+var wave = 1
 var build_mode = false
 var character_selection_mode = false
 var object = null
@@ -16,6 +17,8 @@ var switch_weapon_tom = false
 var temp_switch_guns_cleared = false
 var closest_ai = null
 
+
+var damageModifier = 1
 
 var jay_weapon = null
 

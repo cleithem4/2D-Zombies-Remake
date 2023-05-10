@@ -10,7 +10,7 @@ var two_handed_weapon = false
 
 #AI
 var AI = true
-onready var Player = get_node("/root/GameScene/Jay")
+onready var Player = get_node("/root/GameScene/CharacterSelection/Jay")
 var stop_distance = 150
 var enemy_array = []
 var enemy = null
@@ -20,6 +20,7 @@ var ROF = true
 #Player
 var ai_array = []
 var closest_ai = null
+var regen_health = true
 
 
 func _ready():
@@ -136,6 +137,7 @@ func _on_shootRadius_body_exited(body):
 
 #Get user input for player movement
 func player():
+	regenerateHealth()
 	get_two_handed_weapon()
 	get_input()
 	move_and_slide(velocity)
@@ -192,6 +194,12 @@ func select_ai():
 	Global.closest_ai = closest_ai
 
 
+#PLAYER FUNCTION
+func regenerateHealth():
+	if Global.health < 100 and regen_health:
+		Global.health += 0.1
+		regen_health = false
+		$RegenHealth.start()
 
 #PLAYER FUNCTION
 func _on_closestAI_body_entered(body):
@@ -205,3 +213,7 @@ func _on_closestAI_body_exited(body):
 	if body.is_in_group("AI"):
 		ai_array.erase(body)
 
+
+
+func _on_RegenHealth_timeout():
+	regen_health = true

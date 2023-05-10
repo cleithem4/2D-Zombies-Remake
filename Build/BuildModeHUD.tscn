@@ -26,9 +26,9 @@ margin_bottom = 510.12
 color = Color( 0.352941, 0.333333, 0.333333, 0.427451 )
 
 [node name="Controls" type="Label" parent="."]
-margin_left = 509.0
-margin_top = 577.0
-margin_right = 1213.0
-margin_bottom = 638.0
+margin_left = 437.0
+margin_top = 580.0
+margin_right = 1141.0
+margin_bottom = 641.0
 theme = SubResource( 2 )
-text = "Place: B  Exit: V"
+text = "Place: B  Cancel: V"

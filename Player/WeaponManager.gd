@@ -33,12 +33,12 @@ func _physics_process(delta):
 	if not Global.tom_ai:
 		if Input.is_action_just_pressed("reload"):
 			current_weapon.reload()
-	if current_weapon.fullAuto():
-		if Input.is_action_pressed("shoot"):
-			current_weapon.shoot()
-	else:
-		if Input.is_action_just_pressed("shoot"):
-			current_weapon.shoot()
+		if current_weapon.fullAuto():
+			if Input.is_action_pressed("shoot"):
+				current_weapon.shoot()
+		else:
+			if Input.is_action_just_pressed("shoot"):
+				current_weapon.shoot()
 	refreshWeapons()
 
 func shoot():

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Cha Ching (Money) Sound Effect.mp3-f87d1c3f05fe9ac4caa95f5f1b5f7e3d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/Cha Ching (Money) Sound Effect.mp3"
+dest_files=[ "res://.import/Cha Ching (Money) Sound Effect.mp3-f87d1c3f05fe9ac4caa95f5f1b5f7e3d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

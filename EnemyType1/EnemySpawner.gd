@@ -1,9 +1,18 @@
 extends Node2D
 
 onready var zombie_scene = load("res://EnemyType1/EnemyType1.tscn")
-onready var player = get_node_or_null("/root/GameScene/Player")
+onready var player = get_node_or_null("/root/GameScene/CharacterSelection/Player")
 
-const ZOMBIES_PER_WAVE = 10
+const MAX_ZOMBIES_SPAWNED = 10
+const ZOMBIE_HEALTH = 10
+const ZOMBIE_SPEED = 120
+const MAX_ZOMBIE_SPEED = 280
+const MIN_ZOMBIE_SPEED = 100
+
+var current_zombie_health = 0
+var current_zombie_speed = 0
+
+
 
 var amount_of_zombies_on_current_wave = 10
 
@@ -11,31 +20,36 @@ var wave_number = 1
 var zombies_spawned = 0
 var zombies_killed = 0
 var able_to_spawn = true
-var able_to_start_wave = true
+var able_to_start_wave = false
 
 func _ready():
+	randomize()
 	print("Player at start:", player)
-	spawn_wave()
+
 
 func spawn_wave():
-	if able_to_start_wave:
-		able_to_start_wave = false
-		$WaveCooldown.start()
-		if zombies_spawned <= amount_of_zombies_on_current_wave and able_to_spawn:
-			spawn_zombie()
-			print("Zombies spawned: " + str(zombies_spawned))
+	if zombies_spawned < amount_of_zombies_on_current_wave and able_to_spawn:
+		spawn_zombie()
+		print("Zombies spawned: " + str(zombies_spawned))
 
+
+func start_wave():
+	if able_to_start_wave:
+		spawn_wave()
 func on_zombie_killed():
 	zombies_killed += 1
 	print("zombies killed: " + str(zombies_killed))
 	if zombies_killed == amount_of_zombies_on_current_wave:
 		wave_number += 1
+		Global.wave = wave_number
 		print("Wave: " + str(wave_number))
 		calculateAmountOfZombies()
 		print("Amount of zombies on this wave: " + str(amount_of_zombies_on_current_wave))
 		zombies_spawned = 0
 		zombies_killed = 0
-		spawn_wave()
+		able_to_start_wave = false
+		$WaveCooldown.start()
+
 
 func spawn_zombie():
 	if player == null:
@@ -43,7 +57,7 @@ func spawn_zombie():
 		return
 	var player_pos = player.global_position
 	var radius = 1000
-	var min_distance = 400  # Minimum spawn distance from the player
+	var min_distance = 700  # Minimum spawn distance from the player
 	var angle = rand_range(0, 2 * PI)
 	var offset = Vector2(cos(angle), sin(angle)) * rand_range(min_distance, radius)
 	var zombie_pos = player_pos + offset
@@ -52,6 +66,7 @@ func spawn_zombie():
 	var zombie_transform = Transform2D(0, zombie_pos)
 	zombie.set_transform(zombie_transform)
 	zombie.scale = Vector2(2,2)
+	zombie.speed = 100
 
 	var collision_shape = zombie.find_node("CollisionShape2D")
 	if not collision_shape:
@@ -64,11 +79,14 @@ func spawn_zombie():
 		print("Zombie spawn point inside wall, retrying...")
 		spawn_zombie()
 		return
-	
+	get_zombie_stats()
+	zombie.speed = current_zombie_speed
+	zombie.health = current_zombie_health
 	add_child(zombie)
 	zombies_spawned += 1
 	able_to_spawn = false
 	$SpawnCooldown.start()
+	
 
 func check_collision(shape, transform):
 	var space_state = get_world_2d().direct_space_state
@@ -84,14 +102,18 @@ func calculateAmountOfZombies():
 	amount_of_zombies_on_current_wave *= 1.05
 	amount_of_zombies_on_current_wave = ceil(amount_of_zombies_on_current_wave)
 
-
+func get_zombie_stats():
+	current_zombie_health = ZOMBIE_HEALTH + Global.wave
+	current_zombie_speed = rand_range(MIN_ZOMBIE_SPEED,100 + Global.wave * 5)
+	current_zombie_speed = min(current_zombie_speed,MAX_ZOMBIE_SPEED)
 
 func _on_SpawnCooldown_timeout():
 	able_to_spawn = true
 	$SpawnCooldown.stop()
+	spawn_wave()
 
 
 func _on_WaveCooldown_timeout():
 	able_to_start_wave = true
 	$WaveCooldown.stop()
-	spawn_wave()
+	start_wave()

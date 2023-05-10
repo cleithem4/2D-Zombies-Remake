@@ -5,7 +5,7 @@ export var health = 100
 var velocity = Vector2.ZERO
 var reloading = false
 onready var Bullet = load("res://Bullet/Bullet.tscn")
-onready var Player = get_node("/root/GameScene/Player")
+onready var Player = get_node("/root/GameScene/CharacterSelection/Player")
 onready var WeaponManager = $WeaponManager
 var current_weapon = null
 var two_handed_weapon = false
@@ -21,6 +21,7 @@ var ROF = true
 #Player
 var ai_array = []
 var closest_ai = null
+var regen_health = true
 
 
 func _ready():
@@ -183,8 +184,12 @@ func damage(damage):
 	if health <= 0:
 		queue_free()
 
-
-
+#PLAYER FUNCTION
+func regenerateHealth():
+	if Global.health < 100 and regen_health:
+		Global.health += 0.1
+		regen_health = false
+		$RegenHealth.start()
 
 
 #PLAYER FUNCTION
@@ -205,3 +210,7 @@ func _on_closestAI_body_entered(body):
 func _on_closestAI_body_exited(body):
 	if body.is_in_group("AI"):
 		ai_array.erase(body)
+
+
+func _on_RegenHealth_timeout():
+	regen_health = true

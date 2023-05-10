@@ -20,6 +20,7 @@ func _ready():
 func _process(_delta):
 
 	if Global.build_mode:
+		get_tree().paused = true
 		get_object_png()
 		show()
 		position = get_global_mouse_position()
@@ -40,6 +41,7 @@ func _input(event):
 	if event.is_action_pressed("exit_build_mode"):
 		get_tree().paused = false
 		Global.build_mode = false
+		Global.score += 2000
 		queue_free()
 		
 
@@ -66,6 +68,7 @@ func place_object(object):
 		Global.build_mode = false
 		hide()
 		Global.instance_node(object,get_global_mouse_position(),get_parent())
+		get_tree().paused = false
 
 #Ensure that turret is not able to be placed on players, turrets, or zombies
 func update_objects_in_area_array():

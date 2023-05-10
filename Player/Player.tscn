@@ -181,7 +181,7 @@ script = ExtResource( 1 )
 rotation = 1.5708
 frames = SubResource( 3 )
 animation = "ReloadAK"
-frame = 6
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -214,7 +214,11 @@ script = ExtResource( 8 )
 
 [node name="Pistol" parent="WeaponManager" instance=ExtResource( 7 )]
 
+[node name="RegenHealth" type="Timer" parent="."]
+wait_time = 0.015
+
 [connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]
 [connection signal="body_exited" from="shootRadius" to="." method="_on_shootRadius_body_exited"]
 [connection signal="body_entered" from="closestAI" to="." method="_on_closestAI_body_entered"]
 [connection signal="body_exited" from="closestAI" to="." method="_on_closestAI_body_exited"]
+[connection signal="timeout" from="RegenHealth" to="." method="_on_RegenHealth_timeout"]
