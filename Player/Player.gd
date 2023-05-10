@@ -25,6 +25,9 @@ var closest_ai = null
 func _ready():
 	AI = Global.tom_ai
 	current_weapon = Global.tom_weapon
+	print(current_weapon)
+	get_two_handed_weapon()
+	print(two_handed_weapon)
 
 #Process the game
 func _physics_process(_delta):
@@ -41,9 +44,9 @@ func get_ai_name():
 	return "Player"
 func get_two_handed_weapon():
 	if Global.tom_weapon.getGunName() == "AK47":
-		two_handed_weapon == true
+		two_handed_weapon = true
 	elif Global.tom_weapon.getGunName() == "Pistol":
-		two_handed_weapon == false
+		two_handed_weapon = false
 func reloading():
 	reloading = true
 func finished_reloading():
@@ -54,7 +57,10 @@ func AI():
 	$Camera2D.current = false
 	get_two_handed_weapon()
 	if reloading:
-		$AnimatedSprite.play("Reload")
+		if two_handed_weapon:
+			$AnimatedSprite.play("ReloadAK")
+		else:
+			$AnimatedSprite.play("Reload")
 	if Player:
 		var direction = Player.position - position
 		var distance = direction.length()
@@ -131,8 +137,6 @@ func _on_shootRadius_body_exited(body):
 #Get user input for player movement
 func player():
 	get_two_handed_weapon()
-	print("Player:")
-	print(two_handed_weapon)
 	get_input()
 	move_and_slide(velocity)
 	if ai_array.size() != 0:
@@ -162,7 +166,10 @@ func get_input():
 		else:
 			$AnimatedSprite.play("Idle")
 	elif reloading:
-		$AnimatedSprite.play("Reload")
+		if two_handed_weapon:
+			$AnimatedSprite.play("ReloadAK")
+		else:
+			$AnimatedSprite.play("Reload")
 
 
 #Character die if health <= 0

@@ -177,21 +177,22 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = 1.5708
 frames = SubResource( 4 )
-animation = "ReloadPistol"
-frame = 8
+animation = "Reload"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 5 )
 
 [node name="shootRadius" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shootRadius"]
 scale = Vector2( 1.00312, 1 )
 shape = SubResource( 20 )
 
 [node name="WeaponManager" type="Node2D" parent="."]
-position = Vector2( 11, 7 )
+position = Vector2( 15, 7 )
 rotation = 1.5708
 script = ExtResource( 4 )
 
@@ -200,6 +201,7 @@ script = ExtResource( 4 )
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="closestAI" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="closestAI"]
 shape = SubResource( 34 )

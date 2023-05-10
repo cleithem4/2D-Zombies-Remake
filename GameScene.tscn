@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://UI/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Build/BuildModeHUD.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Sound_Effect/dorisha-mountaineer-main-version-23618-01-50.mp3" type="AudioStream" id=11]
 [ext_resource path="res://GameScene.gd" type="Script" id=12]
+[ext_resource path="res://Jay/Jay.tscn" type="PackedScene" id=13]
 [ext_resource path="res://UI/SwitchWeapons.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Environment" id=1]
@@ -54,11 +55,16 @@ texture = ExtResource( 3 )
 position = Vector2( 537, 1501 )
 scale = Vector2( 2, 2 )
 
+[node name="Jay" parent="." instance=ExtResource( 13 )]
+position = Vector2( 1000, 1000 )
+
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
-[node name="Timer" type="Timer" parent="EnemySpawner"]
-autostart = true
+[node name="SpawnCooldown" type="Timer" parent="EnemySpawner"]
+wait_time = 0.3
+
+[node name="WaveCooldown" type="Timer" parent="EnemySpawner"]
 
 [node name="Turret_container" type="Node2D" parent="."]
 
@@ -102,8 +108,8 @@ position = Vector2( -54.398, 0 )
 scale = Vector2( 1.03404, 1 )
 polygon = PoolVector2Array( 475, 1293, 469, 1327, 347, 1335, 359, 1652, 721, 1639, 714, 1322, 582, 1326, 584, 1287, 759, 1288, 749, 1671, 324, 1682, 322, 1294 )
 
-[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Structure" groups=["Object"]]
-polygon = PoolVector2Array( -28, 2462, 3842, 2472, 3842, 3, -53, -2, -28, 2366, -406, 2382, -366, -294, 4029, -219, 4125, 2407, 3918, 2902, -502, 2630, -396, 2383, -43, 2363 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Structure" groups=["Object"]]
+polygon = PoolVector2Array( 3838, -37, 3846, 2462, -96, 2473, -79, -39, -1516, -839, -1516, 4073, 6450, 4062, 6396, -978, -1516, -882, -85, -52 )
 
 [node name="Water" type="StaticBody2D" parent="." groups=["Collision"]]
 
@@ -132,4 +138,5 @@ environment = SubResource( 1 )
 
 [node name="Blood" parent="ImpactManager" instance=ExtResource( 7 )]
 
-[connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]
+[connection signal="timeout" from="EnemySpawner/SpawnCooldown" to="EnemySpawner" method="_on_SpawnCooldown_timeout"]
+[connection signal="timeout" from="EnemySpawner/WaveCooldown" to="EnemySpawner" method="_on_WaveCooldown_timeout"]

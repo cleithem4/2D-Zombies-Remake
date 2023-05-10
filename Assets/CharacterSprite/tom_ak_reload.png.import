@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/IMG_1813.png-8840f4dc313cad43badcf3658fe85c0d.stex"
+path="res://.import/tom_ak_reload.png-e30c727b6569cffd11d266f008c2f14f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CharacterSprite/IMG_1813.png"
-dest_files=[ "res://.import/IMG_1813.png-8840f4dc313cad43badcf3658fe85c0d.stex" ]
+source_file="res://Assets/CharacterSprite/tom_ak_reload.png"
+dest_files=[ "res://.import/tom_ak_reload.png-e30c727b6569cffd11d266f008c2f14f.stex" ]
 
 [params]
 

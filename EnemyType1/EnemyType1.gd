@@ -43,6 +43,7 @@ func damage(dmg):
 	
 	if health <= 0:
 		Global.score += 50
+		get_parent().on_zombie_killed()
 		queue_free()
 
 func _on_AttackRange_body_entered(body):

@@ -24,13 +24,14 @@ var closest_ai = null
 
 
 func _ready():
+	get_two_handed_weapon()
 	AI = Global.jay_ai
 
 func get_two_handed_weapon():
 	if Global.jay_weapon.getGunName() == "AK47":
-		two_handed_weapon == true
+		two_handed_weapon = true
 	elif Global.jay_weapon.getGunName() == "Pistol":
-		two_handed_weapon == false
+		two_handed_weapon = false
 func get_ai_name():
 	return "Jay"
 func reloading():
@@ -55,8 +56,6 @@ func _physics_process(_delta):
 func AI():
 	$Camera2D.current = false
 	get_two_handed_weapon()
-	print("Jay")
-	print(two_handed_weapon)
 	
 	if reloading:
 		if not two_handed_weapon:

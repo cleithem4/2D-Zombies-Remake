@@ -52,9 +52,10 @@ func shoot():
 	if AI:
 		ROF = false
 		$ROF.start()
-	$AudioStreamPlayer.play()
+
 		
 	if not AI:
+		$AudioStreamPlayer.play()
 		Global.current_clip = current_clip
 		var bullet = Bullet.instance()
 		var target = get_global_mouse_position()
@@ -68,6 +69,7 @@ func shoot():
 	
 	#AI BULLET
 	if AI:
+		$AudioStreamPlayer.play()
 		var bullet = Bullet.instance()
 		var enemy = get_parent().get_parent().enemy
 		var target = Vector2(0,0)
