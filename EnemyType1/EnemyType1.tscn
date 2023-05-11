@@ -1,64 +1,61 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://EnemyType1/EnemyType1.gd" type="Script" id=1]
-[ext_resource path="res://Assets/CharacterSprite/IMG_1818.PNG" type="Texture" id=2]
-[ext_resource path="res://Assets/CharacterSprite/IMG_1817.PNG" type="Texture" id=3]
+[ext_resource path="res://Assets/CharacterSprite/zombie_png.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sound_Effect/bullet-impacting-concrete-brick-gamemaster-audio-1-1-00-00.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Assets/Sound_Effect/Zombie_Moan_Sound.mp3" type="AudioStream" id=4]
-[ext_resource path="res://Assets/CharacterSprite/IMG_1816.PNG" type="Texture" id=5]
+[ext_resource path="res://Assets/Sound_Effect/bullet-impacting-snow-gamemaster-audio-4-4-00-00.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Sound_Effect/Zombie_Bite_Sound.mp3" type="AudioStream" id=6]
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 50, 50 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 50, 50 )
-
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 50, 50 )
+region = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 100, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 100, 100, 100 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 7 ) ],
+"frames": [ SubResource( 9 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 10 ), SubResource( 11 ) ],
 "loop": true,
 "name": "Walk",
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=8]
-radius = 13.537
+[sub_resource type="CircleShape2D" id=12]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 478.877
 
-[sub_resource type="CircleShape2D" id=6]
-radius = 18.0278
-
 [node name="EnemyType1" type="KinematicBody2D" groups=["Collision", "Enemy"]]
 rotation = 6.28319
-scale = Vector2( 2, 2 )
+scale = Vector2( 1.8, 1.8 )
 script = ExtResource( 1 )
-speed = 300
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = 1.5708
+scale = Vector2( 0.8, 0.8 )
 frames = SubResource( 3 )
 animation = "Idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 6, -2.06632e-06 )
-shape = SubResource( 8 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 20.0001, 13.3332, 21.1112, 11.111, 21.1111, 7.77768, 17.7778, 7.7777, 17.7778, 5.55548, 14.4445, 5.55549, 12.7778, 7.77772, 10, 8.33329, 2.77782, 8.88888, 1.11114, 7.22222, -1.11108, 7.22223, -0.55558, -5.55555, 6.66663, -7.22225, 12.7777, -7.77784, 14.4444, -5.00006, 17.7778, -5.00008, 17.7777, -7.2223, 20, -7.22231, 21.1111, -8.33343, 21.111, -13.889, 18.8888, -14.4445, 16.6666, -14.4445, 16.1111, -13.3334, 7.22217, -12.7778, 5.55549, -14.4445, 2.77771, -15, -2.22228, -13.3333, -5.00006, -12.7778, -7.77783, -11.6666, -10, -9.99996, -9.44448, -7.22218, -8.88886, 7.22226, -8.33328, 11.6667, -3.88883, 12.2222, -2.77771, 14.4445, 7.77784, 14.4444, 13.3334, 13.8888, 16.1112, 14.4444, 19.4445, 14.4444 )
 
-[node name="Bite" type="AudioStreamPlayer" parent="CollisionShape2D"]
-stream = ExtResource( 6 )
-volume_db = -3.852
+[node name="Head" type="Area2D" parent="." groups=["Head"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+position = Vector2( -5.55555, 1.66669 )
+shape = SubResource( 12 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -71,14 +68,26 @@ volume_db = -10.633
 
 [node name="AttackRange" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
-position = Vector2( 9, -4.01974e-05 )
-shape = SubResource( 6 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackRange"]
+polygon = PoolVector2Array( 20.5, 8.49991, 20.4999, -14.0001, 2.99993, -15.5, -8.00005, -12, -10.5, -6.49995, -14.5, -0.499935, -14, 4.00006, -13, 6.50006, -9.99997, 7.00004, -9.49995, 10.5, -7.49995, 11.5, -4.49995, 12, -2.49994, 14, 8.50006, 14.5, 12.0001, 12.9999, 19.5001, 14.4999, 20.5001, 11.4999 )
 
 [node name="AttackSpeed" type="Timer" parent="."]
 wait_time = 0.599
 autostart = true
 
+[node name="Bite" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -3.852
+
+[node name="NormalShot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 12.235
+
+[node name="headshot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = 14.857
+
+[connection signal="body_entered" from="Head" to="." method="_on_Head_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]

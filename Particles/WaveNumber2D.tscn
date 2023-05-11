@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Font/RussoOne-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Particles/WaveNumber2D.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "waveAnimation"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "waveFadeIn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 0 ) ]
+}
+
+[node name="WaveNumber2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="wave" type="Label" parent="."]
+margin_right = 54.0
+margin_bottom = 61.0
+theme = SubResource( 2 )
+text = "12"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../wave")
+playback_speed = 0.5
+anims/waveAnimation = SubResource( 3 )
+anims/waveFadeIn = SubResource( 4 )
+
+[node name="animation_finished" type="Timer" parent="."]
+
+[connection signal="timeout" from="animation_finished" to="." method="_on_animation_finished_timeout"]

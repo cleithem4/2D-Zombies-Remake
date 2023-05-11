@@ -1,9 +1,9 @@
 extends Node2D
 
-onready var current_weapon = $Pistol
+onready var current_weapon = $RPD
 onready var AK47 = load("res://Weapons/AK47.tscn")
 onready var PISTOL = load("res://Weapons/Pistol.tscn")
-
+onready var RPD = load("res://Weapons/RPD.tscn")
 var new_gun
 var weapon_being_switched
 var weapons = []
@@ -45,21 +45,12 @@ func shoot():
 	current_weapon.shoot()
 
 func get_instance_of_ai_gun():
-	if Global.closest_ai.current_weapon.getGunName() == "Pistol":
-		return PISTOL
-	elif Global.closest_ai.current_weapon.getGunName() == "AK47":
-		return AK47
+	return returnWeaponInstance(Global.closest_ai.current_weapon)
 func get_instance_of_player_gun():
 	if not Global.tom_ai:
-		if Global.tom_weapon.getGunName() == "Pistol":
-			return PISTOL
-		if Global.tom_weapon.getGunName() == "AK47":
-			return AK47
+		return returnWeaponInstance(Global.tom_weapon)
 	elif not Global.jay_ai:
-		if Global.jay_weapon.getGunName() == "Pistol":
-			return PISTOL
-		if Global.jay_weapon.getGunName() == "AK47":
-			return AK47
+		return returnWeaponInstance(Global.jay_weapon)
 
 #Without this function, game will crash because the gun that is trying to be accessed is changed before
 #The character switches his gun, resulting in both characters having the same gun. This script ensures 
@@ -69,10 +60,7 @@ func FindLostGun():
 	for gun in Global.temp_switch_guns:
 		if is_instance_valid(gun):
 			if current_weapon.getGunName() != gun.getGunName():
-				if gun.getGunName() == "Pistol":
-					lostGun = PISTOL
-				elif gun.getGunName() == "AK47":
-					lostGun = AK47
+				lostGun = returnWeaponInstance(gun)
 	if lostGun != null:
 		new_gun = Global.instance_node(lostGun,global_position,self)
 
@@ -82,9 +70,18 @@ func findGunPosition():
 		position = pistol_position
 	elif current_weapon.getGunName() == "AK47":
 		position = ak_position
+	elif current_weapon.getGunName()=="RPD":
+		position = ak_position
 func refreshWeapons():
 	weapons = get_children()
 	for gun in weapons:
 		if gun.getGunName() != current_weapon.getGunName():
 			gun.queue_free()
 			weapons.erase(gun)
+func returnWeaponInstance(weapon):
+	if weapon.getGunName() == "Pistol":
+		return PISTOL
+	elif weapon.getGunName() == "AK47":
+		return AK47
+	elif weapon.getGunName() == "RPD":
+		return RPD

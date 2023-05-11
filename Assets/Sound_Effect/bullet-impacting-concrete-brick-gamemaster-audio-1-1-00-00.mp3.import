@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bullet-impacting-concrete-brick-gamemaster-audio-1-1-00-00.mp3-e7d0125868635ecbc5226db8ae864c4e.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/bullet-impacting-concrete-brick-gamemaster-audio-1-1-00-00.mp3"
+dest_files=[ "res://.import/bullet-impacting-concrete-brick-gamemaster-audio-1-1-00-00.mp3-e7d0125868635ecbc5226db8ae864c4e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

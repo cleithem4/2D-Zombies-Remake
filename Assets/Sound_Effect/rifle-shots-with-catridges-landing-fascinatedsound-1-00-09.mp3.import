@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/rifle-shots-with-catridges-landing-fascinatedsound-1-00-09.mp3-97f593ad7f7f41494656eba0ebde2b74.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/rifle-shots-with-catridges-landing-fascinatedsound-1-00-09.mp3"
+dest_files=[ "res://.import/rifle-shots-with-catridges-landing-fascinatedsound-1-00-09.mp3-97f593ad7f7f41494656eba0ebde2b74.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

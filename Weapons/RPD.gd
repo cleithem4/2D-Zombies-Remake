@@ -1,10 +1,10 @@
 extends Node2D
 
-var current_clip = 12
-var clip_size = 12
+var current_clip = 100
+var clip_size = 100
 var ROF = true
 var reloading = false
-onready var Bullet = load("res://Bullet/PistolBullet.tscn")
+onready var Bullet = load("res://Bullet/Bullet.tscn")
 onready var end_of_gun = $end_of_gun
 var AI
 func _ready():
@@ -14,9 +14,9 @@ func _ready():
 
 
 func fullAuto():
-	return false
+	return true
 func getGunName():
-	return "Pistol"
+	return "RPD"
 
 
 func _physics_process(delta):
@@ -44,14 +44,13 @@ func _on_Reload_timeout():
 func shoot():
 	if reloading:
 		return
-	if not ROF and AI:
+	if not ROF:
 		return
 	current_clip -= 1
 	if current_clip < 1:
 		reload()
-	if AI:
-		ROF = false
-		$ROF.start()
+	ROF = false
+	$ROF.start()
 
 		
 	if not AI:

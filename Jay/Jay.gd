@@ -17,7 +17,7 @@ var stop_distance = 150
 var enemy_array = []
 var enemy = null
 var able_to_shoot = false
-var ROF = true
+
 
 #Player
 var ai_array = []
@@ -34,12 +34,15 @@ func get_two_handed_weapon():
 		two_handed_weapon = true
 	elif Global.jay_weapon.getGunName() == "Pistol":
 		two_handed_weapon = false
+	elif Global.tom_weapon.getGunName() == "RPD":
+		two_handed_weapon = true
 func get_ai_name():
 	return "Jay"
 func reloading():
 	reloading = true
 func finished_reloading():
 	reloading = false
+	$reload.play()
 func getAI():
 	return AI
 

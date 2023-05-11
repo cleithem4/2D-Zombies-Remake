@@ -2,6 +2,7 @@ extends Node2D
 
 onready var zombie_scene = load("res://EnemyType1/EnemyType1.tscn")
 onready var player = get_node_or_null("/root/GameScene/CharacterSelection/Player")
+onready var HUD = get_node("/root/GameScene/CanvasLayer/HUD")
 
 const MAX_ZOMBIES_SPAWNED = 10
 const ZOMBIE_HEALTH = 10
@@ -21,9 +22,9 @@ var zombies_spawned = 0
 var zombies_killed = 0
 var able_to_spawn = true
 var able_to_start_wave = false
+var zombies_alive = []
 
 func _ready():
-	print(player.get_path())
 	randomize()
 
 
@@ -36,10 +37,12 @@ func spawn_wave():
 func start_wave():
 	if able_to_start_wave:
 		spawn_wave()
-func on_zombie_killed():
-	zombies_killed += 1
-	if zombies_killed == amount_of_zombies_on_current_wave:
+func on_zombie_killed(zombie):
+	zombies_alive.erase(zombie)
+	print("zombies alive = " + str(zombies_alive.size()))
+	if zombies_alive.size() == 0:
 		wave_number += 1
+		HUD.update_wave(wave_number)
 		Global.wave = wave_number
 		calculateAmountOfZombies()
 		print("Amount of zombies on this wave: " + str(amount_of_zombies_on_current_wave))
@@ -67,12 +70,13 @@ func spawn_zombie():
 	zombie.scale = Vector2(2,2)
 	zombie.speed = 100
 
-	var collision_shape = zombie.find_node("CollisionShape2D")
-	if not collision_shape:
-		print("Zombie does not have a CollisionShape2D node")
+	var collision_polygon = zombie.find_node("CollisionPolygon2D")
+	if not collision_polygon:
+		print("Zombie does not have a CollisionPolygon2D node")
 		return
 
-	var collision = check_collision(collision_shape.shape, zombie_transform)
+	var collision = check_collision(collision_polygon, zombie_transform)
+
 
 	if collision:
 		print("Zombie spawn point inside wall, retrying...")
@@ -82,19 +86,26 @@ func spawn_zombie():
 	zombie.speed = current_zombie_speed
 	zombie.health = current_zombie_health
 	add_child(zombie)
+	zombies_alive.append(zombie)
 	zombies_spawned += 1
 	able_to_spawn = false
 	$SpawnCooldown.start()
 	
 
-func check_collision(shape, transform):
+func check_collision(collision_polygon, transform):
 	var space_state = get_world_2d().direct_space_state
 	var shape_query_parameters = Physics2DShapeQueryParameters.new()
-	shape_query_parameters.set_shape(shape)
+	
+	# Create a ConvexPolygonShape2D from the CollisionPolygon2D points
+	var convex_shape = ConvexPolygonShape2D.new()
+	convex_shape.set_points(collision_polygon.polygon)
+	
+	shape_query_parameters.set_shape(convex_shape)
 	shape_query_parameters.set_transform(transform)  # Adjust this to match the layer you want to check for collisions
 	shape_query_parameters.set_exclude([self])
 	var result = space_state.intersect_shape(shape_query_parameters)
 	return result.size() > 0
+
 
 
 func calculateAmountOfZombies():

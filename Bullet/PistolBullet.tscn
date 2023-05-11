@@ -1,32 +1,31 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Assets/bullet.png" type="Texture" id=1]
-[ext_resource path="res://Bullet/Bullet.gd" type="Script" id=2]
+[ext_resource path="res://Assets/CharacterSprite/pistol_bullet.png" type="Texture" id=1]
+[ext_resource path="res://Bullet/PistolBullet.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 2.0
-height = 18.0
+height = 8.0
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 1.0
-
-[node name="Bullet" type="KinematicBody2D" groups=["Bullet", "bullet"]]
-collision_layer = 0
-collision_mask = 0
+[node name="PistolBullet" type="KinematicBody2D"]
+scale = Vector2( 1.4, 1.4 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -2 )
 rotation = 3.14159
-scale = Vector2( 0.04, 0.04 )
+scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -1 )
 shape = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 2 )
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -1 )
+shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 

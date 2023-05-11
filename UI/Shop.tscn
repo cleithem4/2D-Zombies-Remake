@@ -59,7 +59,7 @@ margin_top = 196.0
 margin_right = 9.5
 margin_bottom = 35.2
 custom_styles/normal = SubResource( 1 )
-text = "$1500"
+text = "$5000"
 
 [node name="Bullet" type="TextureRect" parent="."]
 margin_left = 650.0

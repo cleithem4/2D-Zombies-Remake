@@ -16,7 +16,7 @@ var too_close_distance = 80
 var enemy_array = []
 var enemy = null
 var able_to_shoot = false
-var ROF = true
+
 
 #Player
 var ai_array = []
@@ -49,9 +49,13 @@ func get_two_handed_weapon():
 		two_handed_weapon = true
 	elif Global.tom_weapon.getGunName() == "Pistol":
 		two_handed_weapon = false
+	elif Global.tom_weapon.getGunName() == "RPD":
+		$AnimatedSprite.speed_scale = 0.5
+		two_handed_weapon = true
 func reloading():
 	reloading = true
 func finished_reloading():
+	$reload.play()
 	reloading = false
 func getAI():
 	return AI

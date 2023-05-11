@@ -55,12 +55,12 @@ margin_bottom = 29.12
 color = Color( 0.45098, 0, 0, 1 )
 
 [node name="Score" type="Label" parent="."]
-margin_left = 870.0
-margin_top = 24.0
-margin_right = 944.0
-margin_bottom = 38.0
+margin_left = 1043.0
+margin_top = 18.0
+margin_right = 1117.0
+margin_bottom = 79.0
 theme = SubResource( 4 )
-text = "Score: 0"
+text = "$0"
 
 [node name="Clip" type="Label" parent="."]
 anchor_right = 2.3
@@ -80,4 +80,4 @@ margin_top = 734.0
 margin_right = 255.0
 margin_bottom = 647.52
 theme = SubResource( 8 )
-text = "Wave: 1"
+text = "1"

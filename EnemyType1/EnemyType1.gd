@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export var speed = 300
 export var health = 10
-
+onready var HUD = get_node("/root/GameScene/CanvasLayer/HUD")
 var motion = Vector2.ZERO
 var attackDmg = 10
 var able_to_attack = true
@@ -10,6 +10,7 @@ onready var Blood = load("res://Particles/Blood.tscn")
 var in_attack_range = []
 var target = []
 var closest_target = null
+var headshot = false
 #Process the game 
 func _physics_process(_delta):
 	motion = Vector2.ZERO
@@ -32,9 +33,15 @@ func _on_Area2D_body_entered(body):
 		$AnimatedSprite.play("Walk")
 
 #Zombie dies if health <= 0
-func damage(dmg):
-	health -= dmg
-	Global.score += 5
+func damage(dmg,is_headshot):
+	if is_headshot:
+		health -= dmg * 2
+		HUD.update_score(10)
+		$headshot.play()
+	else:
+		health -= dmg
+		HUD.update_score(5)
+		$NormalShot.play()
 	
 	#adds blood to zombie each time they get shot
 	var blood = Blood.instance()
@@ -43,13 +50,13 @@ func damage(dmg):
 	
 	
 	if health <= 0:
-		Global.score += 30
-		get_parent().on_zombie_killed()
+		HUD.update_score(30)
+		get_parent().on_zombie_killed(self)
 		queue_free()
 
 func _on_AttackRange_body_entered(body):
 	if body.has_method("damage") and body.is_in_group("Player"):
-		$CollisionShape2D/Bite.play()
+		$Bite.play()
 		in_attack_range.append(body)
 
 
@@ -72,3 +79,7 @@ func select_target():
 		if distance < closest_distance:
 			closest_target = e
 			closest_distance = distance
+
+
+func _on_Head_body_entered(body):
+	pass

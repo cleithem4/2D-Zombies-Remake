@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/RPD_sound.mp3-8ea9fcb1807bc78675dde2892cfecb72.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/RPD_sound.mp3"
+dest_files=[ "res://.import/RPD_sound.mp3-8ea9fcb1807bc78675dde2892cfecb72.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

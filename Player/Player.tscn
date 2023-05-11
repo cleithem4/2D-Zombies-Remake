@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CharacterSprite/IMG_1814.PNG" type="Texture" id=2]
@@ -6,10 +6,11 @@
 [ext_resource path="res://Assets/CharacterSprite/IMG_1815.PNG" type="Texture" id=4]
 [ext_resource path="res://Assets/Sound_Effect/Rifle_Single_Shot.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Assets/CharacterSprite/reload_animation.png" type="Texture" id=6]
-[ext_resource path="res://Weapons/Pistol.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Weapons/RPD.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Player/WeaponManager.gd" type="Script" id=8]
 [ext_resource path="res://Assets/CharacterSprite/tom_ak47.png" type="Texture" id=9]
 [ext_resource path="res://Assets/CharacterSprite/tom_ak_reload.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sound_Effect/gun-magazine-reload-fascinatedsound-1-1-00-01.mp3" type="AudioStream" id=11]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
@@ -181,7 +182,8 @@ script = ExtResource( 1 )
 rotation = 1.5708
 frames = SubResource( 3 )
 animation = "ReloadAK"
-frame = 3
+frame = 7
+speed_scale = 0.5
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -212,10 +214,14 @@ position = Vector2( 6, 7 )
 rotation = 1.5708
 script = ExtResource( 8 )
 
-[node name="Pistol" parent="WeaponManager" instance=ExtResource( 7 )]
+[node name="RPD" parent="WeaponManager" instance=ExtResource( 7 )]
 
 [node name="RegenHealth" type="Timer" parent="."]
 wait_time = 0.015
+
+[node name="reload" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = 10.487
 
 [connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]
 [connection signal="body_exited" from="shootRadius" to="." method="_on_shootRadius_body_exited"]

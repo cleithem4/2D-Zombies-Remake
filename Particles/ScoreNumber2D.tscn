@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Font/RussoOne-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Particles/ScoreNumber2D.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "scorePopup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ScorePopUp:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ScorePopUp:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1043, 68 ), Vector2( 1043, 120 ) ]
+}
+
+[node name="ScoreNumber2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ScorePopUp" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 1043.0
+margin_top = 120.0
+margin_right = 1116.0
+margin_bottom = 223.0
+theme = SubResource( 2 )
+text = "+30
+"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/scorePopup = SubResource( 3 )

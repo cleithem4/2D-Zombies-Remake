@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bullet-impacting-snow-gamemaster-audio-4-4-00-00.mp3-720eac3c2b41ae3414b2d231fa95364a.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/bullet-impacting-snow-gamemaster-audio-4-4-00-00.mp3"
+dest_files=[ "res://.import/bullet-impacting-snow-gamemaster-audio-4-4-00-00.mp3-720eac3c2b41ae3414b2d231fa95364a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

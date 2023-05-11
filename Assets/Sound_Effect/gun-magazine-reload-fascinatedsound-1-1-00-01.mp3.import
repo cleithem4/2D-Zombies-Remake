@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/gun-magazine-reload-fascinatedsound-1-1-00-01.mp3-a932ea5d4be7d875f9712ab68137e4da.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/gun-magazine-reload-fascinatedsound-1-1-00-01.mp3"
+dest_files=[ "res://.import/gun-magazine-reload-fascinatedsound-1-1-00-01.mp3-a932ea5d4be7d875f9712ab68137e4da.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

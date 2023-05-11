@@ -69,3 +69,5 @@ func refresh_ai():
 			Global.jay_ai = false
 			Global.tom_ai = true
 			Global.freeroam_camera_ai = true
+func update_score(score):
+	self.score += score
