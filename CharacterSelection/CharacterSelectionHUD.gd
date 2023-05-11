@@ -5,7 +5,7 @@ func _ready():
 	hide()
 	
 func _physics_process(delta):
-	if Global.character_selection_mode:
+	if Global.freeroam:
 		show()
 	else:
 		hide()

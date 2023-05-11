@@ -23,14 +23,14 @@ var able_to_spawn = true
 var able_to_start_wave = false
 
 func _ready():
+	print(player.get_path())
 	randomize()
-	print("Player at start:", player)
+
 
 
 func spawn_wave():
 	if zombies_spawned < amount_of_zombies_on_current_wave and able_to_spawn:
 		spawn_zombie()
-		print("Zombies spawned: " + str(zombies_spawned))
 
 
 func start_wave():
@@ -38,11 +38,9 @@ func start_wave():
 		spawn_wave()
 func on_zombie_killed():
 	zombies_killed += 1
-	print("zombies killed: " + str(zombies_killed))
 	if zombies_killed == amount_of_zombies_on_current_wave:
 		wave_number += 1
 		Global.wave = wave_number
-		print("Wave: " + str(wave_number))
 		calculateAmountOfZombies()
 		print("Amount of zombies on this wave: " + str(amount_of_zombies_on_current_wave))
 		zombies_spawned = 0
@@ -52,6 +50,7 @@ func on_zombie_killed():
 
 
 func spawn_zombie():
+	player = Global.current_player
 	if player == null:
 		print("Player node not found in the scene tree.")
 		return

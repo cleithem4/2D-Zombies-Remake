@@ -1,16 +1,24 @@
 extends Node
 
+
+
+
 var health = 100
 var score = 0
 var wave = 1
 var build_mode = false
-var character_selection_mode = false
 var object = null
 var current_clip = 0
 var clip_size = 0
+
+
 var jay_ai = true
 var tom_ai = false
-var all_ai = [jay_ai,tom_ai]
+var freeroam_camera_ai = true
+var freeroam = false
+var all_ai = []
+var freeroam_selected_player = null
+var current_player = null
 
 var switch_weapon_jay = false
 var switch_weapon_tom = false
@@ -26,8 +34,14 @@ var tom_weapon = null
 var temp_switch_guns = []
 
 
+var starting_player_initialized = false
+
+
+
 func _ready():
 	pass
+
+
 func _physics_process(delta):
 	if not switch_weapon_jay and not switch_weapon_tom and not temp_switch_guns_cleared:
 		temp_switch_guns.clear()
@@ -39,3 +53,19 @@ func instance_node(node,location,parent):
 	parent.add_child(node_instance)
 	node_instance.global_position = location
 	return node_instance
+
+func get_current_player():
+	for p in all_ai:
+		if not p.getAI():
+			print("the player is " + p.get_ai_name())
+			current_player = p
+			return
+func refresh_ai():
+	if Global.current_player.get_ai_name()=="Tom":
+		Global.tom_ai = false
+		Global.jay_ai = true
+		Global.freeroam_camera_ai = true
+	elif Global.current_player.get_ai_name()=="Jay":
+			Global.jay_ai = false
+			Global.tom_ai = true
+			Global.freeroam_camera_ai = true

@@ -17,6 +17,8 @@ func _physics_process(_delta):
 			hide()
 		else:
 			show()
+	if Input.is_action_just_pressed("character_selection"):
+		Global.freeroam = true
 
 
 

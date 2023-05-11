@@ -5,13 +5,14 @@ export var health = 100
 var velocity = Vector2.ZERO
 var reloading = false
 onready var Bullet = load("res://Bullet/Bullet.tscn")
-onready var Player = get_node("/root/GameScene/CharacterSelection/Player")
+onready var player = get_node("/root/GameScene/CharacterSelection/Player")
 onready var WeaponManager = $WeaponManager
 var current_weapon = null
 var two_handed_weapon = false
 
 #AI
 var AI = false
+var too_close_distance = 80
 var stop_distance = 150
 var enemy_array = []
 var enemy = null
@@ -39,13 +40,15 @@ func reloading():
 	reloading = true
 func finished_reloading():
 	reloading = false
-
+func getAI():
+	return AI
 
 
 
 
 #Process the game
 func _physics_process(_delta):
+	player = Global.current_player
 	current_weapon = Global.jay_weapon
 	AI = Global.jay_ai
 	if AI:
@@ -55,6 +58,8 @@ func _physics_process(_delta):
 		
 #AI FUNCTION
 func AI():
+	regenerateHealth()
+
 	$Camera2D.current = false
 	get_two_handed_weapon()
 	
@@ -63,11 +68,19 @@ func AI():
 			$AnimatedSprite.play("ReloadPistol")
 		else:
 			$AnimatedSprite.play("Reload")
-	if Player:
-		var direction = Player.position - position
+	if player:
+		var direction = player.position - position
 		var distance = direction.length()
 		if distance > stop_distance:
 			velocity = direction.normalized() * speed
+			move_and_slide(velocity)
+			if not reloading:
+				if not two_handed_weapon:
+					$AnimatedSprite.play("WalkPistol")
+				else:
+					$AnimatedSprite.play("Walk")
+		elif too_close_distance > distance:
+			velocity = -1 * direction.normalized() * speed
 			move_and_slide(velocity)
 			if not reloading:
 				if not two_handed_weapon:
@@ -106,6 +119,8 @@ func player():
 
 #PLAYER FUNCTION
 func get_input():
+	if AI:
+		return
 	rotation = get_global_mouse_position().angle_to_point(position)
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	velocity = input_direction * speed

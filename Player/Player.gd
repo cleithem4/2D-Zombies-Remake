@@ -10,8 +10,9 @@ var two_handed_weapon = false
 
 #AI
 var AI = true
-onready var Player = get_node("/root/GameScene/CharacterSelection/Jay")
+onready var player = get_node("/root/GameScene/CharacterSelection/Jay")
 var stop_distance = 150
+var too_close_distance = 80
 var enemy_array = []
 var enemy = null
 var able_to_shoot = false
@@ -26,12 +27,12 @@ var regen_health = true
 func _ready():
 	AI = Global.tom_ai
 	current_weapon = Global.tom_weapon
-	print(current_weapon)
 	get_two_handed_weapon()
-	print(two_handed_weapon)
+
 
 #Process the game
 func _physics_process(_delta):
+	player = Global.current_player
 	current_weapon = Global.tom_weapon
 	AI = Global.tom_ai
 	
@@ -42,7 +43,7 @@ func _physics_process(_delta):
 		
 	
 func get_ai_name():
-	return "Player"
+	return "Tom"
 func get_two_handed_weapon():
 	if Global.tom_weapon.getGunName() == "AK47":
 		two_handed_weapon = true
@@ -52,9 +53,15 @@ func reloading():
 	reloading = true
 func finished_reloading():
 	reloading = false
+func getAI():
+	return AI
+	
+
+
 
 #AI FUNCTION
 func AI():
+	regenerateHealth()
 	$Camera2D.current = false
 	get_two_handed_weapon()
 	if reloading:
@@ -62,11 +69,19 @@ func AI():
 			$AnimatedSprite.play("ReloadAK")
 		else:
 			$AnimatedSprite.play("Reload")
-	if Player:
-		var direction = Player.position - position
+	if player:
+		var direction = player.position - position
 		var distance = direction.length()
 		if distance > stop_distance:
 			velocity = direction.normalized() * speed
+			move_and_slide(velocity)
+			if not reloading:
+				if two_handed_weapon:
+					$AnimatedSprite.play("WalkAK")
+				else:
+					$AnimatedSprite.play("Walk")
+		elif too_close_distance > distance:
+			velocity = -1 * direction.normalized() * speed
 			move_and_slide(velocity)
 			if not reloading:
 				if two_handed_weapon:
@@ -147,7 +162,6 @@ func player():
 	else:
 		closest_ai = null
 		Global.closest_ai = closest_ai
-
 	
 	$Camera2D.current = true
 #PLAYER FUNCTION

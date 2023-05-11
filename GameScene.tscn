@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://UI/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://Jay/Jay.tscn" type="PackedScene" id=13]
 [ext_resource path="res://UI/SwitchWeapons.tscn" type="PackedScene" id=14]
 [ext_resource path="res://CharacterSelection/CharacterSelection.tscn" type="PackedScene" id=15]
+[ext_resource path="res://FreeRoam/FreeRoamCamera.tscn" type="PackedScene" id=16]
+[ext_resource path="res://CharacterSelection/CharacterSelectionHUD.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Environment" id=1]
 tonemap_mode = 1
@@ -61,6 +63,8 @@ scale = Vector2( 2, 2 )
 [node name="Jay" parent="CharacterSelection" instance=ExtResource( 13 )]
 position = Vector2( 1000, 1000 )
 
+[node name="FreeRoamCamera" parent="CharacterSelection" instance=ExtResource( 16 )]
+
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
@@ -89,6 +93,8 @@ margin_right = 25.0
 margin_bottom = -23.0
 
 [node name="BuildModeHUD" parent="CanvasLayer" instance=ExtResource( 10 )]
+
+[node name="CharacterSelectionHUD" parent="CanvasLayer" instance=ExtResource( 17 )]
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource( 1 )]
 visible = false

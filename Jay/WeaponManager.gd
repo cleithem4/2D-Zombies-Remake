@@ -53,12 +53,9 @@ func get_instance_of_ai_gun():
 		return AK47
 func get_instance_of_player_gun():
 	if not Global.tom_ai:
-		print("Player is AI")
 		if Global.tom_weapon.getGunName() == "Pistol":
-			print("Player has pistol")
 			return PISTOL
 		if Global.tom_weapon.getGunName() == "AK47":
-			print("Player has AK")
 			return AK47
 	elif not Global.jay_ai:
 		if Global.jay_weapon.getGunName() == "Pistol":
@@ -68,7 +65,6 @@ func get_instance_of_player_gun():
 			
 
 func FindLostGun():
-
 	var lostGun = null
 	for gun in Global.temp_switch_guns:
 		if is_instance_valid(gun):
