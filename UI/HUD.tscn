@@ -75,9 +75,9 @@ text = "0/0"
 [node name="Wave" type="Label" parent="."]
 anchor_right = 0.5
 anchor_bottom = 3.687
-margin_left = 90.0
-margin_top = 734.0
-margin_right = 255.0
-margin_bottom = 647.52
+margin_left = 168.0
+margin_top = 732.0
+margin_right = 333.0
+margin_bottom = 645.52
 theme = SubResource( 8 )
 text = "1"

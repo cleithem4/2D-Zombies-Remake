@@ -42,9 +42,9 @@ script = ExtResource( 2 )
 
 [node name="ScorePopUp" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 1043.0
+margin_left = 1100.0
 margin_top = 120.0
-margin_right = 1116.0
+margin_right = 1173.0
 margin_bottom = 223.0
 theme = SubResource( 2 )
 text = "+30

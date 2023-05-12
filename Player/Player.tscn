@@ -182,8 +182,7 @@ script = ExtResource( 1 )
 rotation = 1.5708
 frames = SubResource( 3 )
 animation = "ReloadAK"
-frame = 7
-speed_scale = 0.5
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
