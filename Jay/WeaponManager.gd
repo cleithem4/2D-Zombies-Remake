@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var current_weapon = $Custom_SMG
+onready var current_weapon = $Pistol
 onready var AK47 = load("res://Weapons/AK47.tscn")
 onready var PISTOL = load("res://Weapons/Pistol.tscn")
 onready var RPD = load("res://Weapons/RPD.tscn")

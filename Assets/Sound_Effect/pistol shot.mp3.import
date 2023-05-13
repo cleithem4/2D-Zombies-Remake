@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/pistol shot.mp3-7e7ad0512a76b4e8f34c1f32aa07a4d1.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/pistol shot.mp3"
+dest_files=[ "res://.import/pistol shot.mp3-7e7ad0512a76b4e8f34c1f32aa07a4d1.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

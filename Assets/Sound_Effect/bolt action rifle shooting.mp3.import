@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bolt action rifle shooting.mp3-b3c55891ba206378d4d5ba6a1c45a9d2.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/bolt action rifle shooting.mp3"
+dest_files=[ "res://.import/bolt action rifle shooting.mp3-b3c55891ba206378d4d5ba6a1c45a9d2.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

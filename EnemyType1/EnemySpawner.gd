@@ -17,7 +17,7 @@ var current_zombie_speed = 0
 
 var amount_of_zombies_on_current_wave = 10
 
-var wave_number = 1
+var wave_number = 25
 var zombies_spawned = 0
 var zombies_killed = 0
 var able_to_spawn = true

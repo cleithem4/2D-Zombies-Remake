@@ -52,7 +52,9 @@ func shoot():
 		reload()
 	ROF = false
 	$ROF.start()
-
+	$muzzle_flash.show()
+	$muzzle_flash.play("flash")
+	$muzzleFlash.start()
 		
 	if not AI:
 		$AudioStreamPlayer.play()
@@ -88,3 +90,7 @@ func shoot():
 func _on_ROF_timeout():
 	$ROF.stop()
 	ROF = true
+
+
+func _on_muzzleFlash_timeout():
+	$muzzle_flash.hide()

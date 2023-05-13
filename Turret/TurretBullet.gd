@@ -18,7 +18,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 func _on_Area2D_body_entered(body):
 	if body.has_method("damage") and body.is_in_group("Enemy"):
-		body.damage(damage,false)
+		body.damage(damage,false,Vector2(10,10))
 		#Queue free so bullet disappear
 		queue_free()
 

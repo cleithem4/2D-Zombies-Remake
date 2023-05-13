@@ -87,7 +87,6 @@ volume_db = 12.235
 stream = ExtResource( 3 )
 volume_db = 14.857
 
-[connection signal="body_entered" from="Head" to="." method="_on_Head_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]

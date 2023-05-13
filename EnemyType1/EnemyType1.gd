@@ -33,7 +33,7 @@ func _on_Area2D_body_entered(body):
 		$AnimatedSprite.play("Walk")
 
 #Zombie dies if health <= 0
-func damage(dmg,is_headshot):
+func damage(dmg,is_headshot,direction):
 	if is_headshot:
 		health -= dmg * 2
 		HUD.update_score(10)
@@ -47,7 +47,7 @@ func damage(dmg,is_headshot):
 	var blood = Blood.instance()
 	get_tree().current_scene.add_child(blood)
 	blood.global_position = global_position
-	
+	blood.global_rotation = direction.angle()
 	
 	if health <= 0:
 		HUD.update_score(30)
@@ -80,6 +80,3 @@ func select_target():
 			closest_target = e
 			closest_distance = distance
 
-
-func _on_Head_body_entered(body):
-	pass
