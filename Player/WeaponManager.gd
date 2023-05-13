@@ -4,12 +4,21 @@ onready var current_weapon = $RPD
 onready var AK47 = load("res://Weapons/AK47.tscn")
 onready var PISTOL = load("res://Weapons/Pistol.tscn")
 onready var RPD = load("res://Weapons/RPD.tscn")
+onready var CUSTOM = load("res://Weapons/Custom_SMG.tscn")
+
+
 var new_gun
 var weapon_being_switched
 var weapons = []
+var weapon_being_switched_clip = 0
+
+
 var parent = null
 var pistol_position = Vector2(15,9)
 var ak_position = Vector2(6,7)
+
+
+
 
 func _ready():
 	Global.tom_weapon = current_weapon
@@ -18,14 +27,17 @@ func _physics_process(delta):
 	if Global.switch_weapon_tom:
 		if Global.tom_ai:
 			weapon_being_switched = get_instance_of_player_gun()
+			weapon_being_switched_clip = Global.current_player.current_weapon.current_clip
 		else:
 			weapon_being_switched = get_instance_of_ai_gun()
+			weapon_being_switched_clip = Global.closest_ai.current_weapon.current_clip
 		new_gun = Global.instance_node(weapon_being_switched,global_position,self)
 		Global.temp_switch_guns.append(current_weapon)
 		if new_gun.getGunName() == current_weapon.getGunName():
 			FindLostGun()
 		current_weapon.queue_free()
 		Global.tom_weapon = new_gun
+		Global.tom_weapon.current_clip = weapon_being_switched_clip
 		current_weapon = new_gun
 		Global.switch_weapon_tom = false
 		Global.temp_switch_guns_cleared = true
@@ -72,6 +84,8 @@ func findGunPosition():
 		position = ak_position
 	elif current_weapon.getGunName()=="RPD":
 		position = ak_position
+	elif current_weapon.getGunName() == "Custom SMG":
+		position = pistol_position
 func refreshWeapons():
 	weapons = get_children()
 	for gun in weapons:
@@ -85,3 +99,6 @@ func returnWeaponInstance(weapon):
 		return AK47
 	elif weapon.getGunName() == "RPD":
 		return RPD
+	elif weapon.getGunName() == "Custom SMG":
+		return CUSTOM
+

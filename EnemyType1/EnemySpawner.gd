@@ -8,7 +8,7 @@ const MAX_ZOMBIES_SPAWNED = 10
 const ZOMBIE_HEALTH = 10
 const ZOMBIE_SPEED = 120
 const MAX_ZOMBIE_SPEED = 280
-const MIN_ZOMBIE_SPEED = 100
+const MIN_ZOMBIE_SPEED = 150
 
 var current_zombie_health = 0
 var current_zombie_speed = 0
@@ -67,8 +67,8 @@ func spawn_zombie():
 	var zombie = zombie_scene.instance()
 	var zombie_transform = Transform2D(0, zombie_pos)
 	zombie.set_transform(zombie_transform)
-	zombie.scale = Vector2(2,2)
-	zombie.speed = 100
+	zombie.scale = Vector2(1.7,1.7)
+	zombie.speed = 150
 
 	var collision_polygon = zombie.find_node("CollisionPolygon2D")
 	if not collision_polygon:
@@ -114,7 +114,7 @@ func calculateAmountOfZombies():
 
 func get_zombie_stats():
 	current_zombie_health = ZOMBIE_HEALTH + Global.wave
-	current_zombie_speed = rand_range(MIN_ZOMBIE_SPEED,100 + Global.wave * 5)
+	current_zombie_speed = rand_range(MIN_ZOMBIE_SPEED,150 + Global.wave * 5)
 	current_zombie_speed = min(current_zombie_speed,MAX_ZOMBIE_SPEED)
 
 func _on_SpawnCooldown_timeout():

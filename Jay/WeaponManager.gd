@@ -1,12 +1,13 @@
 extends Node2D
 
-onready var current_weapon = $AK47
+onready var current_weapon = $Custom_SMG
 onready var AK47 = load("res://Weapons/AK47.tscn")
 onready var PISTOL = load("res://Weapons/Pistol.tscn")
 onready var RPD = load("res://Weapons/RPD.tscn")
-
+onready var CUSTOM = load("res://Weapons/Custom_SMG.tscn")
 
 var weapons = []
+var weapon_being_switched_clip = 0
 var parent = null
 var weapon_being_switched
 var new_gun
@@ -20,14 +21,17 @@ func _physics_process(delta):
 	if Global.switch_weapon_jay:
 		if Global.jay_ai:
 			weapon_being_switched = get_instance_of_player_gun()
+			weapon_being_switched_clip = Global.current_player.current_weapon.current_clip
 		else:
 			weapon_being_switched = get_instance_of_ai_gun()
+			weapon_being_switched_clip = Global.closest_ai.current_weapon.current_clip
 		new_gun = Global.instance_node(weapon_being_switched,global_position,self)
 		Global.temp_switch_guns.append(current_weapon)
 		if new_gun.getGunName() == current_weapon.getGunName():
 			FindLostGun()
 		current_weapon.queue_free()
 		Global.jay_weapon = new_gun
+		Global.jay_weapon.current_clip = weapon_being_switched_clip
 		current_weapon = new_gun
 		Global.switch_weapon_jay = false
 		Global.temp_switch_guns_cleared = true
@@ -71,6 +75,8 @@ func findGunPosition():
 		position = ak_position
 	elif current_weapon.getGunName()=="RPD":
 		position = ak_position
+	elif current_weapon.getGunName() == "Custom SMG":
+		position = pistol_position
 func refreshWeapons():
 	weapons = get_children()
 	for gun in weapons:
@@ -85,3 +91,5 @@ func returnWeaponInstance(weapon):
 		return AK47
 	elif weapon.getGunName() == "RPD":
 		return RPD
+	elif weapon.getGunName() == "Custom SMG":
+		return CUSTOM

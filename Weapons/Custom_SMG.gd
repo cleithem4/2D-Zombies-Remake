@@ -1,12 +1,13 @@
 extends Node2D
 
-var current_clip = 100
-var clip_size = 100
+var current_clip = 24
+var clip_size = 24
 var ROF = true
 var reloading = false
-onready var Bullet = load("res://Bullet/RPD_Bullet.tscn")
-onready var end_of_gun = $end_of_gun
 var AI
+onready var Bullet = load("res://Bullet/PistolBullet.tscn")
+onready var end_of_gun = $end_of_gun
+
 func _ready():
 	AI = get_parent().get_parent().AI
 	
@@ -16,7 +17,7 @@ func _ready():
 func fullAuto():
 	return true
 func getGunName():
-	return "RPD"
+	return "Custom SMG"
 
 
 func _physics_process(delta):
@@ -81,8 +82,9 @@ func shoot():
 		bullet.set_direction(direction_to_mouse)
 		bullet.global_rotation = direction_to_mouse.angle() + 12345
 		get_tree().get_current_scene().add_child(bullet)
+	
 
 
 func _on_ROF_timeout():
-	ROF = true
 	$ROF.stop()
+	ROF = true

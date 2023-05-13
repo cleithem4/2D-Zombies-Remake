@@ -6,7 +6,7 @@
 [ext_resource path="res://Jay/WeaponManager.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Jay/jay_pistol_reload.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Jay/jay_pistol.png" type="Texture" id=6]
-[ext_resource path="res://Weapons/AK47.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Weapons/Custom_SMG.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Sound_Effect/gun-magazine-reload-fascinatedsound-1-1-00-01.mp3" type="AudioStream" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -179,7 +179,7 @@ script = ExtResource( 2 )
 rotation = 1.5708
 frames = SubResource( 4 )
 animation = "Reload"
-frame = 11
+frame = 12
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -197,7 +197,7 @@ position = Vector2( 15, 7 )
 rotation = 1.5708
 script = ExtResource( 4 )
 
-[node name="AK47" parent="WeaponManager" instance=ExtResource( 7 )]
+[node name="Custom_SMG" parent="WeaponManager" instance=ExtResource( 7 )]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

@@ -36,9 +36,12 @@ func get_two_handed_weapon():
 	elif Global.jay_weapon.getGunName() == "Pistol":
 		$AnimatedSprite.speed_scale = 1
 		two_handed_weapon = false
-	elif Global.tom_weapon.getGunName() == "RPD":
+	elif Global.jay_weapon.getGunName() == "RPD":
 		$AnimatedSprite.speed_scale = 0.5
 		two_handed_weapon = true
+	elif Global.jay_weapon.getGunName() == "Custom SMG":
+		$AnimatedSprite.speed_scale = 1
+		two_handed_weapon = false
 func get_ai_name():
 	return "Jay"
 func reloading():

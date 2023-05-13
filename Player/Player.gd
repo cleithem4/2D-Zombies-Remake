@@ -54,6 +54,9 @@ func get_two_handed_weapon():
 	elif Global.tom_weapon.getGunName() == "RPD":
 		$AnimatedSprite.speed_scale = 0.5
 		two_handed_weapon = true
+	elif Global.tom_weapon.getGunName() == "Custom SMG":
+		$AnimatedSprite.speed_scale = 1
+		two_handed_weapon = false
 func reloading():
 	reloading = true
 func finished_reloading():

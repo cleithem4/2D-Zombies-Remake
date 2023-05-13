@@ -22,8 +22,12 @@ func _on_switchWeapon_pressed():
 		Global.switch_weapon_jay = true
 	
 	#Finds the closest ai, signals to switch guns
-	if Global.closest_ai.get_ai_name() == "Tom":
-		Global.switch_weapon_tom = true
-	elif Global.closest_ai.get_ai_name() == "Jay":
-		Global.switch_weapon_jay = true
+	if closest_ai != null:
+		if Global.closest_ai.get_ai_name() == "Tom":
+			Global.switch_weapon_tom = true
+		elif Global.closest_ai.get_ai_name() == "Jay":
+			Global.switch_weapon_jay = true
+	else:
+		Global.switch_weapon_tom = false
+		Global.switch_weapon_jay = false
 

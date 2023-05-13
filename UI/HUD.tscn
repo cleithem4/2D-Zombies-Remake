@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/HUD.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Font/RussoOne-Regular.ttf" type="DynamicFontData" id=2]
@@ -23,6 +23,13 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="Theme" id=8]
 default_font = SubResource( 7 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 40
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=10]
+default_font = SubResource( 9 )
 
 [node name="HUD" type="Control"]
 margin_right = 40.0
@@ -81,3 +88,11 @@ margin_right = 333.0
 margin_bottom = 645.52
 theme = SubResource( 8 )
 text = "1"
+
+[node name="weaponName" type="Label" parent="."]
+margin_left = 1156.0
+margin_top = 737.0
+margin_right = 1383.0
+margin_bottom = 798.0
+theme = SubResource( 10 )
+text = "\"AK47\""
