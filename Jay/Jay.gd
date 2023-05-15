@@ -43,6 +43,7 @@ func get_two_handed_weapon():
 		$AnimatedSprite.speed_scale = 1
 		two_handed_weapon = false
 	elif Global.jay_weapon.getGunName() == "Ray Gun":
+		$AnimatedSprite.speed_scale = 1
 		two_handed_weapon = false
 func get_ai_name():
 	return "Jay"

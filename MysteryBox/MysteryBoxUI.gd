@@ -25,7 +25,7 @@ func _process(_delta):
 		hide()
 
 func _on_takeMysteryBoxWeapon_pressed():
-	if Global.score > 1499:
+	if Global.score > 1499 or Global.mystery_box_gun != null:
 		if Global.mystery_box_gun == null:
 			MysteryBox.open()
 			Global.buttonClicked = true
@@ -33,4 +33,6 @@ func _on_takeMysteryBoxWeapon_pressed():
 			Global.mystery_box_gun_taken = true
 			Global.buttonClicked = true
 			MysteryBox.finishUpAndClose()
-		Global.score -= 1500
+		if Global.mystery_box_gun != null:
+			Global.score -= 1500
+	

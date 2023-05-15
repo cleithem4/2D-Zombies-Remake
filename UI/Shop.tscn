@@ -115,7 +115,7 @@ margin_bottom = 35.2
 custom_styles/hover = SubResource( 2 )
 custom_styles/pressed = SubResource( 3 )
 custom_styles/normal = SubResource( 1 )
-text = "$2000"
+text = "$3000"
 
 [node name="exitShop" type="Label" parent="."]
 margin_left = 672.0

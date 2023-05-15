@@ -16,7 +16,7 @@ func get_ai_name():
 
 func _ready():
 	pass
-func _physics_process(delta):
+func _physics_process(_delta):
 	AI = Global.freeroam_camera_ai
 	if Global.freeroam:
 		Global.tom_ai = true

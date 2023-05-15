@@ -2,7 +2,7 @@ extends Node2D
 
 onready var AK47 = $guns/AK47
 onready var RPD = $guns/RPD
-onready var CUSTOM = $guns/Custom_SMG
+onready var CUSTOM = $guns/CUSTOM
 onready var RAYGUN = $guns/RAYGUN
 
 

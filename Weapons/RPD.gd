@@ -19,7 +19,7 @@ func getGunName():
 	return "RPD"
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	AI = get_parent().get_parent().AI
 	if not AI:
 		Global.clip_size = clip_size

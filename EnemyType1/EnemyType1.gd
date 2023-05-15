@@ -7,6 +7,7 @@ var motion = Vector2.ZERO
 var attackDmg = 10
 var able_to_attack = true
 onready var Blood = load("res://Particles/Blood.tscn") 
+onready var parent = get_parent()
 var in_attack_range = []
 var target = []
 var closest_target = null
@@ -51,7 +52,7 @@ func damage(dmg,is_headshot,direction):
 	
 	if health <= 0:
 		HUD.update_score(30)
-		get_parent().on_zombie_killed(self)
+		parent.on_zombie_killed(self)
 		queue_free()
 
 func _on_AttackRange_body_entered(body):

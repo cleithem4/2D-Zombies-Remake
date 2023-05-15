@@ -18,7 +18,7 @@ var ak_position = Vector2(8,6)
 func _ready():
 	Global.jay_weapon = current_weapon
 	weapons = get_children()
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Global.switch_weapon_jay:
 		if Global.jay_ai:
 			weapon_being_switched = get_instance_of_player_gun()

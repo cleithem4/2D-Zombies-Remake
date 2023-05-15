@@ -5,7 +5,7 @@ var closest_ai
 
 func _ready():
 	hide()
-func _physics_process(delta):
+func _physics_process(_delta):
 	closest_ai = Global.closest_ai
 	if closest_ai != null:
 		$switchWeapon.text = "Switch Weapon(" + closest_ai.get_ai_name() + ")"
