@@ -1,11 +1,11 @@
 extends Node2D
 
-onready var current_weapon = $AK47
+onready var current_weapon = $RayGun
 onready var AK47 = load("res://Weapons/AK47.tscn")
 onready var PISTOL = load("res://Weapons/Pistol.tscn")
 onready var RPD = load("res://Weapons/RPD.tscn")
 onready var CUSTOM = load("res://Weapons/Custom_SMG.tscn")
-
+onready var RAYGUN = load("res://Weapons/RayGun.tscn")
 
 var new_gun
 var weapon_being_switched
@@ -51,7 +51,6 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("shoot"):
 				current_weapon.shoot()
 	if Global.mystery_box_gun_taken:
-		print("taking mystery box gun...")
 		weapon_being_taken = get_instance_of_mystery_box_gun()
 		new_gun = Global.instance_node(weapon_being_taken,global_position,self)
 		current_weapon.queue_free()
@@ -97,6 +96,8 @@ func findGunPosition():
 		position = ak_position
 	elif current_weapon.getGunName() == "Custom SMG":
 		position = pistol_position
+	elif current_weapon.getGunName() == "Ray Gun":
+		position = pistol_position
 func refreshWeapons():
 	weapons = get_children()
 	for gun in weapons:
@@ -112,4 +113,7 @@ func returnWeaponInstance(weapon):
 		return RPD
 	elif weapon.getGunName() == "Custom SMG":
 		return CUSTOM
+	elif weapon.getGunName() == "Ray Gun":
+		return RAYGUN
+	
 

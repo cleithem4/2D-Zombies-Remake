@@ -36,6 +36,6 @@ func _on_turretButton_pressed():
 func _on_bulletDamage_pressed():
 	if Global.score > 4999:
 		hide()
-		Global.damageModifier += 1
+		Global.damageModifier += 0.5
 		Global.score -= 5000
 		$ChaChing.play()

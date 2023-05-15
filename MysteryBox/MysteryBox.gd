@@ -3,15 +3,15 @@ extends Node2D
 onready var AK47 = $guns/AK47
 onready var RPD = $guns/RPD
 onready var CUSTOM = $guns/Custom_SMG
+onready var RAYGUN = $guns/RAYGUN
 
 
-
-var weapons_arr = ["AK47","RPD","CUSTOM"]
+var weapons_arr = ["AK47","RPD","CUSTOM","RAYGUN"]
 var randomized_arr = []
 var current_gun_showing = false
 var timer = 0.0
-var showTime = 1
-var hideTime = 0.4
+var showTime = 0.7
+var hideTime = 0.3
 var opened = false
 var showingGun = false
 var currentGunIndex = 0
@@ -49,13 +49,12 @@ func _process(delta):
 					$gunDisappear.start()
 					return
 				else:
-					print("showing next gun")
 					show_next_gun()
 	else:
 		return
 	
 func randomGunOrder():
-	randomized_arr.resize(weapons_arr.size()-3)
+	randomized_arr.resize(weapons_arr.size()-4)
 	for gun in weapons_arr:
 		var size = randomized_arr.size()
 		var index = randi() % (size + 1)
@@ -63,7 +62,6 @@ func randomGunOrder():
 
 func show_next_gun():
 	# Show the next gun in the array
-	print(randomized_arr)
 	var gun_node = get_node("guns/" + randomized_arr[currentGunIndex])
 	gun_node.show()
 	timer = 0.0
@@ -72,6 +70,7 @@ func show_next_gun():
 
 func hideGuns():
 	for gun in randomized_arr:
+		print(gun)
 		var gun_node = get_node("guns/" + gun)
 		gun_node.hide()
 		timer = 0.0

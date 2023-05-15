@@ -154,7 +154,7 @@ environment = SubResource( 1 )
 [node name="Blood" parent="ImpactManager" instance=ExtResource( 7 )]
 
 [node name="MysteryBox" parent="." instance=ExtResource( 18 )]
-position = Vector2( 356, 943 )
+position = Vector2( 1539, 1829 )
 
 [connection signal="timeout" from="EnemySpawner/SpawnCooldown" to="EnemySpawner" method="_on_SpawnCooldown_timeout"]
 [connection signal="timeout" from="EnemySpawner/WaveCooldown" to="EnemySpawner" method="_on_WaveCooldown_timeout"]

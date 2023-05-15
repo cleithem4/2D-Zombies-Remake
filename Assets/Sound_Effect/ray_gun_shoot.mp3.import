@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ray_gun_shoot.mp3-05a3c01a0d133f5dbdea2e72a53e401c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/ray_gun_shoot.mp3"
+dest_files=[ "res://.import/ray_gun_shoot.mp3-05a3c01a0d133f5dbdea2e72a53e401c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -5,6 +5,7 @@ onready var AK47 = load("res://Weapons/AK47.tscn")
 onready var PISTOL = load("res://Weapons/Pistol.tscn")
 onready var RPD = load("res://Weapons/RPD.tscn")
 onready var CUSTOM = load("res://Weapons/Custom_SMG.tscn")
+onready var RAYGUN = load("res://Weapons/RayGun.tscn")
 
 var weapons = []
 var weapon_being_switched_clip = 0
@@ -77,6 +78,8 @@ func findGunPosition():
 		position = ak_position
 	elif current_weapon.getGunName() == "Custom SMG":
 		position = pistol_position
+	elif current_weapon.getGunName() == "Ray Gun":
+		position = pistol_position
 func refreshWeapons():
 	weapons = get_children()
 	for gun in weapons:
@@ -93,3 +96,5 @@ func returnWeaponInstance(weapon):
 		return RPD
 	elif weapon.getGunName() == "Custom SMG":
 		return CUSTOM
+	elif weapon.getGunName() == "Ray Gun":
+		return RAYGUN
