@@ -2,7 +2,7 @@ extends CPUParticles2D
 
 
 func _ready():
-	pass
+	$Timer.start()
 
 
 func _on_Timer_timeout():

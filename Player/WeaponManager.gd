@@ -17,7 +17,7 @@ var parent = null
 var pistol_position = Vector2(15,9)
 var ak_position = Vector2(6,7)
 
-
+var weapon_being_taken
 
 
 func _ready():
@@ -41,7 +41,6 @@ func _physics_process(delta):
 		current_weapon = new_gun
 		Global.switch_weapon_tom = false
 		Global.temp_switch_guns_cleared = true
-	findGunPosition()
 	if not Global.tom_ai:
 		if Input.is_action_just_pressed("reload"):
 			current_weapon.reload()
@@ -51,8 +50,19 @@ func _physics_process(delta):
 		else:
 			if Input.is_action_just_pressed("shoot"):
 				current_weapon.shoot()
+	if Global.mystery_box_gun_taken:
+		print("taking mystery box gun...")
+		weapon_being_taken = get_instance_of_mystery_box_gun()
+		new_gun = Global.instance_node(weapon_being_taken,global_position,self)
+		current_weapon.queue_free()
+		Global.tom_weapon = new_gun
+		current_weapon = new_gun
+		Global.timerVisible = false
+		Global.current_player.current_weapon = new_gun
+		Global.mystery_box_gun_taken = false
+		Global.mystery_box_gun = null
 	refreshWeapons()
-
+	findGunPosition()
 func shoot():
 	current_weapon.shoot()
 
@@ -63,7 +73,8 @@ func get_instance_of_player_gun():
 		return returnWeaponInstance(Global.tom_weapon)
 	elif not Global.jay_ai:
 		return returnWeaponInstance(Global.jay_weapon)
-
+func get_instance_of_mystery_box_gun():
+	return returnWeaponInstance(Global.mystery_box_gun)
 #Without this function, game will crash because the gun that is trying to be accessed is changed before
 #The character switches his gun, resulting in both characters having the same gun. This script ensures 
 #the guns are actually switched

@@ -31,3 +31,5 @@ func _on_switchWeapon_pressed():
 		Global.switch_weapon_tom = false
 		Global.switch_weapon_jay = false
 
+
+

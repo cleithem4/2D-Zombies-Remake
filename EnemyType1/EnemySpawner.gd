@@ -10,14 +10,14 @@ const ZOMBIE_SPEED = 120
 const MAX_ZOMBIE_SPEED = 280
 const MIN_ZOMBIE_SPEED = 150
 
-var current_zombie_health = 0
-var current_zombie_speed = 0
+var current_zombie_health = 10
+var current_zombie_speed = 150
 
 
 
 var amount_of_zombies_on_current_wave = 10
 
-var wave_number = 25
+var wave_number = 1
 var zombies_spawned = 0
 var zombies_killed = 0
 var able_to_spawn = true
@@ -109,11 +109,11 @@ func check_collision(collision_polygon, transform):
 
 
 func calculateAmountOfZombies():
-	amount_of_zombies_on_current_wave *= 1.05
+	amount_of_zombies_on_current_wave = amount_of_zombies_on_current_wave + wave_number * 3
 	amount_of_zombies_on_current_wave = ceil(amount_of_zombies_on_current_wave)
 
 func get_zombie_stats():
-	current_zombie_health = ZOMBIE_HEALTH + Global.wave
+	current_zombie_health = ZOMBIE_HEALTH + Global.wave * 2
 	current_zombie_speed = rand_range(MIN_ZOMBIE_SPEED,150 + Global.wave * 5)
 	current_zombie_speed = min(current_zombie_speed,MAX_ZOMBIE_SPEED)
 

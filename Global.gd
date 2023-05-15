@@ -37,6 +37,14 @@ var temp_switch_guns = []
 var starting_player_initialized = false
 
 
+#MYSTERY BOX VARIABLES
+var player_in_mystery_box_area = false
+var mystery_box_gun = null
+var mystery_box_gun_taken = false
+var buttonClicked = false
+var timerVisible = false
+
+
 
 func _ready():
 	pass
