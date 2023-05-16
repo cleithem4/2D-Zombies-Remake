@@ -26,11 +26,11 @@ func _on_turretButton_pressed():
 	print(Global.turrets.size())
 	print(Global.turrets)
 	if Global.turrets.size() < 5:
-		if Global.score > 0:
+		if Global.score > 2999:
 			hide()
 			Global.build_mode = true
 			Global.object = Turret
-			Global.score -= 0
+			Global.score -= 3000
 			$ChaChing.play()
 
 
@@ -39,6 +39,6 @@ func _on_turretButton_pressed():
 func _on_bulletDamage_pressed():
 	if Global.score > 4999:
 		hide()
-		Global.damageModifier += 0.5
+		Global.damageModifier += 0.45
 		Global.score -= 5000
 		$ChaChing.play()

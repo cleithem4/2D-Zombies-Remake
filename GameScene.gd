@@ -14,7 +14,7 @@ func _process(_delta):
 		$AudioStreamPlayer.stop()
 		get_tree().change_scene("res://UI/Game_Over.tscn")
 		
-
+	
 
 func _physics_process(_delta):
 	pass

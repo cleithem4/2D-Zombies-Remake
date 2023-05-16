@@ -5,6 +5,7 @@ var current_player = null
 func _ready():
 	set_process_input(true)
 
+
 func _input(event):
 	if Global.freeroam and event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
 		var click_position = get_global_mouse_position()
@@ -17,3 +18,6 @@ func _input(event):
 				Global.current_player = obj
 				Global.refresh_ai()
 				Global.freeroam = false
+
+func update_players():
+	Global.all_ai = get_children()

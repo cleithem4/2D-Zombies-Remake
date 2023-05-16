@@ -25,7 +25,7 @@ var switch_weapon_tom = false
 var temp_switch_guns_cleared = false
 var closest_ai = null
 
-
+var player_in_downed_area = false
 var damageModifier = 1
 
 var jay_weapon = null
@@ -45,6 +45,10 @@ var mystery_box_gun_taken = false
 var buttonClicked = false
 var timerVisible = false
 
+
+
+#DOOR VARIABLES
+var player_in_door_area = false
 
 
 func _ready():
@@ -80,3 +84,4 @@ func refresh_ai():
 			Global.freeroam_camera_ai = true
 func update_score(score):
 	self.score += score
+

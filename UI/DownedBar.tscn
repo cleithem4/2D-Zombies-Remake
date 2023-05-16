@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Font/RussoOne-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://UI/DownedBar.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.694118, 0.678431, 0.678431, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.2, 0.2, 0.2, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=3]
+size = 50
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[node name="DownedBar" type="Node2D"]
+scale = Vector2( 1.5, 1.5 )
+script = ExtResource( 2 )
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+margin_left = -30.0
+margin_top = -1.0
+margin_right = 30.0
+margin_bottom = 2.0
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+percent_visible = false
+
+[node name="Label" type="Label" parent="."]
+margin_left = -12.0
+margin_top = -7.0
+margin_right = 394.0
+margin_bottom = 54.0
+rect_scale = Vector2( 0.06, 0.06 )
+theme = SubResource( 4 )
+text = "Hold E to revive"

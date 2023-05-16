@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://UI/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -7,17 +7,18 @@
 [ext_resource path="res://Assets/Clouds/Clouds 5/tileable_grass.png" type="Texture" id=5]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Door/Door.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/Shop.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Build/BuildModeHUD.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Sound_Effect/dorisha-mountaineer-main-version-23618-01-50.mp3" type="AudioStream" id=11]
 [ext_resource path="res://GameScene.gd" type="Script" id=12]
-[ext_resource path="res://Jay/Jay.tscn" type="PackedScene" id=13]
 [ext_resource path="res://UI/SwitchWeapons.tscn" type="PackedScene" id=14]
 [ext_resource path="res://CharacterSelection/CharacterSelection.tscn" type="PackedScene" id=15]
 [ext_resource path="res://FreeRoam/FreeRoamCamera.tscn" type="PackedScene" id=16]
 [ext_resource path="res://CharacterSelection/CharacterSelectionHUD.tscn" type="PackedScene" id=17]
 [ext_resource path="res://MysteryBox/MysteryBox.tscn" type="PackedScene" id=18]
 [ext_resource path="res://MysteryBox/MysteryBoxUI.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Door/DoorUI.tscn" type="PackedScene" id=20]
 
 [sub_resource type="NavigationPolygon" id=2]
 vertices = PoolVector2Array( 975, 562, 1121, 715, -47, 694, -38, -8, 952, 414, 878, 311, 773, -13 )
@@ -96,9 +97,6 @@ texture = ExtResource( 3 )
 position = Vector2( 537, 1501 )
 scale = Vector2( 2, 2 )
 
-[node name="Jay" parent="CharacterSelection" instance=ExtResource( 13 )]
-position = Vector2( 1000, 1000 )
-
 [node name="FreeRoamCamera" parent="CharacterSelection" instance=ExtResource( 16 )]
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
@@ -145,6 +143,8 @@ navpoly = SubResource( 8 )
 [node name="SwitchWeapons" parent="CanvasLayer" instance=ExtResource( 14 )]
 
 [node name="MysteryBoxUI" parent="CanvasLayer" instance=ExtResource( 19 )]
+
+[node name="DoorUI" parent="CanvasLayer" instance=ExtResource( 20 )]
 
 [node name="Shop" parent="CanvasLayer" instance=ExtResource( 9 )]
 margin_left = 25.0
@@ -211,6 +211,13 @@ environment = SubResource( 1 )
 
 [node name="MysteryBox" parent="." instance=ExtResource( 18 )]
 position = Vector2( 1539, 1829 )
+
+[node name="Door_container" type="Node2D" parent="."]
+position = Vector2( 3010, 438 )
+
+[node name="Door" parent="Door_container" instance=ExtResource( 8 )]
+position = Vector2( -2, -6 )
+scale = Vector2( 6, 6 )
 
 [connection signal="timeout" from="Navigation2D/EnemySpawner/SpawnCooldown" to="Navigation2D/EnemySpawner" method="_on_SpawnCooldown_timeout"]
 [connection signal="timeout" from="Navigation2D/EnemySpawner/WaveCooldown" to="Navigation2D/EnemySpawner" method="_on_WaveCooldown_timeout"]

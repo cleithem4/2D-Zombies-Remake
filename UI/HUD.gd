@@ -5,7 +5,7 @@ onready var scoreNumber = preload("res://Particles/ScoreNumber2D.tscn")
 onready var waveNumber = preload("res://Particles/WaveNumber2D.tscn")
 
 var wave_numbers = []
-var MAX_ALPHA = 1.0
+var MAX_ALPHA = 0.8
 var MIN_ALPHA = 0.0
 func _physics_process(_delta):
 	$Score.text = "$" + str(Global.score)

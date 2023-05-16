@@ -36,13 +36,14 @@ func _process(_delta):
 		update()
 
 func _input(event):
-	if event.is_action_pressed("place"):
+	if event.is_action_released("place"):
 		place_object(Global.object)
+		queue_free()
 
-	if event.is_action_pressed("exit_build_mode"):
+	if event.is_action_released("exit_build_mode"):
 		get_tree().paused = false
 		Global.build_mode = false
-		Global.score += 2000
+		Global.score += 3000
 		queue_free()
 		
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://Assets/Jay/Jay_walking.png" type="Texture" id=1]
 [ext_resource path="res://Jay/Jay.gd" type="Script" id=2]
@@ -8,6 +8,12 @@
 [ext_resource path="res://Assets/Jay/jay_pistol.png" type="Texture" id=6]
 [ext_resource path="res://Weapons/Pistol.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Sound_Effect/gun-magazine-reload-fascinatedsound-1-1-00-01.mp3" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Font/RussoOne-Regular.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Jay/Label.gd" type="Script" id=10]
+[ext_resource path="res://Jay/Node2D.gd" type="Script" id=11]
+[ext_resource path="res://Assets/Jay/jay_downed.png" type="Texture" id=12]
+[ext_resource path="res://UI/DownedBar.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/Sound_Effect/body-hit.mp3" type="AudioStream" id=14]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -129,6 +135,54 @@ region = Rect2( 50, 0, 50, 50 )
 atlas = ExtResource( 6 )
 region = Rect2( 0, 50, 50, 50 )
 
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 12 )
+region = Rect2( 50, 0, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 0, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 50, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 12 )
+region = Rect2( 50, 50, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 50, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 100, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 12 )
+region = Rect2( 50, 100, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 100, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 150, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 12 )
+region = Rect2( 50, 150, 50, 50 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 150, 50, 50 )
+
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ SubResource( 1 ) ],
@@ -160,6 +214,11 @@ animations = [ {
 "loop": true,
 "name": "WalkPistol",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
+"loop": true,
+"name": "down",
+"speed": 1.0
 } ]
 
 [sub_resource type="CircleShape2D" id=5]
@@ -171,6 +230,15 @@ radius = 236.62
 [sub_resource type="CircleShape2D" id=34]
 radius = 44.42
 
+[sub_resource type="DynamicFont" id=35]
+size = 50
+font_data = ExtResource( 9 )
+
+[sub_resource type="Theme" id=36]
+default_font = SubResource( 35 )
+
+[sub_resource type="CircleShape2D" id=49]
+
 [node name="Jay" type="KinematicBody2D" groups=["AI", "Collision", "Player"]]
 scale = Vector2( 2, 2 )
 script = ExtResource( 2 )
@@ -178,8 +246,8 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = 1.5708
 frames = SubResource( 4 )
-animation = "Reload"
-frame = 12
+animation = "down"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -207,15 +275,37 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="closestAI"]
 shape = SubResource( 34 )
 
-[node name="RegenHealth" type="Timer" parent="."]
-wait_time = 0.015
-
 [node name="reload" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 volume_db = 10.487
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="Node2D"]
+margin_left = -19.5
+margin_top = -21.0
+margin_right = 623.5
+margin_bottom = 40.0
+rect_scale = Vector2( 0.07, 0.07 )
+theme = SubResource( 36 )
+text = "Thank you for saving me!"
+script = ExtResource( 10 )
+
+[node name="downed" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="downed"]
+shape = SubResource( 49 )
+
+[node name="DownedBar" parent="." instance=ExtResource( 13 )]
+position = Vector2( 0, -10 )
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
 
 [connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]
 [connection signal="body_exited" from="shootRadius" to="." method="_on_shootRadius_body_exited"]
 [connection signal="body_entered" from="closestAI" to="." method="_on_closestAI_body_entered"]
 [connection signal="body_exited" from="closestAI" to="." method="_on_closestAI_body_exited"]
-[connection signal="timeout" from="RegenHealth" to="." method="_on_RegenHealth_timeout"]
+[connection signal="body_entered" from="downed" to="." method="_on_downed_body_entered"]
+[connection signal="body_exited" from="downed" to="." method="_on_downed_body_exited"]

@@ -5,6 +5,7 @@ export var health = 100
 var reloading = false
 var velocity = Vector2()
 onready var WeaponManager = $WeaponManager
+onready var downed_bar = $DownedBar
 var current_weapon = null
 var two_handed_weapon = false
 
@@ -22,7 +23,7 @@ var able_to_shoot = false
 var ai_array = []
 var closest_ai = null
 var regen_health = true
-
+var downed = false
 
 func _ready():
 	AI = Global.tom_ai
@@ -35,11 +36,18 @@ func _physics_process(_delta):
 	player = Global.current_player
 	current_weapon = Global.tom_weapon
 	AI = Global.tom_ai
-	
+	if downed:
+		downed_bar.show()
+		current_weapon.hide()
+		return
+	else:
+		downed_bar.hide()
+		current_weapon.show()
 	if AI:
 		AI()
 	else:
 		player()
+		
 		
 	
 func get_ai_name():
@@ -165,6 +173,7 @@ func _on_shootRadius_body_exited(body):
 #Get user input for player movement
 func player():
 	regenerateHealth()
+	Global.health = health
 	get_two_handed_weapon()
 	get_input()
 	move_and_slide(velocity)
@@ -203,10 +212,11 @@ func get_input():
 #Character die if health <= 0
 func damage(damage):
 	health -= damage
+	$hit.play()
 	if not AI:
 		Global.health = health
 	if health <= 0:
-		queue_free()
+		downed()
 
 
 #PLAYER FUNCTION
@@ -222,10 +232,41 @@ func select_ai():
 
 #PLAYER FUNCTION
 func regenerateHealth():
-	if Global.health < 100 and regen_health:
-		Global.health += 0.1
-		regen_health = false
-		$RegenHealth.start()
+	if health < 100:
+		health += 0.1
+
+
+
+
+
+func downed():
+	get_parent().update_players()
+	if is_in_group("AI"):
+		self.remove_from_group("AI")
+	if is_in_group("Player"):
+		self.remove_from_group("Player")
+	downed = true
+	$AnimatedSprite.play("down")
+	$AnimatedSprite.speed_scale = 0.4
+	speed = 10
+	for playerAlive in Global.all_ai:
+		if not is_instance_valid(playerAlive):
+			continue
+		
+		if playerAlive.get_ai_name() != "FreeRoamCamera" and playerAlive.get_ai_name() != "Tom" and playerAlive.health > 0:
+			Global.current_player = playerAlive
+			Global.refresh_ai()
+			return
+	get_tree().change_scene("res://UI/Game_Over.tscn")
+
+func revived():
+	self.add_to_group("AI")
+	self.add_to_group("Player")
+	downed = false
+	speed = 400
+	health = 100
+	$AnimatedSprite.speed_scale = 1
+
 
 #PLAYER FUNCTION
 func _on_closestAI_body_entered(body):
@@ -241,5 +282,4 @@ func _on_closestAI_body_exited(body):
 
 
 
-func _on_RegenHealth_timeout():
-	regen_health = true
+
