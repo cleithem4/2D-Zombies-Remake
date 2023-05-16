@@ -238,6 +238,7 @@ script = ExtResource( 1 )
 rotation = 1.5708
 frames = SubResource( 3 )
 animation = "down"
+frame = 7
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -275,6 +276,7 @@ stream = ExtResource( 11 )
 volume_db = 10.487
 
 [node name="DownedBar" parent="." instance=ExtResource( 13 )]
+visible = false
 position = Vector2( -9, 3.25799e-05 )
 
 [node name="hit" type="AudioStreamPlayer" parent="."]

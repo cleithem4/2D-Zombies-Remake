@@ -4,14 +4,14 @@ onready var AK47 = $guns/AK47
 onready var RPD = $guns/RPD
 onready var CUSTOM = $guns/CUSTOM
 onready var RAYGUN = $guns/RAYGUN
+onready var M24 = $guns/M24
 
-
-var weapons_arr = ["AK47","RPD","CUSTOM","RAYGUN"]
+var weapons_arr = ["AK47","RPD","CUSTOM","RAYGUN","M24"]
 var randomized_arr = []
 var current_gun_showing = false
 var timer = 0.0
-var showTime = 0.7
-var hideTime = 0.3
+var showTime = 0.6
+var hideTime = 0.2
 var opened = false
 var showingGun = false
 var currentGunIndex = 0
@@ -54,12 +54,27 @@ func _process(delta):
 		return
 	
 func randomGunOrder():
-	randomized_arr.resize(weapons_arr.size()-4)
-	for gun in weapons_arr:
-		var size = randomized_arr.size()
-		var index = randi() % (size + 1)
-		randomized_arr.insert(index, gun)
+	# Make a copy of the original array
+	var copy_arr = weapons_arr.duplicate()
 
+	# Clear the randomized_arr
+	randomized_arr.clear()
+
+	# While there are elements in the copy_arr
+	while copy_arr.size() > 0:
+		# Pick a random index in the copy_arr
+		var index = randi() % copy_arr.size()
+
+		# Add the element at that index to the randomized_arr
+		randomized_arr.append(copy_arr[index])
+
+		# Remove the element at that index from the copy_arr
+		copy_arr.remove(index)
+
+	print(randomized_arr)
+
+	
+	
 func show_next_gun():
 	# Show the next gun in the array
 	var gun_node = get_node("guns/" + randomized_arr[currentGunIndex])
@@ -70,7 +85,6 @@ func show_next_gun():
 
 func hideGuns():
 	for gun in randomized_arr:
-		print(gun)
 		var gun_node = get_node("guns/" + gun)
 		gun_node.hide()
 		timer = 0.0

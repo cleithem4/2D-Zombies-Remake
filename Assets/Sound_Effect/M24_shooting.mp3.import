@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/M24_shooting.mp3-63ba0d67c135ade4fb01ea39f1bbd572.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/M24_shooting.mp3"
+dest_files=[ "res://.import/M24_shooting.mp3-63ba0d67c135ade4fb01ea39f1bbd572.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
