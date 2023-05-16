@@ -10,7 +10,7 @@ var able_to_shoot = true
 var delta2 = 0
 
 func _ready():
-	pass
+	Global.turrets.append(self)
 
 func _physics_process(delta):
 	delta2 = delta
@@ -62,6 +62,7 @@ func damage(d):
 	health -= d
 	$ProgressBar.value = health
 	if health < 1:
+		Global.turrets.erase(self)
 		queue_free()
 
 func _on_ROF_timeout():

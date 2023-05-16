@@ -117,10 +117,11 @@ func AI():
 
 
 func player():
+	regenerateHealth()
 	$Camera2D.current = true
 	get_two_handed_weapon()
 	get_input()
-	move_and_slide(velocity)
+	velocity = move_and_slide(velocity)
 	if ai_array.size() != 0:
 		select_ai()
 	else:
@@ -177,7 +178,6 @@ func turn():
 #AI FUNCTION
 func able_to_shoot():
 	var direction_to_enemy = enemy.global_position - global_position
-	var angle_to_enemy = direction_to_enemy.angle()
 	var forward = Vector2(1, 0).rotated(rotation)
 	var dot = forward.dot(direction_to_enemy.normalized())
 

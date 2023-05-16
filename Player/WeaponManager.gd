@@ -50,7 +50,7 @@ func _physics_process(delta):
 		else:
 			if Input.is_action_just_pressed("shoot"):
 				current_weapon.shoot()
-	if Global.mystery_box_gun_taken:
+	if Global.mystery_box_gun_taken and not Global.tom_ai:
 		weapon_being_taken = get_instance_of_mystery_box_gun()
 		new_gun = Global.instance_node(weapon_being_taken,global_position,self)
 		current_weapon.queue_free()

@@ -4,11 +4,11 @@ onready var zombie_scene = load("res://EnemyType1/EnemyType1.tscn")
 onready var player = get_node_or_null("/root/GameScene/CharacterSelection/Player")
 onready var HUD = get_node("/root/GameScene/CanvasLayer/HUD")
 
-const MAX_ZOMBIES_SPAWNED = 10
+const MIN_ZOMBIES_SPAWNED = 10
 const ZOMBIE_HEALTH = 10
 const ZOMBIE_SPEED = 120
-const MAX_ZOMBIE_SPEED = 280
-const MIN_ZOMBIE_SPEED = 150
+const MAX_ZOMBIE_SPEED = 5
+const MIN_ZOMBIE_SPEED = 2
 
 var current_zombie_health = 10
 var current_zombie_speed = 150
@@ -68,7 +68,6 @@ func spawn_zombie():
 	var zombie_transform = Transform2D(0, zombie_pos)
 	zombie.set_transform(zombie_transform)
 	zombie.scale = Vector2(1.7,1.7)
-	zombie.speed = 150
 
 	var collision_polygon = zombie.find_node("CollisionPolygon2D")
 	if not collision_polygon:
@@ -109,12 +108,12 @@ func check_collision(collision_polygon, transform):
 
 
 func calculateAmountOfZombies():
-	amount_of_zombies_on_current_wave = amount_of_zombies_on_current_wave + wave_number * 3
+	amount_of_zombies_on_current_wave = MIN_ZOMBIES_SPAWNED + wave_number * 5
 	amount_of_zombies_on_current_wave = ceil(amount_of_zombies_on_current_wave)
 
 func get_zombie_stats():
-	current_zombie_health = ZOMBIE_HEALTH + Global.wave * 2
-	current_zombie_speed = rand_range(MIN_ZOMBIE_SPEED,150 + Global.wave * 5)
+	current_zombie_health = ZOMBIE_HEALTH + Global.wave * 4
+	current_zombie_speed = rand_range(MIN_ZOMBIE_SPEED,2 + Global.wave * 0.2)
 	current_zombie_speed = min(current_zombie_speed,MAX_ZOMBIE_SPEED)
 
 func _on_SpawnCooldown_timeout():

@@ -1,37 +1,112 @@
 extends KinematicBody2D
 
-export var speed = 300
+export var speed = 1
 export var health = 10
 onready var HUD = get_node("/root/GameScene/CanvasLayer/HUD")
-var motion = Vector2.ZERO
+var velocity = Vector2.ZERO
 var attackDmg = 10
 var able_to_attack = true
 onready var Blood = load("res://Particles/Blood.tscn") 
 onready var parent = get_parent()
 var in_attack_range = []
-var target = []
-var closest_target = null
+
 var headshot = false
+
+onready var closest_player = null
+var closest_player_distance = null
+var player_distance = null
+onready var pathfinding = $NavigationAgent2D
+var nextPositionReady = true
+var direction = Vector2.ZERO
+var next_location = Vector2.ZERO
+var enemies_in_repulsion_force = []
+
+
+
+
+
+
+func _ready():
+	$Moan.play()
+	$"moan timer".wait_time = rand_range(4,15)
+	findClosestPlayer()
+	updatePath()
+	$AnimatedSprite.play("Walk")
+	closest_player = Global.current_player
+	closest_player_distance = global_position.distance_to(closest_player.global_position)
+
+
+
+
 #Process the game 
+var frame_count = 0
+var update_interval = 10  # Update every 10 frames
+
 func _physics_process(_delta):
-	motion = Vector2.ZERO
-# warning-ignore:standalone_expression
-	if target.size() != 0:
-		select_target()
-		motion = position.direction_to(closest_target.position) * speed 
-		look_at(closest_target.position)
-		motion = move_and_slide(motion)
+	frame_count += 1
+	if frame_count >= update_interval:
+		frame_count = 0
+		# Update pathfinding and direction here
+		if pathfinding.is_navigation_finished():
+			return
+		if closest_player == null or not is_instance_valid(closest_player):
+			return
+		updatePathFinding()
+		
+		# Collision Avoidance
+	var repulsion_force = Vector2.ZERO
+	if enemies_in_repulsion_force.size() != 0:
+		for zombie in enemies_in_repulsion_force:
+			if zombie != self and zombie.global_position.distance_to(self.global_position) < 50:
+				repulsion_force += (self.global_position - zombie.global_position).normalized() * 0.5
+		global_position += repulsion_force
+		
+		
+	# Update velocity every frame
+	
+	updateVelocity()
+	handleRotation()
+	# Damage calculation
 	if able_to_attack:
 		for body in in_attack_range:
 			body.damage(attackDmg)
 			able_to_attack = false
 
-#Check if player collide or not
-func _on_Area2D_body_entered(body):
-	if body.is_in_group("Player"):
-		target.append(body)
-		$Area2D/Moan.play()
-		$AnimatedSprite.play("Walk")
+func handleRotation():
+	rotation = direction.angle()
+
+
+func updateVelocity():
+	if not is_instance_valid(closest_player):
+		return
+	if global_position.distance_to(closest_player.global_position) > 60:
+		global_position = global_position.move_toward(next_location,speed)
+
+
+func updatePathFinding():
+	next_location = pathfinding.get_next_location()
+	direction = global_position.direction_to(next_location)
+
+
+func findClosestPlayer():
+	for player in get_tree().get_nodes_in_group("Player"):
+		player_distance = global_position.distance_to(player.global_position)
+		if not is_instance_valid(closest_player):
+			closest_player = player
+			closest_player_distance = global_position.distance_to(closest_player.global_position)
+		if player != null:
+			if player_distance < closest_player_distance:
+				closest_player = player
+				closest_player_distance = player_distance
+
+
+
+func updatePath():
+	if closest_player != null and is_instance_valid(closest_player):
+		pathfinding.set_target_location(closest_player.global_position)
+	else:
+		pathfinding.set_target_location(global_position)
+
 
 #Zombie dies if health <= 0
 func damage(dmg,is_headshot,direction):
@@ -70,14 +145,32 @@ func _on_AttackRange_body_exited(body):
 		in_attack_range.erase(body)
 
 
-func _on_Area2D_body_exited(body):
-	if body.is_in_group("Player"):
-		target.erase(body)
-func select_target():
-	var closest_distance = 99999999
-	for e in target:
-		var distance = global_position.distance_to(e.global_position)
-		if distance < closest_distance:
-			closest_target = e
-			closest_distance = distance
 
+
+func _on_NewPath_timeout():
+	updatePath()
+
+
+func _on_closestPlayer_timeout():
+	findClosestPlayer()
+
+
+
+
+
+func _on_moan_timer_timeout():
+	$Moan.play()
+	
+
+
+
+
+
+func _on_repulsionForce_body_entered(body):
+	if body.is_in_group("Enemy"):
+		enemies_in_repulsion_force.append(body)
+
+
+func _on_repulsionForce_body_exited(body):
+	if body.is_in_group("Enemy"):
+		enemies_in_repulsion_force.erase(body)

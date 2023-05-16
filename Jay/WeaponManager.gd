@@ -15,6 +15,9 @@ var new_gun
 var pistol_position = Vector2(15,7)
 var ak_position = Vector2(8,6)
 
+var weapon_being_taken
+
+
 func _ready():
 	Global.jay_weapon = current_weapon
 	weapons = get_children()
@@ -36,7 +39,6 @@ func _physics_process(_delta):
 		current_weapon = new_gun
 		Global.switch_weapon_jay = false
 		Global.temp_switch_guns_cleared = true
-	findGunPosition()
 	if not Global.jay_ai:
 		if Input.is_action_just_pressed("reload"):
 			current_weapon.reload()
@@ -46,9 +48,18 @@ func _physics_process(_delta):
 		else:
 			if Input.is_action_just_pressed("shoot"):
 				current_weapon.shoot()
+	if Global.mystery_box_gun_taken and not Global.jay_ai:
+		weapon_being_taken = get_instance_of_mystery_box_gun()
+		new_gun = Global.instance_node(weapon_being_taken,global_position,self)
+		current_weapon.queue_free()
+		Global.jay_weapon = new_gun
+		current_weapon = new_gun
+		Global.timerVisible = false
+		Global.current_player.current_weapon = new_gun
+		Global.mystery_box_gun_taken = false
+		Global.mystery_box_gun = null
 	refreshWeapons()
-
-
+	findGunPosition()
 
 func shoot():
 	current_weapon.shoot()
@@ -60,7 +71,8 @@ func get_instance_of_player_gun():
 		return returnWeaponInstance(Global.tom_weapon)
 	elif not Global.jay_ai:
 		return returnWeaponInstance(Global.jay_weapon)
-
+func get_instance_of_mystery_box_gun():
+	return returnWeaponInstance(Global.mystery_box_gun)
 func FindLostGun():
 	var lostGun = null
 	for gun in Global.temp_switch_guns:

@@ -33,6 +33,7 @@ var jay_weapon = null
 var tom_weapon = null
 var temp_switch_guns = []
 
+var turrets = []
 
 var starting_player_initialized = false
 
@@ -54,7 +55,7 @@ func _physics_process(delta):
 	if not switch_weapon_jay and not switch_weapon_tom and not temp_switch_guns_cleared:
 		temp_switch_guns.clear()
 		temp_switch_guns_cleared = true
-	
+
 	
 func instance_node(node,location,parent):
 	var node_instance = node.instance()

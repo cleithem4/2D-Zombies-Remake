@@ -23,12 +23,15 @@ func _physics_process(_delta):
 
 
 func _on_turretButton_pressed():
-	if Global.score > 3000:
-		hide()
-		Global.build_mode = true
-		Global.object = Turret
-		Global.score -= 3000
-		$ChaChing.play()
+	print(Global.turrets.size())
+	print(Global.turrets)
+	if Global.turrets.size() < 5:
+		if Global.score > 0:
+			hide()
+			Global.build_mode = true
+			Global.object = Turret
+			Global.score -= 0
+			$ChaChing.play()
 
 
 

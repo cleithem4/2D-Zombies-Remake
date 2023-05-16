@@ -34,8 +34,8 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=12]
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 478.877
+[sub_resource type="CircleShape2D" id=13]
+radius = 11.2673
 
 [node name="EnemyType1" type="KinematicBody2D" groups=["Collision", "Enemy"]]
 rotation = 6.28319
@@ -57,15 +57,6 @@ polygon = PoolVector2Array( 20.0001, 13.3332, 21.1112, 11.111, 21.1111, 7.77768,
 position = Vector2( -5.55555, 1.66669 )
 shape = SubResource( 12 )
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 2 )
-
-[node name="Moan" type="AudioStreamPlayer" parent="Area2D"]
-stream = ExtResource( 4 )
-volume_db = -10.633
-
 [node name="AttackRange" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackRange"]
@@ -79,6 +70,10 @@ autostart = true
 stream = ExtResource( 6 )
 volume_db = -3.852
 
+[node name="Moan" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.633
+
 [node name="NormalShot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = 12.235
@@ -87,8 +82,33 @@ volume_db = 12.235
 stream = ExtResource( 3 )
 volume_db = 14.857
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 51.7
+target_desired_distance = 51.7
+path_max_distance = 61.0
+
+[node name="NewPath" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[node name="closestPlayer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="moan timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="repulsionForce" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="repulsionForce"]
+shape = SubResource( 13 )
+
 [connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_AttackRange_body_exited"]
 [connection signal="timeout" from="AttackSpeed" to="." method="_on_AttackSpeed_timeout"]
+[connection signal="timeout" from="NewPath" to="." method="_on_NewPath_timeout"]
+[connection signal="timeout" from="closestPlayer" to="." method="_on_closestPlayer_timeout"]
+[connection signal="timeout" from="moan timer" to="." method="_on_moan_timer_timeout"]
+[connection signal="body_entered" from="repulsionForce" to="." method="_on_repulsionForce_body_entered"]
+[connection signal="body_exited" from="repulsionForce" to="." method="_on_repulsionForce_body_exited"]

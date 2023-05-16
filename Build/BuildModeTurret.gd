@@ -13,6 +13,7 @@ var turret_scene = load("res://Turret/Turret.tscn")
 var turretHead_png = load("res://Assets/Turret/turret head_shop.png")
 var turretBody_png = load("res://Assets/Turret/turret base.png")
 onready var gameSceneNode = get_node("/root/GameScene")
+onready var turretContainer = get_node("/root/GameScene/Turret_container")
 var objectBeingPlaced = null
 
 func _ready():
@@ -67,7 +68,7 @@ func place_object(object):
 		able_to_build = false
 		Global.build_mode = false
 		hide()
-		Global.instance_node(object,get_global_mouse_position(),get_parent())
+		Global.instance_node(object,get_global_mouse_position(),turretContainer)
 		get_tree().paused = false
 
 #Ensure that turret is not able to be placed on players, turrets, or zombies

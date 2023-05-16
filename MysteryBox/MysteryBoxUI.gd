@@ -29,10 +29,10 @@ func _on_takeMysteryBoxWeapon_pressed():
 		if Global.mystery_box_gun == null:
 			MysteryBox.open()
 			Global.buttonClicked = true
+			Global.score -= 1500
 		else:
 			Global.mystery_box_gun_taken = true
 			Global.buttonClicked = true
 			MysteryBox.finishUpAndClose()
-		if Global.mystery_box_gun != null:
-			Global.score -= 1500
+		
 	
