@@ -24,6 +24,8 @@ var ai_array = []
 var closest_ai = null
 var regen_health = true
 var downed = false
+var downedArea = []
+
 
 func _ready():
 	AI = Global.tom_ai
@@ -218,7 +220,7 @@ func damage(damage):
 	$hit.play()
 	if not AI:
 		Global.health = health
-	if health <= 0:
+	if health <= 0 and not downed:
 		downed()
 
 
@@ -243,6 +245,8 @@ func regenerateHealth():
 
 
 func downed():
+	downedArea.clear()
+	Global.player_in_downed_area = downedArea.size() != 0
 	get_parent().update_players()
 	if is_in_group("AI"):
 		self.remove_from_group("AI")
@@ -286,3 +290,16 @@ func _on_closestAI_body_exited(body):
 
 
 
+
+
+func _on_downed_body_entered(body):
+	if body.is_in_group("AI") and body != self and downed:
+		downedArea.append(body)
+		print(downedArea)
+		Global.player_in_downed_area = downedArea.size() != 0
+
+func _on_downed_body_exited(body):
+	if body.is_in_group("AI") and body != self and downed:
+		downedArea.erase(body)
+		print(downedArea)
+		Global.player_in_downed_area = downedArea.size() != 0

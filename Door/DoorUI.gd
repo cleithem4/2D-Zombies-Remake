@@ -14,6 +14,6 @@ func _physics_process(_delta):
 
 
 func _on_openDoor_pressed():
-	if Global.score > 750:
+	if Global.score > 0:
 		Door.open()
-		Global.score -= 750
+		Global.score -= 0

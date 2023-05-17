@@ -8,7 +8,7 @@ func _ready():
 	pass
 func _physics_process(delta):
 	global_rotation = 0
-	if Input.is_action_pressed("revive"):
+	if Input.is_action_pressed("revive") and Global.player_in_downed_area:
 		Progressbar.show()
 		hold_time += delta
 		Progressbar.value = hold_time / HOLD_TIME * 100

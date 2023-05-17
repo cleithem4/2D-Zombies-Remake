@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CharacterSprite/IMG_1814.PNG" type="Texture" id=2]
@@ -230,6 +230,9 @@ radius = 236.62
 [sub_resource type="CircleShape2D" id=26]
 radius = 44.42
 
+[sub_resource type="CircleShape2D" id=49]
+radius = 35.81
+
 [node name="Player" type="KinematicBody2D" groups=["AI", "Collision", "Player"]]
 rotation = 1.5708
 script = ExtResource( 1 )
@@ -238,7 +241,7 @@ script = ExtResource( 1 )
 rotation = 1.5708
 frames = SubResource( 3 )
 animation = "down"
-frame = 7
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -282,7 +285,14 @@ position = Vector2( -9, 3.25799e-05 )
 [node name="hit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
 
+[node name="downed" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="downed"]
+shape = SubResource( 49 )
+
 [connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]
 [connection signal="body_exited" from="shootRadius" to="." method="_on_shootRadius_body_exited"]
 [connection signal="body_entered" from="closestAI" to="." method="_on_closestAI_body_entered"]
 [connection signal="body_exited" from="closestAI" to="." method="_on_closestAI_body_exited"]
+[connection signal="body_entered" from="downed" to="." method="_on_downed_body_entered"]
+[connection signal="body_exited" from="downed" to="." method="_on_downed_body_exited"]

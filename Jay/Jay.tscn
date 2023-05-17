@@ -238,6 +238,7 @@ font_data = ExtResource( 9 )
 default_font = SubResource( 35 )
 
 [sub_resource type="CircleShape2D" id=49]
+radius = 27.2
 
 [node name="Jay" type="KinematicBody2D" groups=["AI", "Collision", "Player"]]
 scale = Vector2( 2, 2 )
@@ -247,7 +248,7 @@ script = ExtResource( 2 )
 rotation = 1.5708
 frames = SubResource( 4 )
 animation = "down"
-frame = 1
+frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -283,11 +284,11 @@ volume_db = 10.487
 script = ExtResource( 11 )
 
 [node name="Label" type="Label" parent="Node2D"]
-margin_left = -19.5
-margin_top = -21.0
-margin_right = 623.5
-margin_bottom = 40.0
-rect_scale = Vector2( 0.07, 0.07 )
+margin_left = -33.5
+margin_top = -23.0
+margin_right = 609.5
+margin_bottom = 38.0
+rect_scale = Vector2( 0.1, 0.1 )
 theme = SubResource( 36 )
 text = "Thank you for saving me!"
 script = ExtResource( 10 )

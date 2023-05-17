@@ -223,7 +223,7 @@ func damage(damage):
 	$hit.play()
 	if not AI:
 		Global.health = health
-	if health <= 0:
+	if health <= 0 and not downed:
 		downed()
 
 #PLAYER FUNCTION
@@ -249,6 +249,8 @@ func _on_closestAI_body_entered(body):
 		ai_array.append(body)
 
 func downed():
+	downedArea.clear()
+	Global.player_in_downed_area = downedArea.size() != 0
 	get_parent().update_players()
 	if is_in_group("AI"):
 		self.remove_from_group("AI")
@@ -268,6 +270,7 @@ func downed():
 	get_tree().change_scene("res://UI/Game_Over.tscn")
 
 func revived():
+	downedArea.clear()
 	self.add_to_group("AI")
 	self.add_to_group("Player")
 	downed = false
@@ -286,11 +289,13 @@ func _on_closestAI_body_exited(body):
 
 
 func _on_downed_body_entered(body):
-	if body.is_in_group("AI"):
+	if body.is_in_group("AI") and body != self and downed:
 		downedArea.append(body)
+		print(downedArea)
 		Global.player_in_downed_area = downedArea.size() != 0
 
 func _on_downed_body_exited(body):
-	if body.is_in_group("AI"):
+	if body.is_in_group("AI") and body != self and downed:
 		downedArea.erase(body)
+		print(downedArea)
 		Global.player_in_downed_area = downedArea.size() != 0
