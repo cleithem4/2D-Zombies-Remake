@@ -16,8 +16,6 @@ func _process(_delta):
 		
 	
 
-func _physics_process(_delta):
-	pass
 func build_mode():
 	get_tree().paused = true
 

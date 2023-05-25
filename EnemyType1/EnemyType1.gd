@@ -57,7 +57,7 @@ func _physics_process(_delta):
 	var repulsion_force = Vector2.ZERO
 	if enemies_in_repulsion_force.size() != 0:
 		for zombie in enemies_in_repulsion_force:
-			if zombie != self and zombie.global_position.distance_to(self.global_position) < 50:
+			if zombie != self and zombie.global_position.distance_to(self.global_position) < 60:
 				repulsion_force += (self.global_position - zombie.global_position).normalized() * 0.5
 		global_position += repulsion_force
 		
@@ -69,7 +69,7 @@ func _physics_process(_delta):
 	# Damage calculation
 	if able_to_attack:
 		for body in in_attack_range:
-			body.damage(attackDmg)
+			#body.damage(attackDmg)
 			able_to_attack = false
 
 func handleRotation():
