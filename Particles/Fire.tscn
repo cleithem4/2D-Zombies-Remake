@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/FloorAndMap/fire ball.png" type="Texture" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.512077, 0.550725, 0.922705 )
+colors = PoolColorArray( 0.988281, 0.975554, 0.173721, 1, 0.683594, 0.352478, 0, 1, 0, 0, 0, 1 )
+
+[node name="Fire" type="CPUParticles2D"]
+scale = Vector2( 2.5, 2.5 )
+amount = 40
+lifetime = 0.8
+randomness = 0.48
+texture = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 9.17
+linear_accel = -4.0
+linear_accel_random = 0.22
+radial_accel = -5.5
+scale_amount = 0.06
+scale_amount_random = 0.06
+color = Color( 1, 0.258824, 0.160784, 1 )
+color_ramp = SubResource( 1 )
+hue_variation = 0.09
+hue_variation_random = 0.5

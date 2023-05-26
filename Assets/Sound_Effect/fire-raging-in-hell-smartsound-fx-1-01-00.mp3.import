@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/fire-raging-in-hell-smartsound-fx-1-01-00.mp3-12886817aa27312bdae40f028cac3a17.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/fire-raging-in-hell-smartsound-fx-1-01-00.mp3"
+dest_files=[ "res://.import/fire-raging-in-hell-smartsound-fx-1-01-00.mp3-12886817aa27312bdae40f028cac3a17.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

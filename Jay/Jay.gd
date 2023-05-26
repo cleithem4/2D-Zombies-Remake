@@ -11,7 +11,7 @@ onready var dialogue = $Node2D/Label
 onready var WeaponManager = $WeaponManager
 var current_weapon = null
 var two_handed_weapon = false
-
+var reloadTime = 1.0
 #AI
 var AI = false
 var too_close_distance = 80
@@ -28,6 +28,17 @@ var regen_health = true
 var downed = false
 var downedArea = []
 
+#Fire
+signal on_fire(time)
+var fireTime = 0
+var onFire = false
+var fire = null
+onready var Fire = load("res://Particles/Fire.tscn")
+
+#Perk
+var drinkingPerk = false
+var swiftSwig = false
+
 func _ready():
 	get_two_handed_weapon()
 	AI = Global.jay_ai
@@ -35,22 +46,33 @@ func _ready():
 func get_two_handed_weapon():
 	if Global.jay_weapon.getGunName() == "AK47":
 		$AnimatedSprite.speed_scale = 1
+		reloadTime = 1
 		two_handed_weapon = true
 	elif Global.jay_weapon.getGunName() == "Pistol":
 		$AnimatedSprite.speed_scale = 1
+		reloadTime = 1
 		two_handed_weapon = false
 	elif Global.jay_weapon.getGunName() == "RPD":
 		$AnimatedSprite.speed_scale = 0.5
+		reloadTime = 2
 		two_handed_weapon = true
 	elif Global.jay_weapon.getGunName() == "Custom SMG":
 		$AnimatedSprite.speed_scale = 1
+		reloadTime = 1
 		two_handed_weapon = false
 	elif Global.jay_weapon.getGunName() == "Ray Gun":
 		$AnimatedSprite.speed_scale = 1
+		reloadTime = 1
 		two_handed_weapon = false
 	elif Global.jay_weapon.getGunName() == "M24":
 		$AnimatedSprite.speed_scale = 0.65
+		reloadTime = 1.5
 		two_handed_weapon = true
+	if swiftSwig:
+		$AnimatedSprite.speed_scale = $AnimatedSprite.speed_scale*2
+		reloadTime = float(reloadTime*0.5)
+		
+
 func get_ai_name():
 	return "Jay"
 func reloading():
@@ -76,6 +98,10 @@ func _physics_process(_delta):
 	else:
 		downed_bar.hide()
 		current_weapon.show()
+	if drinkingPerk:
+		current_weapon.hide()
+	else:
+		current_weapon.show()
 	if AI:
 		AI()
 	else:
@@ -88,7 +114,7 @@ func AI():
 	$Camera2D.current = false
 	get_two_handed_weapon()
 	
-	if reloading:
+	if reloading and not drinkingPerk:
 		if not two_handed_weapon:
 			$AnimatedSprite.play("ReloadPistol")
 		else:
@@ -99,7 +125,7 @@ func AI():
 		if distance > stop_distance:
 			velocity = direction.normalized() * speed
 			move_and_slide(velocity)
-			if not reloading:
+			if not reloading and not drinkingPerk:
 				if not two_handed_weapon:
 					$AnimatedSprite.play("WalkPistol")
 				else:
@@ -107,14 +133,14 @@ func AI():
 		elif too_close_distance > distance:
 			velocity = -1 * direction.normalized() * speed
 			move_and_slide(velocity)
-			if not reloading:
+			if not reloading and not drinkingPerk:
 				if not two_handed_weapon:
 					$AnimatedSprite.play("WalkPistol")
 				else:
 					$AnimatedSprite.play("Walk")
 		else:
 			velocity = Vector2.ZERO
-			if not reloading:
+			if not reloading and not drinkingPerk:
 				if not two_handed_weapon:
 					$AnimatedSprite.play("WalkPistol")
 				else:
@@ -153,17 +179,17 @@ func get_input():
 	velocity = input_direction * speed
 	
 	#Animations
-	if input_direction and not reloading:
+	if input_direction and not reloading and not drinkingPerk:
 		if not two_handed_weapon:
 			$AnimatedSprite.play("WalkPistol")
 		else:
 			$AnimatedSprite.play("Walk")
-	elif not reloading:
+	elif not reloading and not drinkingPerk:
 		if not two_handed_weapon:
 			$AnimatedSprite.play("IdlePistol")
 		else:
 			$AnimatedSprite.play("Idle")
-	elif reloading:
+	elif reloading and not drinkingPerk:
 		if not two_handed_weapon:
 			$AnimatedSprite.play("ReloadPistol")
 		else:
@@ -299,3 +325,49 @@ func _on_downed_body_exited(body):
 		downedArea.erase(body)
 		print(downedArea)
 		Global.player_in_downed_area = downedArea.size() != 0
+
+func fire_damage(dmg):
+	health -= dmg
+	if not AI:
+		Global.health = health
+	if health <= 0 and not downed:
+		downed()
+	$AnimatedSprite.modulate = Color("ff291f")
+	$fireManager/fireDamage.start()
+	$fireManager/playerFire.play()
+
+
+func _on_Fire_timeout():
+	fire_damage(15)
+	fireTime -= 1
+	if not fireTime <= 0:
+		$fireManager/Fire.start()
+	else:
+		$fireManager/fireSound.playing = false
+		onFire = false
+		if is_instance_valid(fire):
+			fire.queue_free()
+
+
+func _on_fireDamage_timeout():
+	$AnimatedSprite.modulate = Color("ffffff")
+	$fireManager/fireDamage.stop()
+
+
+func _on_Jay_on_fire(time):
+	if not onFire:
+		fireTime = time
+		$fireManager/Fire.start()
+		fire = Global.instance_node(Fire,$fireManager/fire.global_position,self)
+		$fireManager/fireSound.playing = true
+		onFire = true
+
+func _on_Swift_Swig_perkUsed(perk):
+	drinkingPerk = true
+	$AnimatedSprite.play("swiftSwig")
+	$Perk.start()
+
+
+func _on_Perk_timeout():
+	drinkingPerk = false
+	swiftSwig = true

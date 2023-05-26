@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://EnemyType1/EnemyType1.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CharacterSprite/zombie_png.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Assets/Sound_Effect/Zombie_Moan_Sound.mp3" type="AudioStream" id=4]
 [ext_resource path="res://Assets/Sound_Effect/bullet-impacting-snow-gamemaster-audio-4-4-00-00.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Sound_Effect/Zombie_Bite_Sound.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sound_Effect/fire-raging-in-hell-smartsound-fx-1-01-00.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Assets/Sound_Effect/demonic-monster-growling-joshua-chivers-2-2-00-03-[AudioTrimmer.com].mp3" type="AudioStream" id=8]
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
@@ -104,6 +106,29 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="repulsionForce"]
 shape = SubResource( 13 )
 
+[node name="fireManager" type="Node2D" parent="."]
+position = Vector2( -5.62499, 1.25002 )
+scale = Vector2( 1, 1 )
+
+[node name="Fire" type="Timer" parent="fireManager"]
+one_shot = true
+
+[node name="fireDamage" type="Timer" parent="fireManager"]
+wait_time = 0.15
+
+[node name="fire" type="Position2D" parent="fireManager"]
+position = Vector2( -4.76837e-07, 1.19209e-07 )
+scale = Vector2( 1, 1 )
+
+[node name="fireSound" type="AudioStreamPlayer" parent="fireManager"]
+stream = ExtResource( 7 )
+volume_db = -13.984
+
+[node name="zombieFire" type="AudioStreamPlayer" parent="fireManager"]
+stream = ExtResource( 8 )
+volume_db = -9.614
+
+[connection signal="on_fire" from="." to="." method="_on_EnemyType1_on_fire"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_AttackRange_body_exited"]
 [connection signal="timeout" from="AttackSpeed" to="." method="_on_AttackSpeed_timeout"]
@@ -112,3 +137,5 @@ shape = SubResource( 13 )
 [connection signal="timeout" from="moan timer" to="." method="_on_moan_timer_timeout"]
 [connection signal="body_entered" from="repulsionForce" to="." method="_on_repulsionForce_body_entered"]
 [connection signal="body_exited" from="repulsionForce" to="." method="_on_repulsionForce_body_exited"]
+[connection signal="timeout" from="fireManager/Fire" to="." method="_on_Fire_timeout"]
+[connection signal="timeout" from="fireManager/fireDamage" to="." method="_on_fireDamage_timeout"]

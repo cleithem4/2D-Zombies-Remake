@@ -7,6 +7,8 @@ var velocity = Vector2.ZERO
 var attackDmg = 10
 var able_to_attack = true
 onready var Blood = load("res://Particles/Blood.tscn") 
+onready var Fire = load("res://Particles/Fire.tscn")
+var fire = null
 onready var parent = get_parent()
 var in_attack_range = []
 
@@ -23,10 +25,12 @@ var enemies_in_repulsion_force = []
 
 
 
-
-
+signal on_fire(time)
+var fireTime = 0
+var onFire = false
 
 func _ready():
+	
 	$Moan.play()
 	$"moan timer".wait_time = rand_range(4,15)
 	findClosestPlayer()
@@ -69,7 +73,7 @@ func _physics_process(_delta):
 	# Damage calculation
 	if able_to_attack:
 		for body in in_attack_range:
-			#body.damage(attackDmg)
+			body.damage(attackDmg)
 			able_to_attack = false
 
 func handleRotation():
@@ -107,6 +111,17 @@ func updatePath():
 	else:
 		pathfinding.set_target_location(global_position)
 
+
+func fire_damage(dmg):
+	health -= dmg
+	if health <= 0:
+		HUD.update_score(30)
+		parent.on_zombie_killed(self)
+		queue_free()
+	$AnimatedSprite.modulate = Color("ff291f")
+	$fireManager/fireDamage.start()
+	$fireManager/zombieFire.play()
+	
 
 #Zombie dies if health <= 0
 func damage(dmg,is_headshot,direction):
@@ -174,3 +189,30 @@ func _on_repulsionForce_body_entered(body):
 func _on_repulsionForce_body_exited(body):
 	if body.is_in_group("Enemy"):
 		enemies_in_repulsion_force.erase(body)
+
+
+func _on_EnemyType1_on_fire(time):
+	if not onFire:
+		fireTime = time
+		$fireManager/Fire.start()
+		fire = Global.instance_node(Fire,$fireManager/fire.global_position,self)
+		$fireManager/fireSound.playing = true
+		onFire = true
+
+	
+
+
+func _on_Fire_timeout():
+	fire_damage(1)
+	fireTime -= 1
+	if not fireTime <= 0:
+		$fireManager/Fire.start()
+	else:
+		$fireManager/fireSound.playing = false
+		onFire = false
+		fire.queue_free()
+
+
+func _on_fireDamage_timeout():
+	$AnimatedSprite.modulate = Color("ffffff")
+	$fireManager/fireDamage.stop()

@@ -6,9 +6,10 @@ var ROF = true
 var reloading = false
 onready var Bullet = load("res://Bullet/RPD_Bullet.tscn")
 onready var end_of_gun = $end_of_gun
+onready var parent = get_parent().get_parent()
 var AI
 func _ready():
-	AI = get_parent().get_parent().AI
+	AI = parent.AI
 	
 	
 
@@ -20,7 +21,7 @@ func getGunName():
 
 
 func _physics_process(_delta):
-	AI = get_parent().get_parent().AI
+	AI = parent.AI
 	if not AI:
 		Global.clip_size = clip_size
 		Global.current_clip = current_clip
@@ -29,7 +30,8 @@ func _physics_process(_delta):
 func reload():
 	if not clip_size == current_clip:
 		reloading = true
-		get_parent().get_parent().reloading()
+		parent.reloading()
+		$Reload.wait_time = parent.reloadTime
 		$Reload.start()
 
 func _on_Reload_timeout():
@@ -38,7 +40,7 @@ func _on_Reload_timeout():
 	if not AI:
 		Global.current_clip = current_clip
 	$Reload.stop()
-	get_parent().get_parent().finished_reloading()
+	parent.finished_reloading()
 	
 	
 func shoot():
@@ -72,10 +74,10 @@ func shoot():
 	if AI:
 		$AudioStreamPlayer.play()
 		var bullet = Bullet.instance()
-		var enemy = get_parent().get_parent().enemy
+		var enemy = parent.enemy
 		var target = Vector2(0,0)
 		if enemy!=null:
-			target = get_parent().get_parent().enemy.global_position
+			target = parent.enemy.global_position
 		else:
 			return
 		bullet.global_position = end_of_gun.global_position

@@ -4,14 +4,14 @@
 [ext_resource path="res://UI/DownedBar.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.694118, 0.678431, 0.678431, 1 )
+bg_color = Color( 0.796078, 0.298039, 0.298039, 1 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.2, 0.2, 0.2, 1 )
+bg_color = Color( 0.0588235, 0.054902, 0.054902, 1 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -30,10 +30,11 @@ script = ExtResource( 2 )
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 visible = false
-margin_left = -30.0
-margin_top = -1.0
-margin_right = 30.0
-margin_bottom = 2.0
+margin_left = -24.0
+margin_top = -2.0
+margin_right = 121.0
+margin_bottom = 7.0
+rect_scale = Vector2( 0.33, 0.33 )
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 percent_visible = false

@@ -31,17 +31,20 @@ font_data = ExtResource( 4 )
 [sub_resource type="Theme" id=4]
 default_font = SubResource( 3 )
 
-[node name="Door" type="KinematicBody2D"]
+[node name="Door" type="KinematicBody2D" groups=["Object"]]
+rotation = 4.71239
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.45, 0.35 )
 texture = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 8, -4, 8, 3, -7, 3, -7, -4 )
 
 [node name="Jay" type="Sprite" parent="."]
-position = Vector2( 37, -28 )
+position = Vector2( 9, -47 )
+rotation = 1.5708
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 3 )
 
@@ -54,10 +57,11 @@ shape = SubResource( 1 )
 anims/exitScreen = SubResource( 2 )
 
 [node name="Help Me!" type="Label" parent="."]
-margin_left = 33.0
-margin_top = -32.0
-margin_right = 268.0
-margin_bottom = 29.0
+margin_left = 12.0
+margin_top = -51.0
+margin_right = 247.0
+margin_bottom = 10.0
+rect_rotation = 90.0
 rect_scale = Vector2( 0.03, 0.03 )
 theme = SubResource( 4 )
 text = "Help me!!"

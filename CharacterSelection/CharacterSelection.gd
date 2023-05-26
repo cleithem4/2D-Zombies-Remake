@@ -1,8 +1,9 @@
 extends Node2D
 
 var current_player = null
-
+onready var swiftSwig = $"../Perks/SwiftSwig"
 func _ready():
+	update_players()
 	set_process_input(true)
 
 
@@ -21,3 +22,11 @@ func _input(event):
 
 func update_players():
 	Global.all_ai = get_children()
+
+
+func _on_Swift_Swig_perkUsed(perk):
+	update_players()
+	for player in Global.all_ai:
+		if player != null:
+			if player.get_ai_name() != "FreeRoamCamera":
+				player._on_Swift_Swig_perkUsed(swiftSwig)

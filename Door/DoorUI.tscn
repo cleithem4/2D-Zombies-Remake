@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Door/DoorUI.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sound_Effect/Cha Ching (Money) Sound Effect.mp3" type="AudioStream" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0705882, 0.0196078, 0.0196078, 0.392157 )
@@ -16,6 +17,9 @@ margin_top = 652.0
 margin_right = 1233.0
 margin_bottom = 691.0
 custom_styles/normal = SubResource( 1 )
-text = "Clear Debris ($750)"
+text = "Open Door ($750)"
+
+[node name="ChaChing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
 
 [connection signal="pressed" from="openDoor" to="." method="_on_openDoor_pressed"]

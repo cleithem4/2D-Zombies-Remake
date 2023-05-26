@@ -9,8 +9,6 @@ var actualJay
 func _ready():
 	pass
 
-func _physics_process(_delta):
-	pass
 
 func open():
 	actualJay = Global.instance_node(JayInstance,$Jay.global_position,characterSelection)
@@ -25,15 +23,19 @@ func _on_Area2D_body_entered(body):
 	if body.is_in_group("AI"):
 		inArea.append(body)
 		Global.player_in_door_area = inArea.size() != 0
+		Global.door = self
 
 
 func _on_Area2D_body_exited(body):
 	if body.is_in_group("AI"):
 		inArea.erase(body)
 		Global.player_in_door_area = inArea.size() != 0
+		Global.door = null
 
-
-
+func getButtonText():
+	return "Open Door ($750)"
+func getDoorPrice():
+	return 750
 
 
 func _on_DialogueTimer_timeout():

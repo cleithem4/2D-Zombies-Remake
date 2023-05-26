@@ -49,6 +49,7 @@ var timerVisible = false
 
 #DOOR VARIABLES
 var player_in_door_area = false
+var door = null
 
 
 func _ready():

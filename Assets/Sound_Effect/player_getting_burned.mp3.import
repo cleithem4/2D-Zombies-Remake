@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/player_getting_burned.mp3-54fec7de8916e2d87bbe685a97987b9d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/player_getting_burned.mp3"
+dest_files=[ "res://.import/player_getting_burned.mp3-54fec7de8916e2d87bbe685a97987b9d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
