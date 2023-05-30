@@ -7,8 +7,8 @@ onready var HUD = get_node("/root/GameScene/CanvasLayer/HUD")
 const MIN_ZOMBIES_SPAWNED = 10
 const ZOMBIE_HEALTH = 10
 const ZOMBIE_SPEED = 120
-const MAX_ZOMBIE_SPEED = 450
-const MIN_ZOMBIE_SPEED = 150
+const MAX_ZOMBIE_SPEED = 360
+const MIN_ZOMBIE_SPEED = 100
 
 var current_zombie_health = 10
 var current_zombie_speed = 150
@@ -113,7 +113,7 @@ func calculateAmountOfZombies():
 
 func get_zombie_stats():
 	current_zombie_health = ZOMBIE_HEALTH + Global.wave * 3
-	current_zombie_speed = rand_range(MIN_ZOMBIE_SPEED,150 + Global.wave * 30)
+	current_zombie_speed = rand_range(MIN_ZOMBIE_SPEED,100 + Global.wave * 10)
 	current_zombie_speed = min(current_zombie_speed,MAX_ZOMBIE_SPEED)
 
 func _on_SpawnCooldown_timeout():

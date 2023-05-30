@@ -26,9 +26,9 @@
 [ext_resource path="res://Particles/ImpactManager.gd" type="Script" id=24]
 
 [sub_resource type="NavigationPolygon" id=2]
-vertices = PoolVector2Array( 275, 87, 345, 32, 786, 10, 655, 1589, 236, 194, 258, 16, 288, 7, 237, 2043, -11, 1995, 35, 345, 97, 269, 611, 2012, 340, 2300, 611, 2336, 365, 2450, 328, 2436 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 0, 5, 6, 1 ), PoolIntArray( 7, 8, 9, 10, 4, 3, 11 ), PoolIntArray( 12, 7, 11, 13 ), PoolIntArray( 12, 13, 14, 15 ) ]
-outlines = [ PoolVector2Array( 288, 7, 258, 16, 275, 87, 236, 194, 97, 269, 35, 345, -11, 1995, 237, 2043, 340, 2300, 328, 2436, 365, 2450, 611, 2336, 611, 2012, 655, 1589, 786, 10, 345, 32 ) ]
+vertices = PoolVector2Array( 294, 85, 258, -45, 349, -40, 438, -43, 780, -41, 655, 1589, 236, 194, 236, 2032, -11, 1995, -13, 347, 63, 274, 611, 2012, 340, 2300, 615, 2279, 574, 2427, 365, 2450, 328, 2436 )
+polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 2, 3, 4, 5, 0 ), PoolIntArray( 6, 0, 5 ), PoolIntArray( 7, 8, 9, 10, 6, 5, 11 ), PoolIntArray( 12, 7, 11, 13, 14 ), PoolIntArray( 12, 14, 15, 16 ) ]
+outlines = [ PoolVector2Array( 349, -40, 258, -45, 294, 85, 236, 194, 63, 274, -13, 347, -11, 1995, 236, 2032, 340, 2300, 328, 2436, 365, 2450, 574, 2427, 615, 2279, 611, 2012, 655, 1589, 780, -41, 438, -43 ) ]
 
 [sub_resource type="NavigationPolygon" id=3]
 vertices = PoolVector2Array( 868, 955, 672, 1347, 776, 7, 943, 85, 1068, 171, 917, 849, 1821, 1188, 1824, 1372, 1743, 1344, 1622, 1347, 1391, 1357, 1391, 1287, 1816, 1087, 864, 1345, 1388, 881, 1360, 235, 1578, 192, 1692, 121, 1738, 124, 1752, 563, 1752, 673, 1799, 819 )
@@ -41,9 +41,9 @@ polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 2, 5, 6, 3 ), PoolIntA
 outlines = [ PoolVector2Array( 1390, 1128, 1389, 1164, 1295, 1165, 1270, 1254, 1059, 1233, 1009, 1175, 1027, 1125, 1189, 1125, 1216, 1051, 1286, 1117, 1393, 1114 ) ]
 
 [sub_resource type="NavigationPolygon" id=5]
-vertices = PoolVector2Array( 1083, 2118, 1007, 2166, 1007, 2083, 1148, 2015, 1148, 2061, 1263, 1684, 1248, 1647, 1622, 1656, 802, 2065, 798, 1954, 934, 1965, 957, 2051, 1009, 1926, 1148, 1913, 870, 2450, 756, 2410, 589, 2348, 586, 2286, 1253, 2295, 1700, 2437, 1821, 2086, 1259, 2061, 1262, 2009, 1708, 1998, 1830, 2020, 1728, 1762 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 6, 7 ), PoolIntArray( 8, 9, 10, 11 ), PoolIntArray( 12, 13, 3, 2, 11, 10 ), PoolIntArray( 14, 15, 16, 17, 18, 19 ), PoolIntArray( 20, 19, 18, 21, 22, 23, 24 ), PoolIntArray( 22, 5, 7, 25, 23 ), PoolIntArray( 3, 22, 21, 4 ) ]
-outlines = [ PoolVector2Array( 1248, 1647, 1263, 1684, 1262, 2009, 1148, 2015, 1148, 1913, 1009, 1926, 934, 1965, 798, 1954, 802, 2065, 957, 2051, 1007, 2083, 1007, 2166, 1083, 2118, 1148, 2061, 1259, 2061, 1253, 2295, 586, 2286, 589, 2348, 756, 2410, 870, 2450, 1700, 2437, 1821, 2086, 1830, 2020, 1708, 1998, 1728, 1762, 1622, 1656 ) ]
+vertices = PoolVector2Array( 1083, 2118, 1007, 2166, 1007, 2083, 1148, 2015, 1148, 2061, 1263, 1684, 1248, 1647, 1622, 1656, 756, 2410, 569, 2432, 584, 2281, 1253, 2295, 870, 2450, 1700, 2437, 802, 2065, 798, 1954, 934, 1965, 957, 2051, 1009, 1926, 1148, 1913, 1821, 2086, 1259, 2061, 1262, 2009, 1708, 1998, 1830, 2020, 1728, 1762 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 6, 7 ), PoolIntArray( 8, 9, 10, 11 ), PoolIntArray( 12, 8, 11, 13 ), PoolIntArray( 14, 15, 16, 17 ), PoolIntArray( 18, 19, 3, 2, 17, 16 ), PoolIntArray( 20, 13, 11, 21, 22, 23, 24 ), PoolIntArray( 22, 5, 7, 25, 23 ), PoolIntArray( 3, 22, 21, 4 ) ]
+outlines = [ PoolVector2Array( 1248, 1647, 1263, 1684, 1262, 2009, 1148, 2015, 1148, 1913, 1009, 1926, 934, 1965, 798, 1954, 802, 2065, 957, 2051, 1007, 2083, 1007, 2166, 1083, 2118, 1148, 2061, 1259, 2061, 1253, 2295, 584, 2281, 569, 2432, 756, 2410, 870, 2450, 1700, 2437, 1821, 2086, 1830, 2020, 1708, 1998, 1728, 1762, 1622, 1656 ) ]
 
 [sub_resource type="NavigationPolygon" id=6]
 vertices = PoolVector2Array( 2507, 1837, 2404, 1743, 2500, 1706, 2665, 1952, 2507, 1894, 2569, 1969, 2190, 1659, 2269, 1421, 2445, 1568, 2481, 1669, 2378, 1742, 2198, 1791, 2744, 2436, 2254, 2427, 2499, 2055, 2415, 2085, 2229, 1950, 2339, 1950, 2302, 1854, 2496, 1700, 1737.66, 1951.9, 1713, 1952, 1717, 1803 )
@@ -202,22 +202,22 @@ position = Vector2( -1821, -998 )
 
 [node name="fire1" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 4427, 1208 )
-frame = 2
 
 [node name="fire2" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 5215, 1837 )
+frame = 0
 
 [node name="fire3" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 5972, 1284 )
-frame = 0
+frame = 4
 
 [node name="fire4" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 9294, 2938 )
-frame = 0
+frame = 4
 
 [node name="fire5" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 9353, 2925 )
-frame = 4
+frame = 3
 
 [node name="CharacterSelection" parent="." instance=ExtResource( 15 )]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://EnemyType1/EnemyType1.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CharacterSprite/zombie_png.png" type="Texture" id=2]
@@ -36,6 +36,9 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=12]
 
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 10.9375, 13.4375 )
+
 [sub_resource type="CircleShape2D" id=13]
 radius = 11.2673
 
@@ -50,9 +53,6 @@ scale = Vector2( 0.8, 0.8 )
 frames = SubResource( 3 )
 animation = "Idle"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 20.0001, 13.3332, 21.1112, 11.111, 21.1111, 7.77768, 17.7778, 7.7777, 17.7778, 5.55548, 14.4445, 5.55549, 12.7778, 7.77772, 10, 8.33329, 2.77782, 8.88888, 1.11114, 7.22222, -1.11108, 7.22223, -0.55558, -5.55555, 6.66663, -7.22225, 12.7777, -7.77784, 14.4444, -5.00006, 17.7778, -5.00008, 17.7777, -7.2223, 20, -7.22231, 21.1111, -8.33343, 21.111, -13.889, 18.8888, -14.4445, 16.6666, -14.4445, 16.1111, -13.3334, 7.22217, -12.7778, 5.55549, -14.4445, 2.77771, -15, -2.22228, -13.3333, -5.00006, -12.7778, -7.77783, -11.6666, -10, -9.99996, -9.44448, -7.22218, -8.88886, 7.22226, -8.33328, 11.6667, -3.88883, 12.2222, -2.77771, 14.4445, 7.77784, 14.4444, 13.3334, 13.8888, 16.1112, 14.4444, 19.4445, 14.4444 )
-
 [node name="Head" type="Area2D" parent="." groups=["Head"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
@@ -61,8 +61,10 @@ shape = SubResource( 12 )
 
 [node name="AttackRange" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackRange"]
-polygon = PoolVector2Array( 20.5, 8.49991, 20.4999, -14.0001, 2.99993, -15.5, -8.00005, -12, -10.5, -6.49995, -14.5, -0.499935, -14, 4.00006, -13, 6.50006, -9.99997, 7.00004, -9.49995, 10.5, -7.49995, 11.5, -4.49995, 12, -2.49994, 14, 8.50006, 14.5, 12.0001, 12.9999, 19.5001, 14.4999, 20.5001, 11.4999 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+position = Vector2( 10.3125, 0.312454 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 15 )
 
 [node name="AttackSpeed" type="Timer" parent="."]
 wait_time = 0.599
@@ -125,6 +127,9 @@ volume_db = -13.984
 [node name="zombieFire" type="AudioStreamPlayer" parent="fireManager"]
 stream = ExtResource( 8 )
 volume_db = -9.614
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 19.9999, -13.7501, -8.75005, -11.875, -9.37495, 10, -2.49994, 14.375, 20.6251, 13.7499, 20.625, 8.12491, 17.5, 5.62492, -1.87496, 8.12501, -1.87504, -8.12499, 20, -5.00009 )
 
 [connection signal="on_fire" from="." to="." method="_on_EnemyType1_on_fire"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]

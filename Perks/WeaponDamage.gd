@@ -2,7 +2,7 @@ extends Node2D
 
 var inArea = []
 signal weaponDamage(damageModifier)
-var cost = 0
+var cost = 2500
 var damageModifier = 0
 func _ready():
 	pass
@@ -28,6 +28,6 @@ func getDoorPrice():
 	
 func open():
 	cost *= 2
-	damageModifier += 0.25
+	damageModifier += 0.10
 	Global.damageModifier *= (1+damageModifier)
 	emit_signal("weaponDamage",damageModifier * 100)

@@ -45,9 +45,11 @@ func _ready():
 #Process the game 
 var frame_count = 0
 var update_interval = 10  # Update every 10 frames
-
+var frame_count_rotation = 0
+var update_interval_rotation = 4
 func _physics_process(delta):
 	frame_count += 1
+	frame_count_rotation += 1
 	if frame_count >= update_interval:
 		frame_count = 0
 		# Update pathfinding and direction here
@@ -56,9 +58,11 @@ func _physics_process(delta):
 		if closest_player == null or not is_instance_valid(closest_player):
 			return
 		updatePathFinding()
-	handleRotation()
+	if frame_count_rotation >= update_interval_rotation:
+		frame_count_rotation = 0
+		handleRotation()
 		# Collision Avoidance
-	repulsionForce()
+		repulsionForce()
 		
 		
 	# Update velocity every frame
@@ -68,7 +72,7 @@ func _physics_process(delta):
 	# Damage calculation
 	if able_to_attack:
 		for body in in_attack_range:
-			#body.damage(attackDmg)
+			body.damage(attackDmg)
 			able_to_attack = false
 
 
@@ -79,8 +83,9 @@ func repulsionForce():
 			
 			if zombie != self and zombie.global_position.distance_to(self.global_position) < 60:
 				repulsion_force += (self.global_position - zombie.global_position).normalized() * 0.5
-		if global_position.distance_to(closest_player.global_position) < 60:
-			repulsion_force = Vector2.ZERO
+		#if global_position.distance_to(closest_player.global_position) < 60:
+			#repulsion_force = Vector2.ZERO
+			#repulsion_force += (self.global_position - closest_player.global_position).normalized()
 		global_position += repulsion_force
 		
 		
@@ -91,7 +96,7 @@ func handleRotation():
 func updateVelocity(delta):
 	if not is_instance_valid(closest_player):
 		return
-	if global_position.distance_to(closest_player.global_position) > 60:
+	if global_position.distance_to(closest_player.global_position) > 62:
 		direction = (next_location - global_position).normalized()
 		velocity = direction * speed
 		global_position += velocity * delta
