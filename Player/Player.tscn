@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=2]
+[gd_scene load_steps=82 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CharacterSprite/IMG_1814.PNG" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Assets/Sound_Effect/fire-raging-in-hell-smartsound-fx-1-01-00.mp3" type="AudioStream" id=15]
 [ext_resource path="res://Assets/Sound_Effect/player_getting_burned.mp3" type="AudioStream" id=16]
 [ext_resource path="res://Assets/CharacterSprite/tom_swift_swig.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Sound_Effect/man-gulping-drink-exhaling-joshua-chivers-1-1-00-02.mp3" type="AudioStream" id=18]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
@@ -381,6 +382,9 @@ stream = ExtResource( 16 )
 [node name="Perk" type="Timer" parent="."]
 wait_time = 1.875
 one_shot = true
+
+[node name="drinkingPerk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
 
 [connection signal="on_fire" from="." to="." method="_on_Player_on_fire"]
 [connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]

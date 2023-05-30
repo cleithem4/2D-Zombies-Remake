@@ -51,6 +51,9 @@ var timerVisible = false
 var player_in_door_area = false
 var door = null
 
+#PERK VARIABLES
+var swiftSwig = false
+
 
 func _ready():
 	pass

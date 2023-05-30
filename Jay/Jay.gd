@@ -68,6 +68,7 @@ func get_two_handed_weapon():
 		$AnimatedSprite.speed_scale = 0.65
 		reloadTime = 1.5
 		two_handed_weapon = true
+	swiftSwig = Global.swiftSwig
 	if swiftSwig:
 		$AnimatedSprite.speed_scale = $AnimatedSprite.speed_scale*2
 		reloadTime = float(reloadTime*0.5)

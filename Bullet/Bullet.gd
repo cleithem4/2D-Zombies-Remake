@@ -30,6 +30,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Head"):
-		area.get_parent().damage(damage * 2,true,direction)
+		area.get_parent().damage(damage * 2 * Global.damageModifier,true,direction)
 		queue_free()
+
 		

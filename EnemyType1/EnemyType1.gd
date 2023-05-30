@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed = 1
+export var speed = 200
 export var health = 10
 onready var HUD = get_node("/root/GameScene/CanvasLayer/HUD")
 var velocity = Vector2.ZERO
@@ -46,7 +46,7 @@ func _ready():
 var frame_count = 0
 var update_interval = 10  # Update every 10 frames
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	frame_count += 1
 	if frame_count >= update_interval:
 		frame_count = 0
@@ -56,35 +56,49 @@ func _physics_process(_delta):
 		if closest_player == null or not is_instance_valid(closest_player):
 			return
 		updatePathFinding()
-		
+	handleRotation()
 		# Collision Avoidance
-	var repulsion_force = Vector2.ZERO
-	if enemies_in_repulsion_force.size() != 0:
-		for zombie in enemies_in_repulsion_force:
-			if zombie != self and zombie.global_position.distance_to(self.global_position) < 60:
-				repulsion_force += (self.global_position - zombie.global_position).normalized() * 0.5
-		global_position += repulsion_force
+	repulsionForce()
 		
 		
 	# Update velocity every frame
 	
-	updateVelocity()
-	handleRotation()
+
+	updateVelocity(delta)
 	# Damage calculation
 	if able_to_attack:
 		for body in in_attack_range:
-			body.damage(attackDmg)
+			#body.damage(attackDmg)
 			able_to_attack = false
 
+
+func repulsionForce():
+	var repulsion_force = Vector2.ZERO
+	if enemies_in_repulsion_force.size() != 0:
+		for zombie in enemies_in_repulsion_force:
+			
+			if zombie != self and zombie.global_position.distance_to(self.global_position) < 60:
+				repulsion_force += (self.global_position - zombie.global_position).normalized() * 0.5
+		if global_position.distance_to(closest_player.global_position) < 60:
+			repulsion_force = Vector2.ZERO
+		global_position += repulsion_force
+		
+		
 func handleRotation():
 	rotation = direction.angle()
 
 
-func updateVelocity():
+func updateVelocity(delta):
 	if not is_instance_valid(closest_player):
 		return
 	if global_position.distance_to(closest_player.global_position) > 60:
-		global_position = global_position.move_toward(next_location,speed)
+		direction = (next_location - global_position).normalized()
+		velocity = direction * speed
+		global_position += velocity * delta
+	else:
+		velocity = Vector2.ZERO
+
+
 
 
 func updatePathFinding():

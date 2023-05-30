@@ -8,14 +8,18 @@ func _ready():
 
 func _physics_process(_delta):
 	if Global.player_in_door_area:
-		$openDoor.text = Global.door.getButtonText()
-		show()
+		if Global.door != null:
+			$openDoor.text = Global.door.getButtonText()
+			show()
 	else:
 		hide()
 
 
 func _on_openDoor_pressed():
-	if Global.score > Global.door.getDoorPrice()-1:
-		if Global.door !=null:
-			Global.door.open()
-			Global.score -= Global.door.getDoorPrice()
+	if Global.door !=null:
+		if Global.score > Global.door.getDoorPrice()-1:
+			if Global.door !=null:
+				Global.score -= Global.door.getDoorPrice()
+				Global.door.open()
+
+		

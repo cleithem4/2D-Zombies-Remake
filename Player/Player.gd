@@ -94,6 +94,7 @@ func get_two_handed_weapon():
 		$AnimatedSprite.speed_scale = 0.65
 		reloadTime = 1.5
 		two_handed_weapon = true
+	swiftSwig = Global.swiftSwig
 	if swiftSwig:
 		$AnimatedSprite.speed_scale = $AnimatedSprite.speed_scale*2
 		reloadTime = float(reloadTime*0.5)
@@ -206,7 +207,6 @@ func player():
 	Global.health = health
 	get_two_handed_weapon()
 	get_input()
-	move_and_slide(velocity)
 	if ai_array.size() != 0:
 		select_ai()
 
@@ -220,6 +220,8 @@ func get_input():
 	rotation = get_global_mouse_position().angle_to_point(position)
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	velocity = input_direction * speed
+	
+	velocity = move_and_slide(velocity)
 	
 	#Animations
 	if input_direction and not reloading and not drinkingPerk:
@@ -361,10 +363,12 @@ func _on_fireDamage_timeout():
 func _on_Swift_Swig_perkUsed(perk):
 	drinkingPerk = true
 	$AnimatedSprite.play("swiftSwig")
+	$drinkingPerk.play()
 	$Perk.start()
 
 
 func _on_Perk_timeout():
 	drinkingPerk = false
 	swiftSwig = true
+	Global.swiftSwig = true
 

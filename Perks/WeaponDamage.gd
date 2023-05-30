@@ -1,8 +1,9 @@
 extends Node2D
 
 var inArea = []
-signal perkUsed(perk)
-
+signal weaponDamage(damageModifier)
+var cost = 0
+var damageModifier = 0
 func _ready():
 	pass
 
@@ -21,10 +22,12 @@ func _on_Area2D_body_exited(body):
 		Global.door = null
 
 func getButtonText():
-	return "Swift Swig $2500"
+	return "Weapon Damage $" + str(cost)
 func getDoorPrice():
-	return 2500
+	return cost
 	
 func open():
-	emit_signal("perkUsed",self)
-	queue_free()
+	cost *= 2
+	damageModifier += 0.25
+	Global.damageModifier *= (1+damageModifier)
+	emit_signal("weaponDamage",damageModifier * 100)

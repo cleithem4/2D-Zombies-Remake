@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/man-gulping-drink-exhaling-joshua-chivers-1-1-00-02.mp3-b7c41a453e4f25ae2cca4e4260408924.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/man-gulping-drink-exhaling-joshua-chivers-1-1-00-02.mp3"
+dest_files=[ "res://.import/man-gulping-drink-exhaling-joshua-chivers-1-1-00-02.mp3-b7c41a453e4f25ae2cca4e4260408924.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

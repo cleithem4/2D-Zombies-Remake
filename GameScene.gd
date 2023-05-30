@@ -1,9 +1,9 @@
 extends Node2D
 
-var Jay
-var Tom
-var Freecam
-
+onready var Jay
+onready var Tom
+onready var Freecam
+onready var characterSelection
 func _ready():
 	initialize_nodes()
 
@@ -13,7 +13,7 @@ func _process(_delta):
 	if not Global.jay_ai and $CharacterSelection/Jay == null or not Global.tom_ai and $CharacterSelection/Player == null:
 		$AudioStreamPlayer.stop()
 		get_tree().change_scene("res://UI/Game_Over.tscn")
-		
+	update_players()
 	
 
 func build_mode():
@@ -23,6 +23,9 @@ func initialize_nodes():
 	Jay = get_node_or_null("/root/GameScene/CharacterSelection/Jay")
 	Tom = get_node_or_null("/root/GameScene/CharacterSelection/Player")
 	Freecam = get_node_or_null("/root/GameScene/CharacterSelection/FreeRoamCamera")
+	characterSelection = get_node_or_null("/root/GameScene/CharacterSelection")
 	#Starting player
 	Global.current_player = Tom
-	Global.all_ai = [Tom, Jay, Freecam]
+	Global.all_ai = [Tom, Freecam]
+func update_players():
+	Global.all_ai = characterSelection.get_children()

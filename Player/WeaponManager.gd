@@ -7,6 +7,7 @@ onready var RPD = load("res://Weapons/RPD.tscn")
 onready var CUSTOM = load("res://Weapons/Custom_SMG.tscn")
 onready var RAYGUN = load("res://Weapons/RayGun.tscn")
 onready var M24 = load("res://Weapons/M24.tscn")
+onready var current_parent = get_parent()
 
 var new_gun
 var weapon_being_switched
@@ -43,14 +44,16 @@ func _physics_process(delta):
 		Global.switch_weapon_tom = false
 		Global.temp_switch_guns_cleared = true
 	if not Global.tom_ai:
-		if Input.is_action_just_pressed("reload"):
-			current_weapon.reload()
-		if current_weapon.fullAuto():
-			if Input.is_action_pressed("shoot"):
-				current_weapon.shoot()
-		else:
-			if Input.is_action_just_pressed("shoot"):
-				current_weapon.shoot()
+		current_parent = get_parent()
+		if not current_parent.drinkingPerk and not current_parent.reloading:
+			if Input.is_action_just_pressed("reload"):
+				current_weapon.reload()
+			if current_weapon.fullAuto():
+				if Input.is_action_pressed("shoot"):
+					current_weapon.shoot()
+			else:
+				if Input.is_action_just_pressed("shoot"):
+					current_weapon.shoot()
 	if Global.mystery_box_gun_taken and not Global.tom_ai:
 		weapon_being_taken = get_instance_of_mystery_box_gun()
 		new_gun = Global.instance_node(weapon_being_taken,global_position,self)

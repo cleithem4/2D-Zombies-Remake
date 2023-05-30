@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://UI/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -22,6 +22,8 @@
 [ext_resource path="res://Door/DoorUI.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Map/fire1.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Perks/Swift Swig.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Perks/WeaponDamage.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Particles/ImpactManager.gd" type="Script" id=24]
 
 [sub_resource type="NavigationPolygon" id=2]
 vertices = PoolVector2Array( 275, 87, 345, 32, 786, 10, 655, 1589, 236, 194, 258, 16, 288, 7, 237, 2043, -11, 1995, 35, 345, 97, 269, 611, 2012, 340, 2300, 611, 2336, 365, 2450, 328, 2436 )
@@ -39,19 +41,19 @@ polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 2, 5, 6, 3 ), PoolIntA
 outlines = [ PoolVector2Array( 1390, 1128, 1389, 1164, 1295, 1165, 1270, 1254, 1059, 1233, 1009, 1175, 1027, 1125, 1189, 1125, 1216, 1051, 1286, 1117, 1393, 1114 ) ]
 
 [sub_resource type="NavigationPolygon" id=5]
-vertices = PoolVector2Array( 1083, 2118, 1007, 2166, 1007, 2083, 1148, 2015, 1148, 2061, 1263, 1684, 1248, 1647, 1622, 1659, 802, 2065, 798, 1954, 934, 1965, 957, 2051, 1009, 1926, 1148, 1913, 870, 2450, 756, 2410, 589, 2348, 586, 2286, 1253, 2295, 1700, 2437, 1821, 2086, 1259, 2061, 1262, 2009, 1708, 1998, 1830, 2020, 1728, 1762 )
+vertices = PoolVector2Array( 1083, 2118, 1007, 2166, 1007, 2083, 1148, 2015, 1148, 2061, 1263, 1684, 1248, 1647, 1622, 1656, 802, 2065, 798, 1954, 934, 1965, 957, 2051, 1009, 1926, 1148, 1913, 870, 2450, 756, 2410, 589, 2348, 586, 2286, 1253, 2295, 1700, 2437, 1821, 2086, 1259, 2061, 1262, 2009, 1708, 1998, 1830, 2020, 1728, 1762 )
 polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 6, 7 ), PoolIntArray( 8, 9, 10, 11 ), PoolIntArray( 12, 13, 3, 2, 11, 10 ), PoolIntArray( 14, 15, 16, 17, 18, 19 ), PoolIntArray( 20, 19, 18, 21, 22, 23, 24 ), PoolIntArray( 22, 5, 7, 25, 23 ), PoolIntArray( 3, 22, 21, 4 ) ]
-outlines = [ PoolVector2Array( 1248, 1647, 1263, 1684, 1262, 2009, 1148, 2015, 1148, 1913, 1009, 1926, 934, 1965, 798, 1954, 802, 2065, 957, 2051, 1007, 2083, 1007, 2166, 1083, 2118, 1148, 2061, 1259, 2061, 1253, 2295, 586, 2286, 589, 2348, 756, 2410, 870, 2450, 1700, 2437, 1821, 2086, 1830, 2020, 1708, 1998, 1728, 1762, 1622, 1659 ) ]
+outlines = [ PoolVector2Array( 1248, 1647, 1263, 1684, 1262, 2009, 1148, 2015, 1148, 1913, 1009, 1926, 934, 1965, 798, 1954, 802, 2065, 957, 2051, 1007, 2083, 1007, 2166, 1083, 2118, 1148, 2061, 1259, 2061, 1253, 2295, 586, 2286, 589, 2348, 756, 2410, 870, 2450, 1700, 2437, 1821, 2086, 1830, 2020, 1708, 1998, 1728, 1762, 1622, 1656 ) ]
 
 [sub_resource type="NavigationPolygon" id=6]
-vertices = PoolVector2Array( 2507, 1837, 2404, 1743, 2500, 1706, 2665, 1952, 2507, 1894, 2569, 1969, 2190, 1659, 2269, 1421, 2445, 1568, 2481, 1669, 2378, 1742, 2198, 1791, 2744, 2436, 2254, 2427, 2499, 2055, 2415, 2085, 2229, 1950, 2339, 1950, 2302, 1854, 1714, 1818, 2496, 1700, 1714, 1952 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 0, 3, 5 ), PoolIntArray( 6, 7, 8, 9, 10, 11 ), PoolIntArray( 5, 3, 12, 13, 14 ), PoolIntArray( 15, 14, 13 ), PoolIntArray( 15, 13, 16, 17 ), PoolIntArray( 11, 18, 17, 16, 19 ), PoolIntArray( 9, 20, 10 ), PoolIntArray( 16, 21, 19 ), PoolIntArray( 11, 10, 18 ) ]
-outlines = [ PoolVector2Array( 2378, 1742, 2302, 1854, 2339, 1950, 2415, 2085, 2499, 2055, 2569, 1969, 2507, 1894, 2507, 1837, 2404, 1743, 2500, 1706, 2665, 1952, 2744, 2436, 2254, 2427, 2229, 1950, 1714, 1952, 1714, 1818, 2198, 1791, 2190, 1659, 2269, 1421, 2445, 1568, 2481, 1669, 2496, 1700 ) ]
+vertices = PoolVector2Array( 2507, 1837, 2404, 1743, 2500, 1706, 2665, 1952, 2507, 1894, 2569, 1969, 2190, 1659, 2269, 1421, 2445, 1568, 2481, 1669, 2378, 1742, 2198, 1791, 2744, 2436, 2254, 2427, 2499, 2055, 2415, 2085, 2229, 1950, 2339, 1950, 2302, 1854, 2496, 1700, 1737.66, 1951.9, 1713, 1952, 1717, 1803 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 0, 3, 5 ), PoolIntArray( 6, 7, 8, 9, 10, 11 ), PoolIntArray( 5, 3, 12, 13, 14 ), PoolIntArray( 15, 14, 13 ), PoolIntArray( 15, 13, 16, 17 ), PoolIntArray( 18, 17, 16, 11 ), PoolIntArray( 9, 19, 10 ), PoolIntArray( 20, 21, 22, 11, 16 ), PoolIntArray( 11, 10, 18 ) ]
+outlines = [ PoolVector2Array( 2378, 1742, 2302, 1854, 2339, 1950, 2415, 2085, 2499, 2055, 2569, 1969, 2507, 1894, 2507, 1837, 2404, 1743, 2500, 1706, 2665, 1952, 2744, 2436, 2254, 2427, 2229, 1950, 1737.66, 1951.9, 1713, 1952, 1717, 1803, 2198, 1791, 2190, 1659, 2269, 1421, 2445, 1568, 2481, 1669, 2496, 1700 ) ]
 
 [sub_resource type="NavigationPolygon" id=7]
-vertices = PoolVector2Array( 2554, 1797, 2999, 1555, 3071, 1689, 2641, 1921 )
+vertices = PoolVector2Array( 2561, 1796, 2999, 1555, 3071, 1689, 2642, 1917 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
-outlines = [ PoolVector2Array( 2554, 1797, 2999, 1555, 3071, 1689, 2641, 1921 ) ]
+outlines = [ PoolVector2Array( 2561, 1796, 2999, 1555, 3071, 1689, 2642, 1917 ) ]
 
 [sub_resource type="NavigationPolygon" id=8]
 vertices = PoolVector2Array( 2994, 1549, 2885, 1429, 2994, 1387, 3414, 1390, 4298, 1870, 4202, 1904, 4199, 1740, 4273, 1726, 4430, 2097, 4462, 2425, 3289, 2440, 3959, 2048, 4474, 1350, 4474, 2014, 4439, 2012, 4454, 1393, 3065, 1686, 3960, 1405, 4429, 2043, 4162, 1405, 3418, 1221, 4459, 1208, 4241, 1403, 4185, 1432, 4239, 1522, 4177, 1556, 4264, 1624, 4120, 1712, 4120, 1590, 4341, 1531, 4346, 1587 )
@@ -119,9 +121,9 @@ polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 3, 4, 5, 6 ), PoolIntArray( 
 outlines = [ PoolVector2Array( 5342, 1405, 5362, 1409, 5366, 1497, 5448, 1551, 5466, 1825, 5467, 1890, 5421, 1891, 5350, 1879, 5289, 1886, 5245, 1902, 5261, 1551, 5318, 1510, 5343, 1501 ) ]
 
 [sub_resource type="NavigationPolygon" id=21]
-vertices = PoolVector2Array( 6733, 125, 6701, 110, 6825, 110, 6829, 130, 6640, 137, 6712, 131, 6688, 155, 6906, 635, 6765, 839, 6741, 624, 6880, 609, 6910, 509, 6876, 509, 6643, 500, 6687, 182, 6694, 215, 6698, 258, 6698, 295, 6693, 328, 6694, 391, 6687, 448, 6685, 493, 6716, 502, 6844, 498, 6827, 508, 6845, 94, 7043, 116, 7043, 277, 6849, 165, 6851, 466, 6841, 355, 6832, 291, 6838, 237, 7135, 466, 7047, 510, 6848, 403, 7142, 297 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6 ), PoolIntArray( 7, 8, 9, 10 ), PoolIntArray( 11, 7, 10, 12 ), PoolIntArray( 13, 4, 6, 14 ), PoolIntArray( 13, 14, 15, 16, 17, 18 ), PoolIntArray( 13, 18, 19, 20 ), PoolIntArray( 13, 20, 21 ), PoolIntArray( 22, 13, 21, 23 ), PoolIntArray( 24, 22, 23, 12 ), PoolIntArray( 3, 2, 25, 26, 27, 28 ), PoolIntArray( 12, 23, 29, 11 ), PoolIntArray( 30, 31, 32, 28, 27, 33, 34, 11, 35 ), PoolIntArray( 27, 36, 33 ), PoolIntArray( 29, 35, 11 ) ]
-outlines = [ PoolVector2Array( 6733, 125, 6829, 130, 6849, 165, 6838, 237, 6832, 291, 6841, 355, 6848, 403, 6851, 466, 6844, 498, 6685, 493, 6687, 448, 6694, 391, 6693, 328, 6698, 295, 6698, 258, 6694, 215, 6687, 182, 6688, 155, 6712, 131, 6640, 137, 6643, 500, 6716, 502, 6827, 508, 6876, 509, 6880, 609, 6741, 624, 6765, 839, 6906, 635, 6910, 509, 7047, 510, 7135, 466, 7142, 297, 7043, 277, 7043, 116, 6845, 94, 6825, 110, 6701, 110 ) ]
+vertices = PoolVector2Array( 6733, 125, 6701, 110, 6825, 110, 6829, 130, 6640, 137, 6712, 131, 6688, 155, 6906, 635, 6765, 839, 6741, 624, 6880, 609, 6910, 509, 6879, 501, 6643, 500, 6687, 182, 6694, 215, 6698, 258, 6698, 295, 6693, 328, 6694, 391, 6687, 448, 6685, 493, 6716, 502, 6845, 494, 6835, 501, 6851, 466, 6845, 94, 7043, 116, 7043, 277, 6849, 165, 6841, 355, 6832, 291, 6838, 237, 7135, 466, 7047, 510, 6848, 403, 7142, 297 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6 ), PoolIntArray( 7, 8, 9, 10 ), PoolIntArray( 11, 7, 10, 12 ), PoolIntArray( 13, 4, 6, 14 ), PoolIntArray( 13, 14, 15, 16, 17, 18 ), PoolIntArray( 13, 18, 19, 20 ), PoolIntArray( 13, 20, 21 ), PoolIntArray( 22, 13, 21, 23, 24 ), PoolIntArray( 12, 24, 23 ), PoolIntArray( 12, 23, 25 ), PoolIntArray( 3, 2, 26, 27, 28, 29 ), PoolIntArray( 30, 31, 32, 29, 28, 33, 34, 11, 35 ), PoolIntArray( 28, 36, 33 ), PoolIntArray( 25, 35, 11, 12 ) ]
+outlines = [ PoolVector2Array( 6733, 125, 6829, 130, 6849, 165, 6838, 237, 6832, 291, 6841, 355, 6848, 403, 6851, 466, 6845, 494, 6685, 493, 6687, 448, 6694, 391, 6693, 328, 6698, 295, 6698, 258, 6694, 215, 6687, 182, 6688, 155, 6712, 131, 6640, 137, 6643, 500, 6716, 502, 6835, 501, 6879, 501, 6880, 609, 6741, 624, 6765, 839, 6906, 635, 6910, 509, 7047, 510, 7135, 466, 7142, 297, 7043, 277, 7043, 116, 6845, 94, 6825, 110, 6701, 110 ) ]
 
 [sub_resource type="NavigationPolygon" id=22]
 vertices = PoolVector2Array( 6671, 135, 6706, 112, 6730, 123, 6694, 144 )
@@ -182,9 +184,9 @@ volume_db = -18.537
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_left = -1821.0
-margin_top = -998.0
+margin_top = -991.0
 margin_right = 10000.0
-margin_bottom = 3428.0
+margin_bottom = 3435.0
 rect_pivot_offset = Vector2( 716, 2213 )
 color = Color( 0.0823529, 0.054902, 0.121569, 1 )
 
@@ -200,21 +202,22 @@ position = Vector2( -1821, -998 )
 
 [node name="fire1" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 4427, 1208 )
-frame = 3
+frame = 2
 
 [node name="fire2" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 5215, 1837 )
-frame = 2
 
 [node name="fire3" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 5972, 1284 )
+frame = 0
 
 [node name="fire4" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 9294, 2938 )
+frame = 0
 
 [node name="fire5" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 9353, 2925 )
-frame = 0
+frame = 4
 
 [node name="CharacterSelection" parent="." instance=ExtResource( 15 )]
 
@@ -416,10 +419,10 @@ polygon = PoolVector2Array( 5773, 579, 5773, 551, 5939, 552, 5941, 515, 6010, 51
 polygon = PoolVector2Array( 5679, 312, 5729, 312, 5732, 289, 5787, 290, 5789, 307, 5932, 310, 5932, 436, 5894, 438, 5892, 461, 5834, 459, 5839, 438, 5797, 439, 5784, 473, 5726, 458, 5734, 444, 5680, 440 )
 
 [node name="CollisionPolygon2D23" type="CollisionPolygon2D" parent="Buildings"]
-polygon = PoolVector2Array( 6863, 578, 6863, 554, 6836, 554, 6832, 523, 6779, 520, 6770, 515, 6759, 518, 6751, 513, 6730, 512, 6727, 518, 6716, 513, 6700, 513, 6681, 512, 6644, 518, 6622, 520, 6625, 99, 6828, 102, 6832, 78, 7071, 77, 7074, 248, 7076, 269, 7194, 277, 7197, 304, 7168, 323, 7174, 435, 7198, 442, 7194, 469, 7127, 512, 7054, 518, 7025, 524, 6962, 523, 6954, 547, 6925, 550, 6925, 578, 6943, 585, 7214, 586, 7228, 572, 7235, 54, 7217, 40, 6574, 39, 6559, 54, 6557, 462, 6517, 453, 6417, 480, 6390, 504, 6401, 524, 6406, 542, 6406, 550, 6393, 564, 6397, 583, 6417, 572, 6379, 636, 6445, 721, 6501, 673, 6533, 642, 6559, 622, 6583, 604, 6600, 588, 6578, 581 )
+polygon = PoolVector2Array( 6863, 578, 6863, 554, 6836, 554, 6831, 531, 6792, 534, 6722, 535, 6678, 537, 6626, 534, 6622, 520, 6626, 94, 6825, 91, 6832, 78, 7071, 77, 7074, 248, 7076, 269, 7194, 277, 7197, 304, 7168, 323, 7174, 435, 7198, 442, 7194, 469, 7127, 512, 7054, 518, 7025, 524, 6962, 523, 6954, 547, 6925, 550, 6925, 578, 6943, 585, 7214, 586, 7228, 572, 7235, 54, 7217, 40, 6574, 39, 6559, 54, 6557, 462, 6517, 453, 6417, 480, 6390, 504, 6401, 524, 6406, 542, 6406, 550, 6393, 564, 6397, 583, 6417, 572, 6379, 636, 6445, 721, 6501, 673, 6533, 642, 6559, 622, 6583, 604, 6600, 588, 6578, 581 )
 
 [node name="CollisionPolygon2D24" type="CollisionPolygon2D" parent="Buildings"]
-polygon = PoolVector2Array( 6816, 478, 6816, 470, 6832, 472, 6832, 424, 6819, 408, 6819, 213, 6830, 207, 6833, 151, 6816, 151, 6816, 140, 6719, 143, 6703, 153, 6705, 210, 6716, 210, 6716, 239, 6716, 412, 6703, 413, 6703, 475, 6713, 470, 6717, 477 )
+polygon = PoolVector2Array( 6813, 475, 6816, 470, 6832, 472, 6832, 424, 6819, 408, 6819, 213, 6830, 207, 6833, 151, 6816, 151, 6814, 153, 6719, 151, 6706, 157, 6705, 210, 6716, 210, 6716, 239, 6716, 412, 6703, 413, 6704, 457, 6713, 470, 6722, 474 )
 
 [node name="CollisionPolygon2D25" type="CollisionPolygon2D" parent="Buildings"]
 polygon = PoolVector2Array( 7418, 346, 7421, 297, 7389, 284, 7410, 270, 7418, 270, 7422, 192, 7640, 193, 7645, 264, 7669, 280, 7649, 290, 7642, 300, 7637, 352 )
@@ -468,14 +471,52 @@ polygon = PoolVector2Array( 1872, 2003, 2124, 2007, 2138, 2093, 2155, 2164, 2177
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Water"]
 polygon = PoolVector2Array( 2740, 1898, 2976, 1781, 3044, 1913, 3030, 1979, 3056, 2062, 3095, 2118, 3097, 2218, 3121, 2270, 3167, 2367, 3211, 2481, 2875, 2475, 2907, 2381, 2875, 2256, 2860, 2225, 2823, 2072 )
 
+[node name="Inside" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 976, 1274, 970, 989, 1275, 982, 1331, 1087, 1327, 1212, 1305, 1310, 1099, 1316 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 735, 1874, 1182, 1875, 1180, 2146, 1043, 2212, 947, 2205, 945, 2104, 747, 2098 )
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 3043, 104, 3361, 117, 3357, 532, 3198, 549, 3038, 407 )
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 4127, 1458, 4296, 1460, 4374, 1465, 4374, 1947, 4029, 1957, 4024, 1465 )
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 5284, 1473, 5498, 1485, 5508, 1926, 5195, 1926, 5198, 1478 )
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 5946, 1485, 6299, 1483, 6299, 1700, 6032, 1959, 5946, 1957 )
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 6846, 1465, 7153, 1483, 7196, 1775, 7141, 1947, 6702, 1942, 6702, 1475 )
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 7879, 750, 8433, 747, 8438, 1301, 7879, 1294 )
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 6606, 94, 7075, 79, 7083, 271, 7191, 271, 7171, 520, 6606, 528 )
+
+[node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="Inside"]
+polygon = PoolVector2Array( 5558, 77, 6039, 79, 6034, 546, 5573, 548 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
 [node name="ImpactManager" type="Node2D" parent="."]
+script = ExtResource( 24 )
 
 [node name="Blood" parent="ImpactManager" instance=ExtResource( 7 )]
+visible = false
 
 [node name="Fire" parent="ImpactManager" instance=ExtResource( 13 )]
+visible = false
 position = Vector2( 95, 399 )
 
 [node name="MysteryBox" parent="." instance=ExtResource( 18 )]
@@ -497,7 +538,11 @@ scale = Vector2( 1.35, 1 )
 [node name="SwiftSwig" parent="Perks" instance=ExtResource( 22 )]
 position = Vector2( 5357, 1905 )
 
+[node name="WeaponDamage" parent="Perks" instance=ExtResource( 23 )]
+position = Vector2( 2399, 1845 )
+
 [connection signal="timeout" from="Navigation2D/EnemySpawner/SpawnCooldown" to="Navigation2D/EnemySpawner" method="_on_SpawnCooldown_timeout"]
 [connection signal="timeout" from="Navigation2D/EnemySpawner/WaveCooldown" to="Navigation2D/EnemySpawner" method="_on_WaveCooldown_timeout"]
 [connection signal="perkUsed" from="Perks/SwiftSwig" to="CharacterSelection" method="_on_Swift_Swig_perkUsed"]
 [connection signal="perkUsed" from="Perks/SwiftSwig" to="CharacterSelection/Player" method="_on_Swift_Swig_perkUsed"]
+[connection signal="weaponDamage" from="Perks/WeaponDamage" to="ImpactManager" method="_on_WeaponDamage_weaponDamage"]
