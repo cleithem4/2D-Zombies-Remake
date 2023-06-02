@@ -15,8 +15,10 @@ func open():
 	animationPlayer.play("exitScreen")
 	$Jay.queue_free()
 	$"Help Me!".queue_free()
-	actualJay.dialogue.show()
-	$DialogueTimer.start()
+	actualJay.dialogue.hide()
+	actualJay.beingSaved = true
+	actualJay.downed()
+
 	
 
 func _on_Area2D_body_entered(body):
@@ -35,9 +37,5 @@ func _on_Area2D_body_exited(body):
 func getButtonText():
 	return "Open Door ($750)"
 func getDoorPrice():
-	return 750
+	return 0
 
-
-func _on_DialogueTimer_timeout():
-	actualJay.dialogue.queue_free()
-	queue_free()

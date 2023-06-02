@@ -15,7 +15,7 @@ func _physics_process(delta):
 	
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("Enemy"):
-		body.damage(damage * Global.damageModifier,false,direction)
+		body.damage(damage * Global.damageModifier,false,direction,false)
 		#Queue free so bullet disappear
 		queue_free()
 	if body.is_in_group("Object") and not body.is_in_group("Player"):
@@ -30,6 +30,6 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Head"):
-		area.get_parent().damage(damage * 2,true,direction)
+		area.get_parent().damage(damage * 2,true,direction,false)
 		queue_free()
 		

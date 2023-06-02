@@ -7,6 +7,7 @@ onready var RPD = load("res://Weapons/RPD.tscn")
 onready var CUSTOM = load("res://Weapons/Custom_SMG.tscn")
 onready var RAYGUN = load("res://Weapons/RayGun.tscn")
 onready var M24 = load("res://Weapons/M24.tscn")
+onready var PUMPSHOTGUN = load("res://Weapons/PumpAction.tscn")
 var current_parent = get_parent()
 
 var weapons = []
@@ -99,6 +100,8 @@ func findGunPosition():
 		position = pistol_position
 	elif current_weapon.getGunName() == "M24":
 		position = ak_position
+	elif current_weapon.getGunName() == "Pump-Shotgun":
+		position = ak_position
 func refreshWeapons():
 	weapons = get_children()
 	for gun in weapons:
@@ -119,3 +122,5 @@ func returnWeaponInstance(weapon):
 		return RAYGUN
 	elif weapon.getGunName() == "M24":
 		return M24
+	elif weapon.getGunName() == "Pump-Shotgun":
+		return PUMPSHOTGUN

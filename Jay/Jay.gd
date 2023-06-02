@@ -12,6 +12,7 @@ onready var WeaponManager = $WeaponManager
 var current_weapon = null
 var two_handed_weapon = false
 var reloadTime = 1.0
+var beingSaved = false
 #AI
 var AI = false
 var too_close_distance = 80
@@ -67,6 +68,10 @@ func get_two_handed_weapon():
 	elif Global.jay_weapon.getGunName() == "M24":
 		$AnimatedSprite.speed_scale = 0.65
 		reloadTime = 1.5
+		two_handed_weapon = true
+	elif Global.jay_weapon.getGunName() == "Pump-Shotgun":
+		$AnimatedSprite.speed_scale = 0.85
+		reloadTime = 1.2
 		two_handed_weapon = true
 	swiftSwig = Global.swiftSwig
 	if swiftSwig:
@@ -276,6 +281,7 @@ func _on_closestAI_body_entered(body):
 		ai_array.append(body)
 
 func downed():
+	
 	downedArea.clear()
 	Global.player_in_downed_area = downedArea.size() != 0
 	get_parent().update_players()
@@ -297,6 +303,10 @@ func downed():
 	get_tree().change_scene("res://UI/Game_Over.tscn")
 
 func revived():
+	if beingSaved:
+		dialogue.show()
+		beingSaved = false
+		$dialogueTimer.start()
 	downedArea.clear()
 	self.add_to_group("AI")
 	self.add_to_group("Player")
@@ -372,3 +382,7 @@ func _on_Swift_Swig_perkUsed(perk):
 func _on_Perk_timeout():
 	drinkingPerk = false
 	swiftSwig = true
+
+
+func _on_dialogueTimer_timeout():
+	dialogue.queue_free()

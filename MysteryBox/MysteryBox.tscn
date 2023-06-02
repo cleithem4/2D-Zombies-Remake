@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Assets/CharacterSprite/mystery box.png" type="Texture" id=1]
 [ext_resource path="res://Weapons/RPD.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/Font/RussoOne-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Weapons/RayGun.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Weapons/M24.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Weapons/PumpAction.tscn" type="PackedScene" id=9]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
@@ -112,6 +113,11 @@ rotation = 1.5708
 [node name="M24" parent="guns" instance=ExtResource( 8 )]
 visible = false
 position = Vector2( -0.625, -20.625 )
+rotation = 1.5708
+
+[node name="PUMPSHOTGUN" parent="guns" instance=ExtResource( 9 )]
+visible = false
+position = Vector2( -0.625, -21.25 )
 rotation = 1.5708
 
 [node name="Cost" type="Label" parent="."]

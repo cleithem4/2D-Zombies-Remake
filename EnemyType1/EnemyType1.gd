@@ -5,6 +5,7 @@ export var health = 10
 onready var HUD = get_node("/root/GameScene/CanvasLayer/HUD")
 var velocity = Vector2.ZERO
 var attackDmg = 10
+var score = 5
 var able_to_attack = true
 onready var Blood = load("res://Particles/Blood.tscn") 
 onready var Fire = load("res://Particles/Fire.tscn")
@@ -23,7 +24,7 @@ var direction = Vector2.ZERO
 var next_location = Vector2.ZERO
 var enemies_in_repulsion_force = []
 
-
+var dead = false
 
 signal on_fire(time)
 var fireTime = 0
@@ -143,15 +144,20 @@ func fire_damage(dmg):
 	
 
 #Zombie dies if health <= 0
-func damage(dmg,is_headshot,direction):
+func damage(dmg,is_headshot,direction,is_shotgun):
+	if dead:
+		return
 	if is_headshot:
 		health -= dmg * 2
-		HUD.update_score(10)
+		score *= 2
 		$headshot.play()
 	else:
 		health -= dmg
-		HUD.update_score(5)
+		score = 5
 		$NormalShot.play()
+	if is_shotgun:
+		score = score/2
+	HUD.update_score(score)
 	
 	#adds blood to zombie each time they get shot
 	var blood = Blood.instance()
@@ -162,6 +168,7 @@ func damage(dmg,is_headshot,direction):
 	if health <= 0:
 		HUD.update_score(30)
 		parent.on_zombie_killed(self)
+		dead = true
 		queue_free()
 
 func _on_AttackRange_body_entered(body):

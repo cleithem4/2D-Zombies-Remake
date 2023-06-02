@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/shotgun-blast-with-reverb-smartsound-fx-1-00-04 (mp3cut.net).mp3-476ca1e2a0f4dd50504a86f0ae5a87aa.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/shotgun-blast-with-reverb-smartsound-fx-1-00-04 (mp3cut.net).mp3"
+dest_files=[ "res://.import/shotgun-blast-with-reverb-smartsound-fx-1-00-04 (mp3cut.net).mp3-476ca1e2a0f4dd50504a86f0ae5a87aa.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

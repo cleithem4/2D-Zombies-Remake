@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/PUMP_SHOTGUN_SHOT.mp3-249abc885ee8c5bc4999b2a9f4f6a397.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/PUMP_SHOTGUN_SHOT.mp3"
+dest_files=[ "res://.import/PUMP_SHOTGUN_SHOT.mp3-249abc885ee8c5bc4999b2a9f4f6a397.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

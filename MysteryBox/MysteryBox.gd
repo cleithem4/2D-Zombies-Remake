@@ -5,8 +5,9 @@ onready var RPD = $guns/RPD
 onready var CUSTOM = $guns/CUSTOM
 onready var RAYGUN = $guns/RAYGUN
 onready var M24 = $guns/M24
+onready var PUMPSHOTGUN = $guns/PUMPSHOTGUN
 
-var weapons_arr = ["AK47","RPD","CUSTOM","RAYGUN","M24"]
+var weapons_arr = ["AK47","RPD","CUSTOM","RAYGUN","M24","PUMPSHOTGUN"]
 var randomized_arr = []
 var current_gun_showing = false
 var timer = 0.0

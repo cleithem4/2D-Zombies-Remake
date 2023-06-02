@@ -94,6 +94,10 @@ func get_two_handed_weapon():
 		$AnimatedSprite.speed_scale = 0.65
 		reloadTime = 1.5
 		two_handed_weapon = true
+	elif Global.tom_weapon.getGunName() == "Pump-Shotgun":
+		$AnimatedSprite.speed_scale = 0.85
+		reloadTime = 1.2
+		two_handed_weapon = true
 	swiftSwig = Global.swiftSwig
 	if swiftSwig:
 		$AnimatedSprite.speed_scale = $AnimatedSprite.speed_scale*2

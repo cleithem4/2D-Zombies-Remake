@@ -316,7 +316,6 @@ script = ExtResource( 2 )
 rotation = 1.5708
 frames = SubResource( 4 )
 animation = "swiftSwig"
-frame = 8
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -392,6 +391,10 @@ stream = ExtResource( 16 )
 wait_time = 1.875
 one_shot = true
 
+[node name="dialogueTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="on_fire" from="." to="." method="_on_Jay_on_fire"]
 [connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]
 [connection signal="body_exited" from="shootRadius" to="." method="_on_shootRadius_body_exited"]
@@ -402,3 +405,4 @@ one_shot = true
 [connection signal="timeout" from="fireManager/Fire" to="." method="_on_Fire_timeout"]
 [connection signal="timeout" from="fireManager/fireDamage" to="." method="_on_fireDamage_timeout"]
 [connection signal="timeout" from="Perk" to="." method="_on_Perk_timeout"]
+[connection signal="timeout" from="dialogueTimer" to="." method="_on_dialogueTimer_timeout"]

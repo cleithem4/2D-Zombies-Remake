@@ -63,7 +63,6 @@ shape = SubResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
 position = Vector2( 10.3125, 0.312454 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 15 )
 
 [node name="AttackSpeed" type="Timer" parent="."]

@@ -43,8 +43,8 @@ texture = ExtResource( 1 )
 polygon = PoolVector2Array( 8, -4, 8, 3, -7, 3, -7, -4 )
 
 [node name="Jay" type="Sprite" parent="."]
-position = Vector2( 9, -47 )
-rotation = 1.5708
+position = Vector2( 7.99995, -46 )
+rotation = 3.14159
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 3 )
 
@@ -66,9 +66,5 @@ rect_scale = Vector2( 0.03, 0.03 )
 theme = SubResource( 4 )
 text = "Help me!!"
 
-[node name="DialogueTimer" type="Timer" parent="."]
-wait_time = 3.0
-
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
-[connection signal="timeout" from="DialogueTimer" to="." method="_on_DialogueTimer_timeout"]

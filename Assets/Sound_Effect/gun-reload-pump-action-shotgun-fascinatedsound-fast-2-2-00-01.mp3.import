@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/gun-reload-pump-action-shotgun-fascinatedsound-fast-2-2-00-01.mp3-f5d349823c1ee8eb02b651ca060c0507.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound_Effect/gun-reload-pump-action-shotgun-fascinatedsound-fast-2-2-00-01.mp3"
+dest_files=[ "res://.import/gun-reload-pump-action-shotgun-fascinatedsound-fast-2-2-00-01.mp3-f5d349823c1ee8eb02b651ca060c0507.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

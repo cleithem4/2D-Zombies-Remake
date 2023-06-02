@@ -45,6 +45,7 @@ var mystery_box_gun_taken = false
 var buttonClicked = false
 var timerVisible = false
 
+var hits = 0
 
 
 #DOOR VARIABLES
