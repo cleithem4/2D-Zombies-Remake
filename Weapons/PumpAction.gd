@@ -7,7 +7,7 @@ var reloading = false
 onready var Bullet = load("res://Bullet/ShotgunBullet.tscn")
 onready var end_of_gun = $end_of_gun
 onready var parent = get_parent().get_parent()
-var bullet_count = 10 # number of bullets per shot
+var bullet_count = 25 # number of bullets per shot
 var spread = deg2rad(25) # spread in radians
 var rng 
 

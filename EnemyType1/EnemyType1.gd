@@ -7,14 +7,17 @@ var velocity = Vector2.ZERO
 var attackDmg = 10
 var score = 5
 var able_to_attack = true
-onready var Blood = load("res://Particles/Blood.tscn") 
+onready var Blood = load("res://Particles/Blood.tscn")
+onready var HeadshotBlood = load("res://Particles/headshotBlood.tscn") 
+onready var DeathBlood = load("res://Particles/deathBlood.tscn") 
 onready var Fire = load("res://Particles/Fire.tscn")
+onready var shaderDissolve = load("res://Assets/dissolve.tres")
 var fire = null
 onready var parent = get_parent()
 var in_attack_range = []
 
 var headshot = false
-
+onready var ZombieSprite = $AnimatedSprite
 onready var closest_player = null
 var closest_player_distance = null
 var player_distance = null
@@ -45,12 +48,22 @@ func _ready():
 
 #Process the game 
 var frame_count = 0
+var timer = 0.0
 var update_interval = 10  # Update every 10 frames
 var frame_count_rotation = 0
 var update_interval_rotation = 4
 func _physics_process(delta):
+	if ZombieSprite.material !=null:
+		timer+= delta
+		ZombieSprite.material.set_shader_param("time", timer)
+		var value = ZombieSprite.material.get_shader_param("time")
+		print(value)
 	frame_count += 1
 	frame_count_rotation += 1
+	if dead:
+		collision_layer = 0
+		collision_mask = 0
+		return
 	if frame_count >= update_interval:
 		frame_count = 0
 		# Update pathfinding and direction here
@@ -158,18 +171,34 @@ func damage(dmg,is_headshot,direction,is_shotgun):
 	if is_shotgun:
 		score = score/2
 	HUD.update_score(score)
-	
+	if health <= 0:
+		HUD.update_score(30)
+		parent.on_zombie_killed(self)
+		dead = true
+		if is_headshot:
+			$death.start()
+			$AnimatedSprite.play("headshot")
+			var blood = HeadshotBlood.instance()
+			get_tree().current_scene.add_child(blood)
+			blood.global_position = $fireManager/fire.global_position
+			return
+		else:
+			$AnimatedSprite.play("Idle")
+			$death.start()
+			var blood = DeathBlood.instance()
+			get_tree().current_scene.add_child(blood)
+			blood.global_position = $fireManager/fire.global_position
+			timer = 0.5
+			$AnimatedSprite.material = shaderDissolve
+			
 	#adds blood to zombie each time they get shot
 	var blood = Blood.instance()
 	get_tree().current_scene.add_child(blood)
 	blood.global_position = global_position
 	blood.global_rotation = direction.angle()
 	
-	if health <= 0:
-		HUD.update_score(30)
-		parent.on_zombie_killed(self)
-		dead = true
-		queue_free()
+
+
 
 func _on_AttackRange_body_entered(body):
 	if body.has_method("damage") and body.is_in_group("Player"):
@@ -242,3 +271,10 @@ func _on_Fire_timeout():
 func _on_fireDamage_timeout():
 	$AnimatedSprite.modulate = Color("ffffff")
 	$fireManager/fireDamage.stop()
+
+
+
+
+
+func _on_death_timeout():
+	queue_free()

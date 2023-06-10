@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://EnemyType1/EnemyType1.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CharacterSprite/zombie_png.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/Sound_Effect/Zombie_Bite_Sound.mp3" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Sound_Effect/fire-raging-in-hell-smartsound-fx-1-01-00.mp3" type="AudioStream" id=7]
 [ext_resource path="res://Assets/Sound_Effect/demonic-monster-growling-joshua-chivers-2-2-00-03-[AudioTrimmer.com].mp3" type="AudioStream" id=8]
+[ext_resource path="res://Assets/CharacterSprite/headshot_death.png" type="Texture" id=9]
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
@@ -21,6 +22,54 @@ region = Rect2( 100, 0, 100, 100 )
 atlas = ExtResource( 2 )
 region = Rect2( 0, 100, 100, 100 )
 
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 9 )
+region = Rect2( 100, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 9 )
+region = Rect2( 200, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 9 )
+region = Rect2( 100, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 9 )
+region = Rect2( 200, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 9 )
+region = Rect2( 100, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 9 )
+region = Rect2( 200, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 9 )
+region = Rect2( 100, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 9 )
+region = Rect2( 200, 300, 100, 100 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ SubResource( 9 ) ],
@@ -32,6 +81,11 @@ animations = [ {
 "loop": true,
 "name": "Walk",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"loop": true,
+"name": "headshot",
+"speed": 10.0
 } ]
 
 [sub_resource type="CircleShape2D" id=12]
@@ -128,7 +182,11 @@ stream = ExtResource( 8 )
 volume_db = -9.614
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( 19.9999, -13.7501, -8.75005, -11.875, -9.37495, 10, -2.49994, 14.375, 20.6251, 13.7499, 20.625, 8.12491, 17.5, 5.62492, -1.87496, 8.12501, -1.87504, -8.12499, 20, -5.00009 )
+
+[node name="death" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="on_fire" from="." to="." method="_on_EnemyType1_on_fire"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]
@@ -141,3 +199,4 @@ polygon = PoolVector2Array( 19.9999, -13.7501, -8.75005, -11.875, -9.37495, 10, 
 [connection signal="body_exited" from="repulsionForce" to="." method="_on_repulsionForce_body_exited"]
 [connection signal="timeout" from="fireManager/Fire" to="." method="_on_Fire_timeout"]
 [connection signal="timeout" from="fireManager/fireDamage" to="." method="_on_fireDamage_timeout"]
+[connection signal="timeout" from="death" to="." method="_on_death_timeout"]
