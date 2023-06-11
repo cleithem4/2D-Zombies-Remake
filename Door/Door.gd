@@ -37,5 +37,5 @@ func _on_Area2D_body_exited(body):
 func getButtonText():
 	return "Open Door ($750)"
 func getDoorPrice():
-	return 0
+	return 750
 

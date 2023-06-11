@@ -29,4 +29,12 @@ func _on_Swift_Swig_perkUsed(perk):
 	for player in Global.all_ai:
 		if player != null:
 			if player.get_ai_name() != "FreeRoamCamera":
-				player._on_Swift_Swig_perkUsed(swiftSwig)
+				player._on_Swift_Swig_perkUsed(perk)
+
+
+func _on_JuggerJuice_perkUsed(perk):
+	update_players()
+	for player in Global.all_ai:
+		if player != null:
+			if player.get_ai_name() != "FreeRoamCamera":
+				player._on_Swift_Swig_perkUsed(perk)

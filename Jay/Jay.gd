@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
 export var speed = 380
-export var health = 100
+export var max_health = 100
+var health = 100
 var velocity = Vector2.ZERO
 var reloading = false
 onready var Bullet = load("res://Bullet/Bullet.tscn")
@@ -39,6 +40,8 @@ onready var Fire = load("res://Particles/Fire.tscn")
 #Perk
 var drinkingPerk = false
 var swiftSwig = false
+var juggerJuice = false
+var Perk = null
 
 func _ready():
 	get_two_handed_weapon()
@@ -155,7 +158,7 @@ func AI():
 		select_enemy()
 		turn()
 		able_to_shoot()
-		if able_to_shoot:
+		if able_to_shoot and not drinkingPerk:
 			WeaponManager.shoot()
 	else:
 		enemy = null
@@ -260,11 +263,11 @@ func damage(damage):
 
 #PLAYER FUNCTION
 func regenerateHealth():
-	if health < 100:
-		health += 0.1
-
-
-
+	if health < max_health:
+		if juggerJuice:
+			health += 0.2
+		else:
+			health += 0.1
 
 #PLAYER FUNCTION
 func select_ai():
@@ -281,7 +284,6 @@ func _on_closestAI_body_entered(body):
 		ai_array.append(body)
 
 func downed():
-	
 	downedArea.clear()
 	Global.player_in_downed_area = downedArea.size() != 0
 	get_parent().update_players()
@@ -312,17 +314,13 @@ func revived():
 	self.add_to_group("Player")
 	downed = false
 	speed = 380
-	health = 100
+	health = max_health
 	$AnimatedSprite.speed_scale = 1
 	
-
 
 func _on_closestAI_body_exited(body):
 	if body.is_in_group("AI"):
 		ai_array.erase(body)
-
-
-
 
 
 func _on_downed_body_entered(body):
@@ -377,11 +375,24 @@ func _on_Swift_Swig_perkUsed(perk):
 	drinkingPerk = true
 	$AnimatedSprite.play("swiftSwig")
 	$Perk.start()
-
-
+	Perk = perk
+func _on_Jugger_Juice_perkUsed(perk):
+	drinkingPerk = true
+	$AnimatedSprite.play("swiftSwig")
+	$drinkingPerk.play()
+	$Perk.start()
+	Perk = perk
+	
+	
 func _on_Perk_timeout():
 	drinkingPerk = false
-	swiftSwig = true
+	if Perk.getPerkName() == "JuggerJuice":
+		max_health = 130
+		juggerJuice = true
+		Global.juggerJuice = true
+	elif Perk.getPerkName() == "SwiftSwig":
+		swiftSwig = true
+		Global.swiftSwig = true
 
 
 func _on_dialogueTimer_timeout():

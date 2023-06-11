@@ -21,11 +21,11 @@ func _on_Area2D_body_exited(body):
 		Global.door = null
 
 func getButtonText():
-	return "Swift Swig $2500"
+	return "Jugger Juice $2500"
 func getDoorPrice():
 	return 2500
 func getPerkName():
-	"SwiftSwig"
+	"JuggerJuice"
 	
 func open():
 	emit_signal("perkUsed",self)

@@ -57,7 +57,6 @@ func _physics_process(delta):
 		timer+= delta
 		ZombieSprite.material.set_shader_param("time", timer)
 		var value = ZombieSprite.material.get_shader_param("time")
-		print(value)
 	frame_count += 1
 	frame_count_rotation += 1
 	if dead:
@@ -160,6 +159,7 @@ func fire_damage(dmg):
 func damage(dmg,is_headshot,direction,is_shotgun):
 	if dead:
 		return
+	score = 5
 	if is_headshot:
 		health -= dmg * 2
 		score *= 2
@@ -271,9 +271,6 @@ func _on_Fire_timeout():
 func _on_fireDamage_timeout():
 	$AnimatedSprite.modulate = Color("ffffff")
 	$fireManager/fireDamage.stop()
-
-
-
 
 
 func _on_death_timeout():

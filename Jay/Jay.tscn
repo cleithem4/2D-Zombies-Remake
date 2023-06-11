@@ -290,7 +290,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=5]
-radius = 11.0454
+radius = 13.09
 
 [sub_resource type="CircleShape2D" id=20]
 radius = 236.62
@@ -316,6 +316,7 @@ script = ExtResource( 2 )
 rotation = 1.5708
 frames = SubResource( 4 )
 animation = "swiftSwig"
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://UI/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://Perks/Swift Swig.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Perks/WeaponDamage.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Particles/ImpactManager.gd" type="Script" id=24]
+[ext_resource path="res://Perks/Jugger Juice.tscn" type="PackedScene" id=25]
 
 [sub_resource type="NavigationPolygon" id=2]
 vertices = PoolVector2Array( 294, 85, 258, -45, 349, -40, 438, -43, 780, -41, 655, 1589, 236, 194, 236, 2032, -11, 1995, -13, 347, 63, 274, 611, 2012, 340, 2300, 615, 2279, 574, 2427, 365, 2450, 328, 2436 )
@@ -202,22 +203,21 @@ position = Vector2( -1821, -998 )
 
 [node name="fire1" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 4427, 1208 )
+frame = 3
 
 [node name="fire2" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 5215, 1837 )
-frame = 0
+frame = 2
 
 [node name="fire3" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 5972, 1284 )
-frame = 4
 
 [node name="fire4" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 9294, 2938 )
-frame = 4
 
 [node name="fire5" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 9353, 2925 )
-frame = 3
+frame = 0
 
 [node name="CharacterSelection" parent="." instance=ExtResource( 15 )]
 
@@ -541,8 +541,12 @@ position = Vector2( 5357, 1905 )
 [node name="WeaponDamage" parent="Perks" instance=ExtResource( 23 )]
 position = Vector2( 2399, 1845 )
 
+[node name="JuggerJuice" parent="Perks" instance=ExtResource( 25 )]
+position = Vector2( 8439, 1013 )
+
 [connection signal="timeout" from="Navigation2D/EnemySpawner/SpawnCooldown" to="Navigation2D/EnemySpawner" method="_on_SpawnCooldown_timeout"]
 [connection signal="timeout" from="Navigation2D/EnemySpawner/WaveCooldown" to="Navigation2D/EnemySpawner" method="_on_WaveCooldown_timeout"]
 [connection signal="perkUsed" from="Perks/SwiftSwig" to="CharacterSelection" method="_on_Swift_Swig_perkUsed"]
 [connection signal="perkUsed" from="Perks/SwiftSwig" to="CharacterSelection/Player" method="_on_Swift_Swig_perkUsed"]
 [connection signal="weaponDamage" from="Perks/WeaponDamage" to="ImpactManager" method="_on_WeaponDamage_weaponDamage"]
+[connection signal="perkUsed" from="Perks/JuggerJuice" to="CharacterSelection" method="_on_JuggerJuice_perkUsed"]
