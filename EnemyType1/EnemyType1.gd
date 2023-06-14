@@ -60,8 +60,6 @@ func _physics_process(delta):
 	frame_count += 1
 	frame_count_rotation += 1
 	if dead:
-		collision_layer = 0
-		collision_mask = 0
 		return
 	if frame_count >= update_interval:
 		frame_count = 0
@@ -175,6 +173,10 @@ func damage(dmg,is_headshot,direction,is_shotgun):
 		HUD.update_score(30)
 		parent.on_zombie_killed(self)
 		dead = true
+		collision_layer = 0
+		collision_mask = 0
+		$Head.collision_layer = 0
+		$Head.collision_mask = 0
 		if is_headshot:
 			$death.start()
 			$AnimatedSprite.play("headshot")
