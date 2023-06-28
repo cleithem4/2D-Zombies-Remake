@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var current_weapon = $Pistol
+onready var current_weapon = $AK47
 onready var AK47 = load("res://Weapons/AK47.tscn")
 onready var PISTOL = load("res://Weapons/Pistol.tscn")
 onready var RPD = load("res://Weapons/RPD.tscn")
@@ -9,7 +9,6 @@ onready var RAYGUN = load("res://Weapons/RayGun.tscn")
 onready var M24 = load("res://Weapons/M24.tscn")
 onready var PUMPSHOTGUN = load("res://Weapons/PumpAction.tscn")
 onready var current_parent = get_parent()
-
 var new_gun
 var weapon_being_switched
 var weapons = []
@@ -17,18 +16,18 @@ var weapon_being_switched_clip = 0
 
 
 var parent = null
-var pistol_position = Vector2(15,9)
-var ak_position = Vector2(6,7)
+var pistol_position = Vector2(0,0)
+var ak_position = Vector2(0,0)
 
 var weapon_being_taken
 
 
 func _ready():
-	Global.tom_weapon = current_weapon
+	Global.george_weapon = current_weapon
 	weapons = get_children()
 func _physics_process(delta):
 	if Global.switch_weapon_tom:
-		if Global.tom_ai:
+		if Global.george_ai:
 			weapon_being_switched = get_instance_of_player_gun()
 			weapon_being_switched_clip = Global.current_player.current_weapon.current_clip
 		else:
@@ -39,43 +38,34 @@ func _physics_process(delta):
 		if new_gun.getGunName() == current_weapon.getGunName():
 			FindLostGun()
 		current_weapon.queue_free()
-		Global.tom_weapon = new_gun
-		Global.tom_weapon.current_clip = weapon_being_switched_clip
+		Global.george_weapon = new_gun
+		Global.george_weapon.current_clip = weapon_being_switched_clip
 		current_weapon = new_gun
 		Global.switch_weapon_tom = false
 		Global.temp_switch_guns_cleared = true
-	if not Global.tom_ai:
-		current_parent = get_parent()
-		if not current_parent.drinkingPerk and not current_parent.reloading:
-			if Input.is_action_just_pressed("reload"):
-				current_weapon.reload()
-			if current_weapon.fullAuto():
-				if Input.is_action_pressed("shoot"):
-					current_weapon.shoot()
-			else:
-				if Input.is_action_just_pressed("shoot"):
-					current_weapon.shoot()
-	if Global.mystery_box_gun_taken and not Global.tom_ai:
+	
+
+	if Global.mystery_box_gun_taken and not Global.george_ai:
 		weapon_being_taken = get_instance_of_mystery_box_gun()
 		new_gun = Global.instance_node(weapon_being_taken,global_position,self)
 		current_weapon.queue_free()
-		Global.tom_weapon = new_gun
+		Global.george_weapon = new_gun
 		current_weapon = new_gun
 		Global.timerVisible = false
 		Global.current_player.current_weapon = new_gun
 		Global.mystery_box_gun_taken = false
 		Global.mystery_box_gun = null
 	refreshWeapons()
-	findGunPosition()
+	#findGunPosition()
 func shoot():
 	current_weapon.shoot()
 
 func get_instance_of_ai_gun():
 	return returnWeaponInstance(Global.closest_ai.current_weapon)
 func get_instance_of_player_gun():
-	if not Global.tom_ai:
+	if not Global.george_ai:
 		return returnWeaponInstance(Global.tom_weapon)
-	elif not Global.jay_ai:
+	elif not Global.george_ai:
 		return returnWeaponInstance(Global.jay_weapon)
 func get_instance_of_mystery_box_gun():
 	return returnWeaponInstance(Global.mystery_box_gun)

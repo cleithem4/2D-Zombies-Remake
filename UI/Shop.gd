@@ -11,12 +11,12 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("Shop") and not Global.build_mode:
-		Global.instance_node(BuildMode,Vector2(-1000,-1000),get_parent().get_parent())
-		if visible:
-			hide()
-		else:
-			show()
+	#if Input.is_action_just_pressed("Shop") and not Global.build_mode:
+		#Global.instance_node(BuildMode,Vector2(-1000,-1000),get_parent().get_parent())
+		#if visible:
+		#	hide()
+		#else:
+		#	show()
 	if Input.is_action_just_pressed("character_selection"):
 		Global.freeroam = true
 

@@ -3,6 +3,7 @@ extends Node2D
 onready var Jay
 onready var Tom
 onready var Freecam
+onready var George
 onready var characterSelection
 func _ready():
 	initialize_nodes()
@@ -24,8 +25,9 @@ func initialize_nodes():
 	Tom = get_node_or_null("/root/GameScene/CharacterSelection/Player")
 	Freecam = get_node_or_null("/root/GameScene/CharacterSelection/FreeRoamCamera")
 	characterSelection = get_node_or_null("/root/GameScene/CharacterSelection")
+	George = get_node_or_null("/root/GameScene/CharacterSelection/George")
 	#Starting player
 	Global.current_player = Tom
-	Global.all_ai = [Tom, Freecam]
+	Global.all_ai = [Tom, George, Freecam]
 func update_players():
 	Global.all_ai = characterSelection.get_children()

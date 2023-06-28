@@ -43,7 +43,7 @@ rotation = 4.71239
 scale = Vector2( 0.06, 0.06 )
 frames = SubResource( 5 )
 animation = "flash"
-frame = 3
+frame = 1
 playing = true
 
 [node name="end_of_gun" type="Position2D" parent="."]

@@ -14,6 +14,7 @@ var clip_size = 0
 
 var jay_ai = true
 var tom_ai = false
+var george_ai = true
 var freeroam_camera_ai = true
 var freeroam = false
 var all_ai = []
@@ -22,6 +23,7 @@ var current_player = null
 
 var switch_weapon_jay = false
 var switch_weapon_tom = false
+var switch_weapon_george = false
 var temp_switch_guns_cleared = false
 var closest_ai = null
 
@@ -29,7 +31,7 @@ var player_in_downed_area = false
 var damageModifier = 1
 
 var jay_weapon = null
-
+var george_weapon = null
 var tom_weapon = null
 var temp_switch_guns = []
 
@@ -82,11 +84,18 @@ func refresh_ai():
 	if Global.current_player.get_ai_name()=="Tom":
 		Global.tom_ai = false
 		Global.jay_ai = true
+		Global.george_ai = true
 		Global.freeroam_camera_ai = true
 	elif Global.current_player.get_ai_name()=="Jay":
-			Global.jay_ai = false
-			Global.tom_ai = true
-			Global.freeroam_camera_ai = true
+		Global.jay_ai = false
+		Global.tom_ai = true
+		Global.george_ai = true
+		Global.freeroam_camera_ai = true
+	elif Global.current_player.get_ai_name()=="George":
+		Global.george_ai = false
+		Global.jay_ai = true
+		Global.tom_ai = true
+		Global.freeroam_camera_ai = true
 func update_score(score):
 	self.score += score
 

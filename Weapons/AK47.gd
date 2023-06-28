@@ -2,6 +2,7 @@ extends Node2D
 
 var current_clip = 30
 var clip_size = 30
+var melee_damage = 6
 var ROF = true
 var reloading = false
 var AI
