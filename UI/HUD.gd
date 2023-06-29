@@ -8,9 +8,13 @@ var wave_numbers = []
 var MAX_ALPHA = 0.8
 var MIN_ALPHA = 0.0
 func _physics_process(_delta):
+	if Global.current_player.get_ai_name()=="George":
+		$Clip.text = "???"
+		$weaponName.text = "???"
+	else:
+		$Clip.text = str(Global.current_clip) + "/" + str(Global.clip_size)
+		$weaponName.text = "\"" + Global.current_player.current_weapon.getGunName() + "\""
 	$Score.text = "$" + str(Global.score)
-	$Clip.text = str(Global.current_clip) + "/" + str(Global.clip_size)
-	$weaponName.text = "\"" + Global.current_player.current_weapon.getGunName() + "\""
 
 
 	# Calculate the new alpha value based on the player's health

@@ -77,6 +77,8 @@ func get_instance_of_player_gun():
 		return returnWeaponInstance(Global.tom_weapon)
 	elif not Global.jay_ai:
 		return returnWeaponInstance(Global.jay_weapon)
+	elif not Global.george_ai:
+		return returnWeaponInstance(Global.george_weapon)
 func get_instance_of_mystery_box_gun():
 	return returnWeaponInstance(Global.mystery_box_gun)
 func FindLostGun():

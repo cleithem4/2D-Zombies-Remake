@@ -26,14 +26,16 @@ func _ready():
 	Global.george_weapon = current_weapon
 	weapons = get_children()
 func _physics_process(delta):
-	if Global.switch_weapon_tom:
+	if Global.switch_weapon_george:
 		if Global.george_ai:
 			weapon_being_switched = get_instance_of_player_gun()
 			weapon_being_switched_clip = Global.current_player.current_weapon.current_clip
 		else:
+			print(Global.closest_ai)
 			weapon_being_switched = get_instance_of_ai_gun()
 			weapon_being_switched_clip = Global.closest_ai.current_weapon.current_clip
 		new_gun = Global.instance_node(weapon_being_switched,global_position,self)
+		
 		Global.temp_switch_guns.append(current_weapon)
 		if new_gun.getGunName() == current_weapon.getGunName():
 			FindLostGun()
@@ -41,7 +43,7 @@ func _physics_process(delta):
 		Global.george_weapon = new_gun
 		Global.george_weapon.current_clip = weapon_being_switched_clip
 		current_weapon = new_gun
-		Global.switch_weapon_tom = false
+		Global.switch_weapon_george = false
 		Global.temp_switch_guns_cleared = true
 	
 
@@ -63,10 +65,12 @@ func shoot():
 func get_instance_of_ai_gun():
 	return returnWeaponInstance(Global.closest_ai.current_weapon)
 func get_instance_of_player_gun():
-	if not Global.george_ai:
+	if not Global.tom_ai:
 		return returnWeaponInstance(Global.tom_weapon)
-	elif not Global.george_ai:
+	elif not Global.jay_ai:
 		return returnWeaponInstance(Global.jay_weapon)
+	elif not Global.george_ai:
+		return returnWeaponInstance(Global.george_weapon)
 func get_instance_of_mystery_box_gun():
 	return returnWeaponInstance(Global.mystery_box_gun)
 #Without this function, game will crash because the gun that is trying to be accessed is changed before

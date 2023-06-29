@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=2]
+[gd_scene load_steps=110 format=2]
 
 [ext_resource path="res://Assets/mmafighter/mma fighter attacking.png" type="Texture" id=1]
 [ext_resource path="res://Assets/mmafighter/mma fighter walking and idle.png" type="Texture" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://Assets/mmafighter/mma fighter charging up.png" type="Texture" id=12]
 [ext_resource path="res://Assets/mmafighter/mma fighter full charge swing reverse.png" type="Texture" id=13]
 [ext_resource path="res://Assets/mmafighter/mma fighter full charge swing.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Sound_Effect/player_getting_burned.mp3" type="AudioStream" id=15]
+[ext_resource path="res://Assets/Sound_Effect/fire-raging-in-hell-smartsound-fx-1-01-00.mp3" type="AudioStream" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -803,13 +805,12 @@ height = 19.5167
 radius = 44.0
 
 [sub_resource type="CircleShape2D" id=29]
-radius = 50.0
+radius = 42.0476
 
 [sub_resource type="CircleShape2D" id=30]
 radius = 35.0
 
 [node name="George" type="KinematicBody2D" groups=["AI", "Collision", "Player"]]
-rotation = 1.5708
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -862,9 +863,9 @@ visible = false
 shape = SubResource( 28 )
 
 [node name="shootRadius" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shootRadius"]
+position = Vector2( -7.23998e-06, -2 )
 shape = SubResource( 29 )
 
 [node name="downed" type="Area2D" parent="."]
@@ -880,12 +881,38 @@ one_shot = true
 [node name="Perk" type="Timer" parent="."]
 wait_time = 1.875
 
+[node name="fireManager" type="Node2D" parent="."]
+rotation = -1.5708
+
+[node name="Fire" type="Timer" parent="fireManager"]
+one_shot = true
+
+[node name="fireDamage" type="Timer" parent="fireManager"]
+wait_time = 0.15
+
+[node name="fire" type="Position2D" parent="fireManager"]
+
+[node name="playerFire" type="AudioStreamPlayer" parent="fireManager"]
+stream = ExtResource( 15 )
+
+[node name="fireSound" type="AudioStreamPlayer" parent="fireManager"]
+stream = ExtResource( 16 )
+
 [node name="drinkingPerk" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 
 [node name="hit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 
+[node name="randomTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MeleeCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="on_fire" from="." to="." method="_on_George_on_fire"]
+[connection signal="body_entered" from="melee" to="." method="_on_melee_body_entered"]
 [connection signal="body_entered" from="closestAI" to="." method="_on_closestAI_body_entered"]
 [connection signal="body_exited" from="closestAI" to="." method="_on_closestAI_body_exited"]
 [connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]
@@ -894,3 +921,7 @@ stream = ExtResource( 9 )
 [connection signal="body_exited" from="downed" to="." method="_on_downed_body_exited"]
 [connection signal="timeout" from="Melee" to="." method="_on_Melee_timeout"]
 [connection signal="timeout" from="Perk" to="." method="_on_Perk_timeout"]
+[connection signal="timeout" from="fireManager/Fire" to="." method="_on_Fire_timeout"]
+[connection signal="timeout" from="fireManager/fireDamage" to="." method="_on_fireDamage_timeout"]
+[connection signal="timeout" from="randomTimer" to="." method="_on_randomTimer_timeout"]
+[connection signal="timeout" from="MeleeCooldown" to="." method="_on_MeleeCooldown_timeout"]

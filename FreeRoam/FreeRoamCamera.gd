@@ -21,6 +21,7 @@ func _physics_process(_delta):
 	if Global.freeroam:
 		Global.tom_ai = true
 		Global.jay_ai = true
+		Global.george_ai = true
 		AI = false
 		$Camera2D.current = true
 		if spawned:

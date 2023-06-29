@@ -34,6 +34,7 @@ func _physics_process(delta):
 		else:
 			weapon_being_switched = get_instance_of_ai_gun()
 			weapon_being_switched_clip = Global.closest_ai.current_weapon.current_clip
+		print(weapon_being_switched)
 		new_gun = Global.instance_node(weapon_being_switched,global_position,self)
 		Global.temp_switch_guns.append(current_weapon)
 		if new_gun.getGunName() == current_weapon.getGunName():
@@ -77,6 +78,8 @@ func get_instance_of_player_gun():
 		return returnWeaponInstance(Global.tom_weapon)
 	elif not Global.jay_ai:
 		return returnWeaponInstance(Global.jay_weapon)
+	elif not Global.george_ai:
+		return returnWeaponInstance(Global.george_weapon)
 func get_instance_of_mystery_box_gun():
 	return returnWeaponInstance(Global.mystery_box_gun)
 #Without this function, game will crash because the gun that is trying to be accessed is changed before

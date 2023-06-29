@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export var speed = 200
+var spawnedSpeed = 0
 export var health = 10
 onready var HUD = get_node("/root/GameScene/CanvasLayer/HUD")
 var velocity = Vector2.ZERO
@@ -26,9 +27,12 @@ var nextPositionReady = true
 var direction = Vector2.ZERO
 var next_location = Vector2.ZERO
 var enemies_in_repulsion_force = []
-
+var currentKnockback = Vector2.ZERO
+var totalKnockback = 0
 var dead = false
-
+var knockback = false
+var knockbackForce = 0
+var knockbackDirection = null
 signal on_fire(time)
 var fireTime = 0
 var onFire = false
@@ -75,10 +79,8 @@ func _physics_process(delta):
 		# Collision Avoidance
 		repulsionForce()
 		
-		
-	# Update velocity every frame
 	
-
+	
 	updateVelocity(delta)
 	# Damage calculation
 	if able_to_attack:
@@ -113,9 +115,14 @@ func updateVelocity(delta):
 		global_position += velocity * delta
 	else:
 		velocity = Vector2.ZERO
-
-
-
+	if knockback:
+		print(totalKnockback)
+		global_position += totalKnockback/10
+		currentKnockback += totalKnockback/10
+		if abs(currentKnockback.x) >= abs(totalKnockback.x) and abs(currentKnockback.y) >= abs(totalKnockback.y):
+			knockback = false
+			currentKnockback = Vector2.ZERO
+			
 
 func updatePathFinding():
 	next_location = pathfinding.get_next_location()
@@ -200,6 +207,43 @@ func damage(dmg,is_headshot,direction,is_shotgun):
 	blood.global_rotation = direction.angle()
 	
 
+func meleeDamage(dmg, knockback):
+	if dead:
+		return
+	HUD.update_score(10)
+	# Apply damage to the enemy
+	health -= dmg
+	$AnimatedSprite.modulate = Color("ff6e6e")
+	$damaged.start()
+	self.knockback = true
+	knockbackDirection = -1*global_position.direction_to(closest_player.global_position)
+	knockbackForce = knockback
+	totalKnockback = knockbackDirection * knockback
+	totalKnockback.normalized()
+	
+	# Slow the enemy for 1 second
+	spawnedSpeed = speed
+	speed = speed/2
+	$slow.start()
+	
+	# Check if the enemy is dead
+	if health <= 0:
+		HUD.update_score(30)
+		parent.on_zombie_killed(self)
+		dead = true
+		collision_layer = 0
+		collision_mask = 0
+		$Head.collision_layer = 0
+		$Head.collision_mask = 0
+		$AnimatedSprite.play("Idle")
+		$death.start()
+		var blood = DeathBlood.instance()
+		get_tree().current_scene.add_child(blood)
+		blood.global_position = $fireManager/fire.global_position
+		timer = 0.5
+		$AnimatedSprite.material = shaderDissolve
+
+	
 
 
 func _on_AttackRange_body_entered(body):
@@ -277,3 +321,14 @@ func _on_fireDamage_timeout():
 
 func _on_death_timeout():
 	queue_free()
+
+
+func _on_damaged_timeout():
+	$AnimatedSprite.modulate = Color("ffffff")
+	$AnimatedSprite.modulate = Color("7eaaff")
+	$slow.start()
+
+
+func _on_slow_timeout():
+	speed = spawnedSpeed
+	$AnimatedSprite.modulate = Color("ffffff")

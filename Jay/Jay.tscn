@@ -316,7 +316,7 @@ script = ExtResource( 2 )
 rotation = 1.5708
 frames = SubResource( 4 )
 animation = "swiftSwig"
-frame = 3
+frame = 11
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

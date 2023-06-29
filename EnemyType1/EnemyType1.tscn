@@ -108,12 +108,14 @@ frames = SubResource( 3 )
 animation = "Idle"
 
 [node name="Head" type="Area2D" parent="." groups=["Head"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
 position = Vector2( -5.55555, 1.66669 )
 shape = SubResource( 12 )
 
 [node name="AttackRange" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
 position = Vector2( 10.3125, 0.312454 )
@@ -157,6 +159,7 @@ wait_time = 10.0
 autostart = true
 
 [node name="repulsionForce" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="repulsionForce"]
 shape = SubResource( 13 )
@@ -188,6 +191,13 @@ polygon = PoolVector2Array( 19.9999, -13.7501, -8.75005, -11.875, -9.37495, 10, 
 [node name="death" type="Timer" parent="."]
 one_shot = true
 
+[node name="slow" type="Timer" parent="."]
+one_shot = true
+
+[node name="damaged" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
 [connection signal="on_fire" from="." to="." method="_on_EnemyType1_on_fire"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_AttackRange_body_exited"]
@@ -200,3 +210,5 @@ one_shot = true
 [connection signal="timeout" from="fireManager/Fire" to="." method="_on_Fire_timeout"]
 [connection signal="timeout" from="fireManager/fireDamage" to="." method="_on_fireDamage_timeout"]
 [connection signal="timeout" from="death" to="." method="_on_death_timeout"]
+[connection signal="timeout" from="slow" to="." method="_on_slow_timeout"]
+[connection signal="timeout" from="damaged" to="." method="_on_damaged_timeout"]
