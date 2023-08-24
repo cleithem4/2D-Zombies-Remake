@@ -85,8 +85,10 @@ func _physics_process(delta):
 	# Damage calculation
 	if able_to_attack:
 		for body in in_attack_range:
-			body.damage(attackDmg)
-			able_to_attack = false
+			if not body.getDowned():
+				body.damage(attackDmg)
+				$Bite.play()
+				able_to_attack = false
 
 
 func repulsionForce():
@@ -116,7 +118,6 @@ func updateVelocity(delta):
 	else:
 		velocity = Vector2.ZERO
 	if knockback:
-		print(totalKnockback)
 		global_position += totalKnockback/10
 		currentKnockback += totalKnockback/10
 		if abs(currentKnockback.x) >= abs(totalKnockback.x) and abs(currentKnockback.y) >= abs(totalKnockback.y):
@@ -130,15 +131,19 @@ func updatePathFinding():
 
 
 func findClosestPlayer():
+	closest_player = null
+	closest_player_distance = null
 	for player in get_tree().get_nodes_in_group("Player"):
+		if player.getDowned():
+			print(str(player) + " is downed")
+			continue
 		player_distance = global_position.distance_to(player.global_position)
-		if not is_instance_valid(closest_player):
+		if not is_instance_valid(closest_player) or closest_player == null:
 			closest_player = player
 			closest_player_distance = global_position.distance_to(closest_player.global_position)
-		if player != null:
-			if player_distance < closest_player_distance:
-				closest_player = player
-				closest_player_distance = player_distance
+		if player_distance < closest_player_distance:
+			closest_player = player
+			closest_player_distance = player_distance
 
 
 
@@ -248,7 +253,6 @@ func meleeDamage(dmg, knockback):
 
 func _on_AttackRange_body_entered(body):
 	if body.has_method("damage") and body.is_in_group("Player"):
-		$Bite.play()
 		in_attack_range.append(body)
 
 

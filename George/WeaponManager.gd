@@ -31,7 +31,6 @@ func _physics_process(delta):
 			weapon_being_switched = get_instance_of_player_gun()
 			weapon_being_switched_clip = Global.current_player.current_weapon.current_clip
 		else:
-			print(Global.closest_ai)
 			weapon_being_switched = get_instance_of_ai_gun()
 			weapon_being_switched_clip = Global.closest_ai.current_weapon.current_clip
 		new_gun = Global.instance_node(weapon_being_switched,global_position,self)

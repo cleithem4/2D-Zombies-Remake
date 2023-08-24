@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=2]
+[gd_scene load_steps=83 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CharacterSprite/IMG_1814.PNG" type="Texture" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://Assets/Sound_Effect/player_getting_burned.mp3" type="AudioStream" id=16]
 [ext_resource path="res://Assets/CharacterSprite/tom_swift_swig.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Sound_Effect/man-gulping-drink-exhaling-joshua-chivers-1-1-00-02.mp3" type="AudioStream" id=18]
+[ext_resource path="res://UI/DownedBarTom.gd" type="Script" id=19]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
@@ -306,14 +307,14 @@ radius = 44.42
 [sub_resource type="CircleShape2D" id=49]
 radius = 35.81
 
-[node name="Player" type="KinematicBody2D" groups=["AI", "Collision", "Player"]]
+[node name="Tom" type="KinematicBody2D" groups=["AI", "Collision", "Player"]]
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = 1.5708
 frames = SubResource( 3 )
 animation = "swiftSwig"
-frame = 7
+frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -353,6 +354,7 @@ volume_db = 10.487
 [node name="DownedBar" parent="." instance=ExtResource( 13 )]
 visible = false
 position = Vector2( -9, 3.25799e-05 )
+script = ExtResource( 19 )
 
 [node name="hit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
@@ -386,6 +388,8 @@ one_shot = true
 stream = ExtResource( 18 )
 
 [connection signal="on_fire" from="." to="." method="_on_Player_on_fire"]
+[connection signal="playerEnteredDownedArea" from="." to="DownedBar" method="_on_Tom_playerEnteredDownedArea"]
+[connection signal="playerExitedDownedArea" from="." to="DownedBar" method="_on_Tom_playerExitedDownedArea"]
 [connection signal="body_entered" from="shootRadius" to="." method="_on_shootRadius_body_entered"]
 [connection signal="body_exited" from="shootRadius" to="." method="_on_shootRadius_body_exited"]
 [connection signal="body_entered" from="closestAI" to="." method="_on_closestAI_body_entered"]

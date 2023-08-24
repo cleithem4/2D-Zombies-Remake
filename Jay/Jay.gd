@@ -28,7 +28,8 @@ var ai_array = []
 var closest_ai = null
 var regen_health = true
 var downed = false
-var downedArea = []
+signal playerEnteredDownedArea()
+signal playerExitedDownedArea()
 
 #Fire
 signal on_fire(time)
@@ -151,7 +152,7 @@ func AI():
 			velocity = Vector2.ZERO
 			if not reloading and not drinkingPerk:
 				if not two_handed_weapon:
-					$AnimatedSprite.play("WalkPistol")
+					$AnimatedSprite.play("IdlePistol")
 				else:
 					$AnimatedSprite.play("Idle")
 	if enemy_array.size() != 0:
@@ -203,9 +204,6 @@ func get_input():
 			$AnimatedSprite.play("ReloadPistol")
 		else:
 			$AnimatedSprite.play("Reload")
-
-
-
 
 
 #AI FUNCTION
@@ -283,9 +281,10 @@ func _on_closestAI_body_entered(body):
 	if body.is_in_group("AI") and body != self:
 		ai_array.append(body)
 
+func getDowned():
+	return downed
+
 func downed():
-	downedArea.clear()
-	Global.player_in_downed_area = downedArea.size() != 0
 	get_parent().update_players()
 	if is_in_group("AI"):
 		self.remove_from_group("AI")
@@ -295,21 +294,22 @@ func downed():
 	$AnimatedSprite.play("down")
 	$AnimatedSprite.speed_scale = 0.4
 	speed = 10
-	for playerAlive in Global.all_ai:
-		if not is_instance_valid(playerAlive):
-			continue
-		if playerAlive.get_ai_name() != "FreeRoamCamera" and playerAlive.get_ai_name() != get_ai_name() and playerAlive.health > 0:
-			Global.current_player = playerAlive
-			Global.refresh_ai()
-			return
-	get_tree().change_scene("res://UI/Game_Over.tscn")
+	if Global.current_player.get_ai_name() == "Jay":
+		for playerAlive in Global.all_ai:
+			if not is_instance_valid(playerAlive):
+				continue
+		
+			if playerAlive.get_ai_name() != "FreeRoamCamera" and playerAlive.get_ai_name() != "Jay" and playerAlive.health > 0:
+				Global.current_player = playerAlive
+				Global.refresh_ai()
+				return
+		get_tree().change_scene("res://UI/Game_Over.tscn")
 
 func revived():
 	if beingSaved:
 		dialogue.show()
 		beingSaved = false
 		$dialogueTimer.start()
-	downedArea.clear()
 	self.add_to_group("AI")
 	self.add_to_group("Player")
 	downed = false
@@ -325,15 +325,12 @@ func _on_closestAI_body_exited(body):
 
 func _on_downed_body_entered(body):
 	if body.is_in_group("AI") and body != self and downed:
-		downedArea.append(body)
-		print(downedArea)
-		Global.player_in_downed_area = downedArea.size() != 0
+		emit_signal("playerEnteredDownedArea")
+		
 
 func _on_downed_body_exited(body):
 	if body.is_in_group("AI") and body != self and downed:
-		downedArea.erase(body)
-		print(downedArea)
-		Global.player_in_downed_area = downedArea.size() != 0
+		emit_signal("playerExitedDownedArea")
 
 func fire_damage(dmg):
 	health -= dmg

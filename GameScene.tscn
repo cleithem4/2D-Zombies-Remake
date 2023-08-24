@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://UI/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://Perks/Jugger Juice.tscn" type="PackedScene" id=25]
 [ext_resource path="res://Door/GenericDoor2.tscn" type="PackedScene" id=26]
 [ext_resource path="res://George/George.tscn" type="PackedScene" id=27]
+[ext_resource path="res://UI/Tutorial_Menu.tscn" type="PackedScene" id=28]
 
 [sub_resource type="NavigationPolygon" id=2]
 vertices = PoolVector2Array( 294, 85, 258, -45, 349, -40, 438, -43, 780, -41, 655, 1589, 236, 194, 236, 2032, -11, 1995, -13, 347, 63, 274, 611, 2012, 340, 2300, 615, 2279, 574, 2427, 365, 2450, 328, 2436 )
@@ -205,22 +206,23 @@ position = Vector2( -1821, -998 )
 
 [node name="fire1" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 4427, 1208 )
-frame = 4
+frame = 0
 
 [node name="fire2" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 5215, 1837 )
-frame = 3
+frame = 4
 
 [node name="fire3" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 5972, 1284 )
-frame = 2
+frame = 3
 
 [node name="fire4" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 9294, 2938 )
-frame = 2
+frame = 3
 
 [node name="fire5" parent="fires" instance=ExtResource( 21 )]
 position = Vector2( 9353, 2925 )
+frame = 2
 
 [node name="CharacterSelection" parent="." instance=ExtResource( 15 )]
 
@@ -356,6 +358,8 @@ margin_bottom = -23.0
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource( 1 )]
 visible = false
+
+[node name="Tutorial" parent="CanvasLayer" instance=ExtResource( 28 )]
 
 [node name="Buildings" type="StaticBody2D" parent="." groups=["Collision", "Object"]]
 

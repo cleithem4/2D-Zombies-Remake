@@ -4,6 +4,8 @@ var current_clip = 24
 var clip_size = 24
 var ROF = true
 var reloading = false
+var melee_damage = 3
+var knockback = 10
 var AI
 onready var Bullet = load("res://Bullet/PistolBullet.tscn")
 onready var end_of_gun = $end_of_gun

@@ -5,6 +5,8 @@ onready var Tom
 onready var Freecam
 onready var George
 onready var characterSelection
+onready var Tutorial
+onready var Paused
 func _ready():
 	initialize_nodes()
 
@@ -29,5 +31,7 @@ func initialize_nodes():
 	#Starting player
 	Global.current_player = Tom
 	Global.all_ai = [Tom, George, Freecam]
+	Tutorial = $CanvasLayer/Tutorial
+	Paused = $CanvasLayer/Pause
 func update_players():
 	Global.all_ai = characterSelection.get_children()

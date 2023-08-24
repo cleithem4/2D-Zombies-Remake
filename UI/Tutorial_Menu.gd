@@ -2,9 +2,15 @@ extends Control
 
 
 func _ready():
-	pass
+	pause_mode = Node.PAUSE_MODE_PROCESS
+	hide()
 
 
 
-func _on_Skip_pressed():
-	get_tree().change_scene("res://GameScene.tscn")
+
+	
+
+
+func _on_Back_pressed():
+	hide()
+	get_parent().get_parent().Paused.show()

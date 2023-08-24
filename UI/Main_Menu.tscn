@@ -22,11 +22,11 @@ anchor_bottom = 1.0
 script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 1490.0
-margin_bottom = 790.0
-color = Color( 0, 0, 0, 1 )
+margin_left = -22.0
+margin_top = -8.0
+margin_right = 1515.0
+margin_bottom = 811.0
+color = Color( 0.054902, 0.054902, 0.152941, 1 )
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
@@ -38,7 +38,7 @@ margin_top = -200.0
 margin_right = 353.0
 margin_bottom = -50.0
 custom_fonts/font = SubResource( 1 )
-text = "REVERSE: THE LAST HOPE OF OUR CITY"
+text = "Zombies: THE LAST HOPE OF OUR CITY"
 align = 1
 valign = 1
 

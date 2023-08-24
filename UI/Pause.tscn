@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Font/RussoOne-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://UI/Pause.gd" type="Script" id=2]
@@ -8,13 +8,30 @@
 size = 35
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=4]
 size = 30
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 30
-font_data = ExtResource( 1 )
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.819608, 0.243137, 0.243137, 0.435294 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.282353, 0.0117647, 0.0117647, 0.537255 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.27451, 0.00392157, 0.00392157, 0.392157 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="Pause" type="Control"]
 anchor_right = 1.0
@@ -40,28 +57,51 @@ custom_fonts/font = SubResource( 1 )
 text = "Paused"
 
 [node name="Resume" type="Button" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -35.0
-margin_right = 150.0
-margin_bottom = 35.0
-custom_fonts/font = SubResource( 2 )
+margin_left = 600.0
+margin_top = 365.0
+margin_right = 900.0
+margin_bottom = 435.0
+custom_fonts/font = SubResource( 4 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 5 )
 text = "Resume"
 
+[node name="Controls" type="Button" parent="."]
+margin_left = 600.0
+margin_top = 455.0
+margin_right = 900.0
+margin_bottom = 525.0
+custom_fonts/font = SubResource( 4 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 5 )
+text = "Controls"
+
 [node name="Quit" type="Button" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = 78.5
-margin_right = 150.0
-margin_bottom = 148.5
-custom_fonts/font = SubResource( 3 )
+margin_left = 600.0
+margin_top = 545.0
+margin_right = 900.0
+margin_bottom = 615.0
+custom_fonts/font = SubResource( 4 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 5 )
 text = "Quit"
 
+[node name="Back" type="Button" parent="."]
+visible = false
+margin_left = 600.0
+margin_top = 546.0
+margin_right = 900.0
+margin_bottom = 616.0
+custom_fonts/font = SubResource( 4 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 5 )
+text = "Back"
+
 [connection signal="pressed" from="Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="Controls" to="." method="_on_Controls_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]

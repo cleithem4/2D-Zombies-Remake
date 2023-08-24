@@ -18,6 +18,7 @@ var too_close_distance = 80
 var enemy_array = []
 var enemy = null
 var able_to_shoot = false
+var select_new_enemy = true
 
 
 #Player
@@ -25,7 +26,8 @@ var ai_array = []
 var closest_ai = null
 var regen_health = true
 var downed = false
-var downedArea = []
+signal playerEnteredDownedArea()
+signal playerExitedDownedArea()
 
 #Fire
 signal on_fire(time)
@@ -100,25 +102,25 @@ func _physics_process(delta):
 func get_ai_name():
 	return "George"
 func get_weapon_speed():
-	if Global.tom_weapon.getGunName() == "AK47":
+	if Global.george_weapon.getGunName() == "AK47":
 		$AnimatedSprite.speed_scale = 1
 		reloadTime = 1
-	elif Global.tom_weapon.getGunName() == "Pistol":
+	elif Global.george_weapon.getGunName() == "Pistol":
 		$AnimatedSprite.speed_scale = 1
 		reloadTime = 1
-	elif Global.tom_weapon.getGunName() == "RPD":
+	elif Global.george_weapon.getGunName() == "RPD":
 		$AnimatedSprite.speed_scale = 0.5
 		reloadTime = 2
-	elif Global.tom_weapon.getGunName() == "Custom SMG":
+	elif Global.george_weapon.getGunName() == "Custom SMG":
 		$AnimatedSprite.speed_scale = 1
 		reloadTime = 1
-	elif Global.tom_weapon.getGunName() == "Ray Gun":
+	elif Global.george_weapon.getGunName() == "Ray Gun":
 		$AnimatedSprite.speed_scale = 1
 		reloadTime = 1
-	elif Global.tom_weapon.getGunName() == "M24":
+	elif Global.george_weapon.getGunName() == "M24":
 		$AnimatedSprite.speed_scale = 0.65
 		reloadTime = 1.5
-	elif Global.tom_weapon.getGunName() == "Pump-Shotgun":
+	elif Global.george_weapon.getGunName() == "Pump-Shotgun":
 		$AnimatedSprite.speed_scale = 0.85
 		reloadTime = 1.2
 	swiftSwig = Global.swiftSwig
@@ -127,10 +129,9 @@ func get_weapon_speed():
 		reloadTime = float(reloadTime*0.5)
 
 func reloading():
-	reloading = true
+	pass
 func finished_reloading():
-	$reload.play()
-	reloading = false
+	pass
 func getAI():
 	return AI
 	
@@ -139,47 +140,33 @@ func getAI():
 
 #AI FUNCTION
 func AI():
+	if downed:
+		return
 	regenerateHealth()
 	$Camera2D.current = false
 	if player:
-		var direction = player.position - position
-		var distance = direction.length()
-		if distance > stop_distance:
-			velocity = direction.normalized() * speed
-			move_and_slide(velocity)
-			if not drinkingPerk and not melee:
-				if reverse:
-					$AnimatedSprite.play("WalkReverse")
-				else:
-					$AnimatedSprite.play("Walk")
-		elif too_close_distance > distance:
-			velocity = -1 * direction.normalized() * speed
-			move_and_slide(velocity)
-			if not drinkingPerk and not melee:
-				if reverse:
-					$AnimatedSprite.play("WalkReverse")
-				else:
-					$AnimatedSprite.play("Walk")
+		if enemy_array.size() != 0 and $randomTimer.time_left < 0.25 and health > 50:
+			run_towards_enemy()
 		else:
-			velocity = Vector2.ZERO
-			if not drinkingPerk and not melee:
-				if reverse:
-					$AnimatedSprite.play("IdleReverse")
-				else:
-					$AnimatedSprite.play("Idle")
+			run_to_player()
 	if enemy_array.size() != 0:
-		select_enemy()
+		if select_new_enemy:
+			select_enemy()
+			select_new_enemy = false
+			$selectEnemy.start()
 		turn()
 		able_to_shoot = true
 		#able_to_shoot()
-		if able_to_shoot and not drinkingPerk:
-			var randomTime = randf() * 2.5 + 0.4
-			if not randomTimerStarted:
-				print(randomTime)
-				$randomTimer.set_wait_time(randomTime)
-				$randomTimer.start()
-				randomTimerStarted = true
-			handleMelee()
+		if able_to_shoot and not drinkingPerk and not meleeCooldown:
+			if health < 40:
+				lightAttack()
+			else:
+				var randomTime = randf() * 2 + 0.65
+				if not randomTimerStarted:
+					$randomTimer.set_wait_time(randomTime)
+					$randomTimer.start()
+					randomTimerStarted = true
+				handleMelee()
 
 	else:
 		enemy = null
@@ -188,15 +175,54 @@ func AI():
 func turn():
 	if enemy != null:
 		var target_rotation = global_position.direction_to(enemy.global_position).angle() + PI/2
-		var angle_difference = fmod(target_rotation - rotation, 360)
-		if angle_difference < -180:
-			angle_difference += 360
-		if angle_difference > 180:
-			angle_difference -= 360
+		var angle_difference = fmod(target_rotation - rotation + PI, 2 * PI) - PI
 		var turn_speed = 0.2
+		
 		if angle_difference < 0:
 			turn_speed *= -1
+		
 		rotation += turn_speed * abs(angle_difference)
+
+
+func run_to_player():
+	var direction = player.position - position
+	var distance = direction.length()
+	if distance > stop_distance:
+		velocity = direction.normalized() * speed
+		move_and_slide(velocity)
+		if not drinkingPerk and not melee:
+			walkAnimation()
+	elif too_close_distance > distance:
+		velocity = -1 * direction.normalized() * speed
+		move_and_slide(velocity)
+		if not drinkingPerk and not melee:
+			walkAnimation()
+	else:
+		velocity = Vector2.ZERO
+		if not drinkingPerk and not melee:
+			idleAnimation()
+
+func run_towards_enemy():
+	if enemy==null:
+		return
+	var direction = (enemy.global_position - global_position).normalized()
+	var velocity = direction * speed
+	move_and_slide(velocity)
+	if not drinkingPerk and not melee:
+		walkAnimation()
+	
+
+func walkAnimation():
+	if reverse:
+		$AnimatedSprite.play("WalkReverse")
+	else:
+		$AnimatedSprite.play("Walk")
+
+func idleAnimation():
+	if reverse:
+		$AnimatedSprite.play("IdleReverse")
+	else:
+		$AnimatedSprite.play("Idle")
 		
 		
 #AI FUNCTION
@@ -259,19 +285,15 @@ func get_input():
 	
 	#Animations
 	if input_direction and not drinkingPerk and not melee:
-		if reverse:
-			$AnimatedSprite.play("WalkReverse")
-		else:
-			$AnimatedSprite.play("Walk")
+		walkAnimation()
 	elif not drinkingPerk and not melee:
-		if reverse:
-			$AnimatedSprite.play("IdleReverse")
-		else:
-			$AnimatedSprite.play("Idle")
+		idleAnimation()
 
 func handleMeleeTiming():
 		attackTime = time
 		if attackTime < lightAttackTime:
+			meleeMultiplier = 0.6
+			amountOfKnockback = 0.4
 			lightAttack()
 		elif attackTime > heavyAttackStageOne:
 			print("heavy attack")
@@ -283,40 +305,41 @@ func handleMelee():
 		if not timeReset:
 			time = 0
 			timeReset = true
-		if not stopped and not playing:
-			playing = true
+		if not stopped:
 			if reverse:
 				$AnimatedSprite.play("chargeReverse")
 				animationPlayer.play("chargeReverse")
 			else:
 				$AnimatedSprite.play("charge")
 				animationPlayer.play("charge")
-		if time > heavyAttackStageOne:
+		if time > heavyAttackStageOne and time < heavyAttackStageTwo:
 			meleeMultiplier = 1.2
-			amountOfKnockback = current_weapon.knockback * 1.2
+			amountOfKnockback = current_weapon.knockback * 0.6
 			particles = MeleeParticles.instance()
 			get_tree().current_scene.add_child(particles)
 			particles.global_position = global_position
 			particles.emitting = true
-		if time > heavyAttackStageTwo:
+		elif time > heavyAttackStageTwo and time < heavyAttackStageThree:
 			meleeMultiplier = 1.5
-			amountOfKnockback = current_weapon.knockback * 1.5
-			particles.queue_free()
+			amountOfKnockback = current_weapon.knockback * 1.4
+			if is_instance_valid(particles):
+				particles.queue_free()
 			particlesTwo = MeleeParticlesTwo.instance()
 			get_tree().current_scene.add_child(particlesTwo)
 			particlesTwo.global_position = global_position
 			particlesTwo.emitting = true
-		if time > heavyAttackStageThree:
+		elif time > heavyAttackStageThree and time < heavyAttackStageFour:
 			meleeMultiplier = 1.6
 			amountOfKnockback = current_weapon.knockback * 1.6
-			particlesTwo.queue_free()
+			if is_instance_valid(particlesTwo):
+				particlesTwo.queue_free()
 			particlesThree = MeleeParticlesThree.instance()
 			get_tree().current_scene.add_child(particlesThree)
 			particlesThree.global_position = global_position
 			particlesThree.emitting = true
-		if time > heavyAttackStageFour:
-			meleeMultiplier = 2.5
-			amountOfKnockback = current_weapon.knockback * 3
+		elif time > heavyAttackStageFour:
+			meleeMultiplier = 4
+			amountOfKnockback = current_weapon.knockback * 4
 			particlesTwo = MeleeParticlesTwo.instance()
 			get_tree().current_scene.add_child(particlesTwo)
 			particlesTwo.global_position = global_position
@@ -325,6 +348,10 @@ func handleMelee():
 			get_tree().current_scene.add_child(particles)
 			particles.global_position = global_position
 			particles.emitting = true
+			particlesThree = MeleeParticlesThree.instance()
+			get_tree().current_scene.add_child(particlesThree)
+			particlesThree.global_position = global_position
+			particlesThree.emitting = true
 		print("Time : " + str(time))
 		if time > 2:
 			$AnimatedSprite.stop()
@@ -332,11 +359,15 @@ func handleMelee():
 			stopped = true
 
 func heavyAttack():
+	if downed:
+		return
 	stopped = false
 	timeReset = false
 	playing = false
 	melee = true
 	meleeCooldown = true
+	print("heavy attack")
+	meleeDamage = current_weapon.melee_damage * meleeMultiplier
 	if reverse:
 		$AnimatedSprite.play("chargeHitReverse")
 		animationPlayer.play("chargeHitReverse")
@@ -345,14 +376,18 @@ func heavyAttack():
 		animationPlayer.play("chargeHit")
 	$Melee.start()
 	$MeleeCooldown.start()
-	meleeDamage = current_weapon.melee_damage * meleeMultiplier
+
+	
 	
 func lightAttack():
+	if downed:
+		return
 	stopped = false
 	timeReset = false
 	playing = false
 	melee = true
 	meleeCooldown = true
+	print("light attack")
 	if reverse:
 		$AnimatedSprite.play("HitReverse")
 		animationPlayer.play("HitReverse")
@@ -361,7 +396,8 @@ func lightAttack():
 		animationPlayer.play("Hit")
 	$Melee.start()
 	$MeleeCooldown.start()
-	meleeDamage=current_weapon.melee_damage
+	meleeDamage=current_weapon.melee_damage * 0.6
+	amountOfKnockback = current_weapon.knockback * 0.5
 
 
 #Character die if health <= 0
@@ -393,35 +429,31 @@ func regenerateHealth():
 		else:
 			health += 0.1
 
+func getDowned():
+	return downed
 
 func downed():
-	downedArea.clear()
-	Global.player_in_downed_area = downedArea.size() != 0
 	get_parent().update_players()
-	if is_in_group("AI"):
-		self.remove_from_group("AI")
-	if is_in_group("Player"):
-		self.remove_from_group("Player")
 	downed = true
 	$AnimatedSprite.play("down")
 	$AnimatedSprite.speed_scale = 0.4
 	speed = 10
-	for playerAlive in Global.all_ai:
-		if not is_instance_valid(playerAlive):
-			continue
+	if Global.current_player.get_ai_name() == "George":
+		for playerAlive in Global.all_ai:
+			if not is_instance_valid(playerAlive):
+				continue
 		
-		if playerAlive.get_ai_name() != "FreeRoamCamera" and playerAlive.get_ai_name() != "George" and playerAlive.health > 0:
-			Global.current_player = playerAlive
-			Global.refresh_ai()
-			return
-	get_tree().change_scene("res://UI/Game_Over.tscn")
+			if playerAlive.get_ai_name() != "FreeRoamCamera" and playerAlive.get_ai_name() != "George" and playerAlive.health > 0:
+				Global.current_player = playerAlive
+				Global.refresh_ai()
+				return
+		get_tree().change_scene("res://UI/Game_Over.tscn")
 
 func revived():
-	self.add_to_group("AI")
-	self.add_to_group("Player")
 	downed = false
 	speed = 400
 	health = max_health
+	walkAnimation()
 	$AnimatedSprite.speed_scale = 1
 
 
@@ -433,19 +465,17 @@ func _on_closestAI_body_entered(body):
 
 #PLAYER FUNCTION
 func _on_closestAI_body_exited(body):
-	if body.is_in_group("AI"):
+	if body.is_in_group("AI") and body != self:
 		ai_array.erase(body)
 
 
 func _on_downed_body_entered(body):
 	if body.is_in_group("AI") and body != self and downed:
-		downedArea.append(body)
-		Global.player_in_downed_area = downedArea.size() != 0
+		emit_signal("playerEnteredDownedArea")
 
 func _on_downed_body_exited(body):
 	if body.is_in_group("AI") and body != self and downed:
-		downedArea.erase(body)
-		Global.player_in_downed_area = downedArea.size() != 0
+		emit_signal("playerExitedDownedArea")
 
 
 func fire_damage(dmg):
@@ -457,7 +487,6 @@ func fire_damage(dmg):
 	$AnimatedSprite.modulate = Color("ff291f")
 	$fireManager/fireDamage.start()
 	$fireManager/playerFire.play()
-
 
 
 func _on_Fire_timeout():
@@ -501,9 +530,6 @@ func _on_Perk_timeout():
 		swiftSwig = true
 		Global.swiftSwig = true
 	
-
-
-
 func _on_Melee_timeout():
 	melee = false
 	reverse = !reverse
@@ -530,3 +556,7 @@ func _on_George_on_fire(time):
 		fire = Global.instance_node(Fire,$fireManager/fire.global_position,self)
 		$fireManager/fireSound.playing = true
 		onFire = true
+
+
+func _on_selectEnemy_timeout():
+	select_new_enemy = true

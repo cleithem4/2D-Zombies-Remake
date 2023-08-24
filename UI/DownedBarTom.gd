@@ -4,15 +4,14 @@ onready var Progressbar = $ProgressBar
 onready var player = get_parent()
 const HOLD_TIME = 4.0
 var hold_time = 0.0
-var inGeorgeDownedArea = false
-
+var inTomDownedArea = false
 
 
 func _ready():
 	pass
 func _physics_process(delta):
 	global_rotation = 0
-	if Input.is_action_pressed("revive") and inGeorgeDownedArea:
+	if Input.is_action_pressed("revive") and inTomDownedArea:
 			revivePlayer(delta)
 	else:
 		Progressbar.hide()
@@ -30,9 +29,11 @@ func revivePlayer(delta):
 		Progressbar.value = 0
 
 
-func _on_George_playerEnteredDownedArea():
-	inGeorgeDownedArea = true
 
 
-func _on_George_playerExitedDownedArea():
-	inGeorgeDownedArea = false
+func _on_Tom_playerEnteredDownedArea():
+	inTomDownedArea = true
+
+
+func _on_Tom_playerExitedDownedArea():
+	inTomDownedArea = false
