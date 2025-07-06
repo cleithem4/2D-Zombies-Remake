@@ -1,8 +1,5 @@
 # First Game
 
-- Reverse: The last hope of our City
---------------------------------
---------------------------------
 a simple zombie shooter 
 
 # Date created
